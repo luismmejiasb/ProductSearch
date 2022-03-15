@@ -9,12 +9,24 @@
 /* Begin PBXBuildFile section */
 		A980E17E27E114C200A68880 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17D27E114C200A68880 /* AppDelegate.swift */; };
 		A980E18027E114C200A68880 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17F27E114C200A68880 /* SceneDelegate.swift */; };
-		A980E18227E114C200A68880 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E18127E114C200A68880 /* ViewController.swift */; };
-		A980E18527E114C200A68880 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A980E18327E114C200A68880 /* Main.storyboard */; };
 		A980E18727E114C400A68880 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A980E18627E114C400A68880 /* Assets.xcassets */; };
 		A980E18A27E114C400A68880 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A980E18827E114C400A68880 /* LaunchScreen.storyboard */; };
 		A980E19527E114C400A68880 /* ProductSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E19427E114C400A68880 /* ProductSearchTests.swift */; };
 		A980E1A027E114C400A68880 /* ProductSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E19F27E114C400A68880 /* ProductSearchUITests.swift */; };
+		A980E1B927E1168300A68880 /* HomeDataContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1AE27E1168300A68880 /* HomeDataContract.swift */; };
+		A980E1BA27E1168300A68880 /* HomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1AF27E1168300A68880 /* HomeFactory.swift */; };
+		A980E1BB27E1168300A68880 /* HomeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B027E1168300A68880 /* HomeContract.swift */; };
+		A980E1BC27E1168300A68880 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B127E1168300A68880 /* HomePresenter.swift */; };
+		A980E1BD27E1168300A68880 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B227E1168300A68880 /* HomeRouter.swift */; };
+		A980E1BE27E1168300A68880 /* HomeLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B327E1168300A68880 /* HomeLocalDataSource.swift */; };
+		A980E1BF27E1168300A68880 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B427E1168300A68880 /* HomeViewController.swift */; };
+		A980E1C027E1168300A68880 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B527E1168300A68880 /* HomeRepository.swift */; };
+		A980E1C127E1168300A68880 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B627E1168300A68880 /* HomeInteractor.swift */; };
+		A980E1C227E1168300A68880 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A980E1B727E1168300A68880 /* HomeViewController.xib */; };
+		A980E1C327E1168300A68880 /* HomeCloudDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */; };
+		A980E1C727E1181C00A68880 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1C627E1181C00A68880 /* API.swift */; };
+		A980E1CC27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CB27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift */; };
+		A980E1CE27E1389C00A68880 /* HomeResultCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CD27E1389C00A68880 /* HomeResultCodable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +50,6 @@
 		A980E17A27E114C200A68880 /* ProductSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProductSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A980E17D27E114C200A68880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A980E17F27E114C200A68880 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A980E18127E114C200A68880 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A980E18427E114C200A68880 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A980E18627E114C400A68880 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A980E18927E114C400A68880 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A980E18B27E114C400A68880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +59,20 @@
 		A980E19B27E114C400A68880 /* ProductSearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProductSearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A980E19F27E114C400A68880 /* ProductSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSearchUITests.swift; sourceTree = "<group>"; };
 		A980E1A127E114C400A68880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A980E1AE27E1168300A68880 /* HomeDataContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataContract.swift; sourceTree = "<group>"; };
+		A980E1AF27E1168300A68880 /* HomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFactory.swift; sourceTree = "<group>"; };
+		A980E1B027E1168300A68880 /* HomeContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContract.swift; sourceTree = "<group>"; };
+		A980E1B127E1168300A68880 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		A980E1B227E1168300A68880 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		A980E1B327E1168300A68880 /* HomeLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLocalDataSource.swift; sourceTree = "<group>"; };
+		A980E1B427E1168300A68880 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A980E1B527E1168300A68880 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		A980E1B627E1168300A68880 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		A980E1B727E1168300A68880 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCloudDataSource.swift; sourceTree = "<group>"; };
+		A980E1C627E1181C00A68880 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		A980E1CB27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCloudDataSourceDefaultError.swift; sourceTree = "<group>"; };
+		A980E1CD27E1389C00A68880 /* HomeResultCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResultCodable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +123,10 @@
 		A980E17C27E114C200A68880 /* ProductSearch */ = {
 			isa = PBXGroup;
 			children = (
+				A980E1C427E1180500A68880 /* Common */,
+				A980E1CA27E12E1A00A68880 /* Features */,
 				A980E17D27E114C200A68880 /* AppDelegate.swift */,
 				A980E17F27E114C200A68880 /* SceneDelegate.swift */,
-				A980E18127E114C200A68880 /* ViewController.swift */,
-				A980E18327E114C200A68880 /* Main.storyboard */,
 				A980E18627E114C400A68880 /* Assets.xcassets */,
 				A980E18827E114C400A68880 /* LaunchScreen.storyboard */,
 				A980E18B27E114C400A68880 /* Info.plist */,
@@ -126,6 +150,66 @@
 				A980E1A127E114C400A68880 /* Info.plist */,
 			);
 			path = ProductSearchUITests;
+			sourceTree = "<group>";
+		};
+		A980E1AD27E1164100A68880 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A980E1AF27E1168300A68880 /* HomeFactory.swift */,
+				A980E1B027E1168300A68880 /* HomeContract.swift */,
+				A980E1B127E1168300A68880 /* HomePresenter.swift */,
+				A980E1B227E1168300A68880 /* HomeRouter.swift */,
+				A980E1B627E1168300A68880 /* HomeInteractor.swift */,
+				A980E1C927E1189300A68880 /* Data */,
+				A980E1C827E1188F00A68880 /* UI */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A980E1C427E1180500A68880 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A980E1C527E1180C00A68880 /* API */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A980E1C527E1180C00A68880 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				A980E1C627E1181C00A68880 /* API.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		A980E1C827E1188F00A68880 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A980E1B427E1168300A68880 /* HomeViewController.swift */,
+				A980E1B727E1168300A68880 /* HomeViewController.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A980E1C927E1189300A68880 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A980E1AE27E1168300A68880 /* HomeDataContract.swift */,
+				A980E1CB27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift */,
+				A980E1B527E1168300A68880 /* HomeRepository.swift */,
+				A980E1B327E1168300A68880 /* HomeLocalDataSource.swift */,
+				A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */,
+				A980E1CD27E1389C00A68880 /* HomeResultCodable.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A980E1CA27E12E1A00A68880 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				A980E1AD27E1164100A68880 /* Home */,
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +317,7 @@
 			files = (
 				A980E18A27E114C400A68880 /* LaunchScreen.storyboard in Resources */,
 				A980E18727E114C400A68880 /* Assets.xcassets in Resources */,
-				A980E18527E114C200A68880 /* Main.storyboard in Resources */,
+				A980E1C227E1168300A68880 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +342,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A980E18227E114C200A68880 /* ViewController.swift in Sources */,
+				A980E1BE27E1168300A68880 /* HomeLocalDataSource.swift in Sources */,
+				A980E1BC27E1168300A68880 /* HomePresenter.swift in Sources */,
+				A980E1BB27E1168300A68880 /* HomeContract.swift in Sources */,
+				A980E1C127E1168300A68880 /* HomeInteractor.swift in Sources */,
+				A980E1BA27E1168300A68880 /* HomeFactory.swift in Sources */,
+				A980E1C727E1181C00A68880 /* API.swift in Sources */,
+				A980E1BF27E1168300A68880 /* HomeViewController.swift in Sources */,
 				A980E17E27E114C200A68880 /* AppDelegate.swift in Sources */,
+				A980E1BD27E1168300A68880 /* HomeRouter.swift in Sources */,
+				A980E1B927E1168300A68880 /* HomeDataContract.swift in Sources */,
 				A980E18027E114C200A68880 /* SceneDelegate.swift in Sources */,
+				A980E1C327E1168300A68880 /* HomeCloudDataSource.swift in Sources */,
+				A980E1CE27E1389C00A68880 /* HomeResultCodable.swift in Sources */,
+				A980E1CC27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift in Sources */,
+				A980E1C027E1168300A68880 /* HomeRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,14 +392,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A980E18327E114C200A68880 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A980E18427E114C200A68880 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A980E18827E114C400A68880 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
