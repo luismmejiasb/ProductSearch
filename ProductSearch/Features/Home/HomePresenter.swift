@@ -25,8 +25,12 @@ final class HomePresenter: HomePresenterProtocol {
         registerToInteractorPublisher()
     }
     
-    func serachItem(offSet: Int, searchText: String) {
-        interactor?.serachItem(offSet: offSet, searchText: searchText)
+    func searchItem(searchText: String) {
+        interactor?.serachItem(searchText: searchText)
+    }
+    
+    func presentSearchResult(_ searchResult: SearchResult) {
+        router?.presentSearchResult(searchResult)
     }
 }
 
@@ -39,14 +43,14 @@ private extension HomePresenter {
                 case .finished:
                     print("Publisher stopped obversing")
                 case .failure(let error):
-                    self?.view?.displaySearchResultsError(error)
+                    self?.view?.displaySearchResultError(error)
                 }
             }, receiveValue: { [weak self] (result) in
                 switch result {
                 case .itemsSearchedWithSuccess(let searchResults):
-                    self?.view?.displaySearchResults(searchResults)
+                    self?.view?.displaySearchResult(searchResults)
                 case .itemsSearchedWithFailure(let error):
-                    self?.view?.displaySearchResultsError(error)
+                    self?.view?.displaySearchResultError(error)
                 }
             }).store(in: &searchItemsTokens)
     }

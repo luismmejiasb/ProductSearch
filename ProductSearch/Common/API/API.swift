@@ -18,6 +18,7 @@ enum APIURL {
         
         return uwrappedUrl
     }
+    
 }
 
 extension APIURL {

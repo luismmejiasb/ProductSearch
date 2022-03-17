@@ -40,11 +40,11 @@ private extension HomeViewController {
 
 // MARK: HomeViewProtocol
 extension HomeViewController: HomeViewProtocol {
-    func displaySearchResults(_ searchResults: HomeSearchResultCodable) {
-        print(searchResults)
+    func displaySearchResult(_ searchResult: SearchResult) {
+        presenter?.presentSearchResult(searchResult)
     }
     
-    func displaySearchResultsError(_ error: Error) {
+    func displaySearchResultError(_ error: Error) {
         print(error.localizedDescription)
     }
     

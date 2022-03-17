@@ -19,8 +19,8 @@ final class HomeInteractor: HomeInteractorProtocol {
         self.repository = repository
     }
     
-    func serachItem(offSet: Int, searchText: String) {
-        repository?.searchItem(offSet: offSet, searchText: searchText)
+    func serachItem(searchText: String) {
+        repository?.searchItem(offSet: 0, searchText: searchText)
             .sink(
                 receiveCompletion: { completion in
                     switch completion {

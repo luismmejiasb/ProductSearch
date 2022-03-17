@@ -3,11 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		A97AB47227E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */; };
+		A97AB47427E3AC7400EC300E /* UILoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47327E3AC7400EC300E /* UILoadingIndicator.swift */; };
+		A97AB48227E3ACC300EC300E /* SearchResultDataContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47727E3ACC300EC300E /* SearchResultDataContract.swift */; };
+		A97AB48327E3ACC300EC300E /* SearchResultFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47827E3ACC300EC300E /* SearchResultFactory.swift */; };
+		A97AB48427E3ACC300EC300E /* SearchResultContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47927E3ACC300EC300E /* SearchResultContract.swift */; };
+		A97AB48527E3ACC300EC300E /* SearchResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47A27E3ACC300EC300E /* SearchResultPresenter.swift */; };
+		A97AB48627E3ACC300EC300E /* SearchResultRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47B27E3ACC300EC300E /* SearchResultRouter.swift */; };
+		A97AB48727E3ACC300EC300E /* SearchResultLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47C27E3ACC300EC300E /* SearchResultLocalDataSource.swift */; };
+		A97AB48827E3ACC300EC300E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47D27E3ACC300EC300E /* SearchResultViewController.swift */; };
+		A97AB48927E3ACC300EC300E /* SearchResultRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47E27E3ACC300EC300E /* SearchResultRepository.swift */; };
+		A97AB48A27E3ACC300EC300E /* SearchResultInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47F27E3ACC300EC300E /* SearchResultInteractor.swift */; };
+		A97AB48B27E3ACC300EC300E /* SearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97AB48027E3ACC300EC300E /* SearchResultViewController.xib */; };
+		A97AB48C27E3ACC300EC300E /* SearchResultCloudDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB48127E3ACC300EC300E /* SearchResultCloudDataSource.swift */; };
+		A97AB49127E3B5D800EC300E /* SearchResultViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB49027E3B5D800EC300E /* SearchResultViewController+UITableViewDelegate.swift */; };
+		A97AB49327E3B5E800EC300E /* SearchResultViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB49227E3B5E800EC300E /* SearchResultViewController+UITableViewDataSource.swift */; };
+		A97AB49627E3C15100EC300E /* SearchResultUITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97AB49527E3C15100EC300E /* SearchResultUITableViewCell.xib */; };
+		A97AB49A27E3C16D00EC300E /* SearchResultUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB49927E3C16D00EC300E /* SearchResultUITableViewCell.swift */; };
+		A97AB49C27E3C25000EC300E /* UIColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB49B27E3C25000EC300E /* UIColors.swift */; };
+		A97AB49F27E3CE2100EC300E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A97AB49E27E3CE2100EC300E /* Alamofire */; };
+		A97AB4A127E3D26C00EC300E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB4A027E3D26C00EC300E /* UIView+Extension.swift */; };
 		A980E17E27E114C200A68880 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17D27E114C200A68880 /* AppDelegate.swift */; };
 		A980E18027E114C200A68880 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17F27E114C200A68880 /* SceneDelegate.swift */; };
 		A980E18727E114C400A68880 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A980E18627E114C400A68880 /* Assets.xcassets */; };
@@ -27,7 +46,7 @@
 		A980E1C327E1168300A68880 /* HomeCloudDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */; };
 		A980E1C727E1181C00A68880 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1C627E1181C00A68880 /* API.swift */; };
 		A980E1CC27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CB27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift */; };
-		A980E1CE27E1389C00A68880 /* HomeSearchResultCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CD27E1389C00A68880 /* HomeSearchResultCodable.swift */; };
+		A980E1CE27E1389C00A68880 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CD27E1389C00A68880 /* SearchResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +68,24 @@
 
 /* Begin PBXFileReference section */
 		A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewViewController+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
+		A97AB47327E3AC7400EC300E /* UILoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILoadingIndicator.swift; sourceTree = "<group>"; };
+		A97AB47727E3ACC300EC300E /* SearchResultDataContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDataContract.swift; sourceTree = "<group>"; };
+		A97AB47827E3ACC300EC300E /* SearchResultFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFactory.swift; sourceTree = "<group>"; };
+		A97AB47927E3ACC300EC300E /* SearchResultContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultContract.swift; sourceTree = "<group>"; };
+		A97AB47A27E3ACC300EC300E /* SearchResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultPresenter.swift; sourceTree = "<group>"; };
+		A97AB47B27E3ACC300EC300E /* SearchResultRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRouter.swift; sourceTree = "<group>"; };
+		A97AB47C27E3ACC300EC300E /* SearchResultLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultLocalDataSource.swift; sourceTree = "<group>"; };
+		A97AB47D27E3ACC300EC300E /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		A97AB47E27E3ACC300EC300E /* SearchResultRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRepository.swift; sourceTree = "<group>"; };
+		A97AB47F27E3ACC300EC300E /* SearchResultInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultInteractor.swift; sourceTree = "<group>"; };
+		A97AB48027E3ACC300EC300E /* SearchResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultViewController.xib; sourceTree = "<group>"; };
+		A97AB48127E3ACC300EC300E /* SearchResultCloudDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCloudDataSource.swift; sourceTree = "<group>"; };
+		A97AB49027E3B5D800EC300E /* SearchResultViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		A97AB49227E3B5E800EC300E /* SearchResultViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		A97AB49527E3C15100EC300E /* SearchResultUITableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultUITableViewCell.xib; sourceTree = "<group>"; };
+		A97AB49927E3C16D00EC300E /* SearchResultUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultUITableViewCell.swift; sourceTree = "<group>"; };
+		A97AB49B27E3C25000EC300E /* UIColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColors.swift; sourceTree = "<group>"; };
+		A97AB4A027E3D26C00EC300E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A980E17A27E114C200A68880 /* ProductSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProductSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A980E17D27E114C200A68880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A980E17F27E114C200A68880 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +111,7 @@
 		A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCloudDataSource.swift; sourceTree = "<group>"; };
 		A980E1C627E1181C00A68880 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A980E1CB27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCloudDataSourceDefaultError.swift; sourceTree = "<group>"; };
-		A980E1CD27E1389C00A68880 /* HomeSearchResultCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchResultCodable.swift; sourceTree = "<group>"; };
+		A980E1CD27E1389C00A68880 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A97AB49F27E3CE2100EC300E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +143,70 @@
 		A97AB47027E390F100EC300E /* View */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A97AB47527E3AC7800EC300E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A97AB47327E3AC7400EC300E /* UILoadingIndicator.swift */,
+				A97AB49B27E3C25000EC300E /* UIColors.swift */,
+				A97AB4A027E3D26C00EC300E /* UIView+Extension.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A97AB47627E3ACA500EC300E /* Search Result */ = {
+			isa = PBXGroup;
+			children = (
+				A97AB47927E3ACC300EC300E /* SearchResultContract.swift */,
+				A97AB47827E3ACC300EC300E /* SearchResultFactory.swift */,
+				A97AB47A27E3ACC300EC300E /* SearchResultPresenter.swift */,
+				A97AB47B27E3ACC300EC300E /* SearchResultRouter.swift */,
+				A97AB47F27E3ACC300EC300E /* SearchResultInteractor.swift */,
+				A97AB48D27E3ACC900EC300E /* Data */,
+				A97AB48E27E3ACCC00EC300E /* UI */,
+			);
+			path = "Search Result";
+			sourceTree = "<group>";
+		};
+		A97AB48D27E3ACC900EC300E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A97AB47727E3ACC300EC300E /* SearchResultDataContract.swift */,
+				A97AB47C27E3ACC300EC300E /* SearchResultLocalDataSource.swift */,
+				A97AB47E27E3ACC300EC300E /* SearchResultRepository.swift */,
+				A97AB48127E3ACC300EC300E /* SearchResultCloudDataSource.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A97AB48E27E3ACCC00EC300E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A97AB47D27E3ACC300EC300E /* SearchResultViewController.swift */,
+				A97AB48027E3ACC300EC300E /* SearchResultViewController.xib */,
+				A97AB49427E3C11B00EC300E /* View */,
+				A97AB49027E3B5D800EC300E /* SearchResultViewController+UITableViewDelegate.swift */,
+				A97AB49227E3B5E800EC300E /* SearchResultViewController+UITableViewDataSource.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A97AB48F27E3B21A00EC300E /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				A980E1CD27E1389C00A68880 /* SearchResult.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		A97AB49427E3C11B00EC300E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A97AB49527E3C15100EC300E /* SearchResultUITableViewCell.xib */,
+				A97AB49927E3C16D00EC300E /* SearchResultUITableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -178,6 +280,8 @@
 		A980E1C427E1180500A68880 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A97AB48F27E3B21A00EC300E /* Entities */,
+				A97AB47527E3AC7800EC300E /* UI */,
 				A980E1C527E1180C00A68880 /* API */,
 			);
 			path = Common;
@@ -210,7 +314,6 @@
 				A980E1B527E1168300A68880 /* HomeRepository.swift */,
 				A980E1B327E1168300A68880 /* HomeLocalDataSource.swift */,
 				A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */,
-				A980E1CD27E1389C00A68880 /* HomeSearchResultCodable.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -218,6 +321,7 @@
 		A980E1CA27E12E1A00A68880 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A97AB47627E3ACA500EC300E /* Search Result */,
 				A980E1AD27E1164100A68880 /* Home */,
 			);
 			path = Features;
@@ -239,6 +343,9 @@
 			dependencies = (
 			);
 			name = ProductSearch;
+			packageProductDependencies = (
+				A97AB49E27E3CE2100EC300E /* Alamofire */,
+			);
 			productName = ProductSearch;
 			productReference = A980E17A27E114C200A68880 /* ProductSearch.app */;
 			productType = "com.apple.product-type.application";
@@ -310,6 +417,9 @@
 				Base,
 			);
 			mainGroup = A980E17127E114C200A68880;
+			packageReferences = (
+				A97AB49D27E3CE2100EC300E /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = A980E17B27E114C200A68880 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -329,6 +439,8 @@
 				A980E18A27E114C400A68880 /* LaunchScreen.storyboard in Resources */,
 				A980E18727E114C400A68880 /* Assets.xcassets in Resources */,
 				A980E1C227E1168300A68880 /* HomeViewController.xib in Resources */,
+				A97AB49627E3C15100EC300E /* SearchResultUITableViewCell.xib in Resources */,
+				A97AB48B27E3ACC300EC300E /* SearchResultViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,21 +465,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A97AB48427E3ACC300EC300E /* SearchResultContract.swift in Sources */,
+				A97AB48A27E3ACC300EC300E /* SearchResultInteractor.swift in Sources */,
+				A97AB49A27E3C16D00EC300E /* SearchResultUITableViewCell.swift in Sources */,
 				A97AB47227E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift in Sources */,
 				A980E1BE27E1168300A68880 /* HomeLocalDataSource.swift in Sources */,
+				A97AB48727E3ACC300EC300E /* SearchResultLocalDataSource.swift in Sources */,
 				A980E1BC27E1168300A68880 /* HomePresenter.swift in Sources */,
+				A97AB48527E3ACC300EC300E /* SearchResultPresenter.swift in Sources */,
 				A980E1BB27E1168300A68880 /* HomeContract.swift in Sources */,
 				A980E1C127E1168300A68880 /* HomeInteractor.swift in Sources */,
 				A980E1BA27E1168300A68880 /* HomeFactory.swift in Sources */,
+				A97AB48C27E3ACC300EC300E /* SearchResultCloudDataSource.swift in Sources */,
 				A980E1C727E1181C00A68880 /* API.swift in Sources */,
+				A97AB48627E3ACC300EC300E /* SearchResultRouter.swift in Sources */,
+				A97AB49327E3B5E800EC300E /* SearchResultViewController+UITableViewDataSource.swift in Sources */,
+				A97AB49C27E3C25000EC300E /* UIColors.swift in Sources */,
+				A97AB48927E3ACC300EC300E /* SearchResultRepository.swift in Sources */,
+				A97AB49127E3B5D800EC300E /* SearchResultViewController+UITableViewDelegate.swift in Sources */,
+				A97AB4A127E3D26C00EC300E /* UIView+Extension.swift in Sources */,
 				A980E1BF27E1168300A68880 /* HomeViewController.swift in Sources */,
+				A97AB48327E3ACC300EC300E /* SearchResultFactory.swift in Sources */,
 				A980E17E27E114C200A68880 /* AppDelegate.swift in Sources */,
 				A980E1BD27E1168300A68880 /* HomeRouter.swift in Sources */,
 				A980E1B927E1168300A68880 /* HomeDataContract.swift in Sources */,
 				A980E18027E114C200A68880 /* SceneDelegate.swift in Sources */,
 				A980E1C327E1168300A68880 /* HomeCloudDataSource.swift in Sources */,
-				A980E1CE27E1389C00A68880 /* HomeSearchResultCodable.swift in Sources */,
+				A980E1CE27E1389C00A68880 /* SearchResult.swift in Sources */,
+				A97AB47427E3AC7400EC300E /* UILoadingIndicator.swift in Sources */,
 				A980E1CC27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift in Sources */,
+				A97AB48227E3ACC300EC300E /* SearchResultDataContract.swift in Sources */,
+				A97AB48827E3ACC300EC300E /* SearchResultViewController.swift in Sources */,
 				A980E1C027E1168300A68880 /* HomeRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -687,6 +815,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A97AB49D27E3CE2100EC300E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A97AB49E27E3CE2100EC300E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A97AB49D27E3CE2100EC300E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A980E17227E114C200A68880 /* Project object */;
 }

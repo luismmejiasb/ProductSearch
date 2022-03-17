@@ -25,7 +25,7 @@ extension HomeViewController: UISearchBarDelegate {
             return
         }
         searchBar.resignFirstResponder()
-        presenter?.serachItem(offSet: 0, searchText: searchBarText)
+        presenter?.searchItem(searchText: searchBarText)
     }
 }
 

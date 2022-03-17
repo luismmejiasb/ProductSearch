@@ -1,19 +1,18 @@
 //
-//  HomeRepository.swift
+//  SearchResultRepository.swift
 //  ProductSearch
 //
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
-// MARK: - HomeRepository
+//  Created by Luis Mejias on 17-03-22.
+//  Copyright (c) 2022 Falabella FIF. All rights reserved.
 import Combine
 
-final class HomeRepository: HomeRepositoryProtocol {
-	var localDataSource: HomeLocalDataSourceProtocol?
-    var cloudDataSource: HomeCloudDataSourceProtocol?
+// MARK: - SearchResultRepository
+final class SearchResultRepository: SearchResultRepositoryProtocol {
+	var localDataSource: SearchResultLocalDataSourceProtocol?
+    var cloudDataSource: SearchResultCloudDataSourceProtocol?
 
     // MARK: - Inits
-    init(localDataSource: HomeLocalDataSourceProtocol?, cloudDataSource: HomeCloudDataSourceProtocol?) {
+    init(localDataSource: SearchResultLocalDataSourceProtocol?, cloudDataSource: SearchResultCloudDataSourceProtocol?) {
         self.localDataSource = localDataSource
         self.cloudDataSource = cloudDataSource
     }
@@ -27,4 +26,5 @@ final class HomeRepository: HomeRepositoryProtocol {
 
         return cloudDataSource.searchItem(offSet: offSet, searchText: searchText)
     }
+
 }

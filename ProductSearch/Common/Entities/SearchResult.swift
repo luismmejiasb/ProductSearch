@@ -14,10 +14,10 @@ import Foundation
 import Foundation
 
 // MARK: - Welcome
-struct HomeSearchResultCodable: Codable {
+struct SearchResult: Codable {
     let siteID, countryDefaultTimeZone, query: String?
     let paging: Paging?
-    let results: [Result]?
+    var results: [Result]?
     let sort: Sort?
     let availableSorts: [Sort]?
     let filters: [Filter]?

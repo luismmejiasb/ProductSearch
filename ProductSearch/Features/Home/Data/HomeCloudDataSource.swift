@@ -9,23 +9,26 @@
 // MARK: - HomeCloudDataSource
 import Combine
 import Foundation
+import Alamofire
 
 final class HomeCloudDataSource: HomeCloudDataSourceProtocol {
-    func searchItem(offSet: Int, searchText: String) -> Future<HomeSearchResultCodable, Error> {
+    func searchItem(offSet: Int = 0, searchText: String) -> Future<SearchResult, Error> {
         return Future { promise in
-            let task = URLSession.shared.dataTask(with: APIURL.searchItem(offSet: 0, searchText: searchText).url) { data, response, error in
-                guard error == nil else {
-                    return promise(.failure(HomeCloudDataSourceDefaultError.responseCannotBeParsed))
-                }
+            AF.request(APIURL.searchItem(offSet: 0, searchText: searchText).url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { response in
                 
-                guard let data = data,
-                      let searchResult = try? JSONDecoder().decode(HomeSearchResultCodable.self, from: data) else {
-                    return promise(.failure(HomeCloudDataSourceDefaultError.responseCannotBeParsed))
+                switch response.result {
+                case .success(let response):
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+                        let searchResult = try JSONDecoder().decode(SearchResult.self, from: jsonData)
+                        return promise(.success(searchResult))
+                    } catch {
+                        return promise(.failure(HomeCloudDataSourceDefaultError.responseCannotBeParsed))
+                    }
+                case .failure(let error):
+                    promise(.failure(error))
                 }
-
-                return promise(.success(searchResult))
             }
-            task.resume()
         }
     }
 }
