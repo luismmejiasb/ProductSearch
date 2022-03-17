@@ -45,7 +45,7 @@ final class SearchResultViewController: UIViewController {
     }
 }
 
-// MARK: View Life Cycle
+// MARK: Private functions
 private extension SearchResultViewController {
     func setUpUI() {
         title = "Resultados para \(searchText)"

@@ -18,7 +18,7 @@ final class SearchResultRouter: SearchResultRouterProtocol {
         alert.addAction(UIAlertAction(title: "Menor precio", style: .default , handler:{ (UIAlertAction)in
             print("User click Approve button")
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Mayor precio", style: .default , handler:{ (UIAlertAction)in
             print("User click Edit button")
         }))
@@ -26,11 +26,11 @@ final class SearchResultRouter: SearchResultRouterProtocol {
         alert.addAction(UIAlertAction(title: "Más reciente", style: .default , handler:{ (UIAlertAction)in
             print("User click Delete button")
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Más atiguo", style: .default , handler:{ (UIAlertAction)in
             print("User click Delete button")
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler:{ (UIAlertAction)in
             print("User click Dismiss button")
         }))     
@@ -40,5 +40,15 @@ final class SearchResultRouter: SearchResultRouterProtocol {
         view?.present(alert, animated: true, completion: {
             // We can add a tag here if we want to track how many times is being this feature presented
         })
+    }
+    
+    func presentProductDetail(_ result: Result) {
+        let productDetailViewController = ProductDetailFactory.initialize(product: result)
+
+        if let navController = view?.navigationController {
+            navController.pushViewController(productDetailViewController, animated: true)
+        } else {
+            view?.present(productDetailViewController, animated: true, completion: nil)
+        }
     }
 }

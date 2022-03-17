@@ -30,7 +30,7 @@ final class HomeViewController: UIViewController {
     }
 }
 
-// UI
+// MARK: Private UI functions
 private extension HomeViewController {
     func setUpUI() {
         searchBar.delegate = self

@@ -35,6 +35,7 @@ protocol SearchResultRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
 
     func presentFilterTypeActionSheet()
+    func presentProductDetail(_ result: Result)
 }
 
 // MARK: - Presenter
@@ -46,6 +47,7 @@ protocol SearchResultPresenterProtocol: AnyObject {
     func viewDidLoad()
     func presentFilterTypeActionSheet()
     func fetchNextOffSet()
+    func presentProductDetail(_ result: Result)
 }
 
 // MARK: - InteractorOutput

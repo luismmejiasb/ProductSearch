@@ -36,6 +36,10 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
         offSet = offSet + pagingLength
         interactor?.fetchNextOffSet(offSet, searchText: searchText)
     }
+    
+    func presentProductDetail(_ result: Result) {
+        router?.presentProductDetail(result)
+    }
 }
 
 // MARK: Interactor publisher subscription
