@@ -13,7 +13,7 @@ protocol HomeLocalDataSourceProtocol {
 
 // MARK: - Cloud Data Source
 protocol HomeCloudDataSourceProtocol {
-    func searchItem(searchText: String) -> Future<HomeSearchResultCodable, Error>
+    func searchItem(offSet: Int, searchText: String) -> Future<HomeSearchResultCodable, Error>
 }
 
 // MARK: - Repository
@@ -21,5 +21,5 @@ protocol HomeRepositoryProtocol {
     var localDataSource: HomeLocalDataSourceProtocol? { get set }
     var cloudDataSource: HomeCloudDataSourceProtocol? { get set }
     
-    func serachItem(searchText: String) -> Future<HomeSearchResultCodable, Error>
+    func searchItem(offSet: Int, searchText: String) -> Future<HomeSearchResultCodable, Error>
 }

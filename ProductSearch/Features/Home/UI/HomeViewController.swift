@@ -9,6 +9,7 @@ import UIKit
 
 // MARK: - HomeViewController
 final class HomeViewController: UIViewController {
+    @IBOutlet private weak var searchBar: UISearchBar!
 	var presenter: HomePresenterProtocol?
 
     // MARK: Object lifecycle
@@ -19,21 +20,27 @@ final class HomeViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
        fatalError("Missing presenter")
     }
-}
-
-// MARK: View Life Cycle
-extension HomeViewController {
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpUI()
         presenter?.viewDidLoad()
-        presenter?.testSearch()
+    }
+}
+
+// UI
+private extension HomeViewController {
+    func setUpUI() {
+        searchBar.delegate = self
+        searchBar.setValue("Buscar", forKey: "cancelButtonText")
+        searchBar.placeholder = "Nombre de producto"
     }
 }
 
 // MARK: HomeViewProtocol
 extension HomeViewController: HomeViewProtocol {
-    func displaySearchResults(_ searchResults: [String : Any]) {
+    func displaySearchResults(_ searchResults: HomeSearchResultCodable) {
         print(searchResults)
     }
     

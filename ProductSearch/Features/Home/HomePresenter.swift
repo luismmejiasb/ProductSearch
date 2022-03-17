@@ -23,11 +23,10 @@ final class HomePresenter: HomePresenterProtocol {
     
     func viewDidLoad() {
         registerToInteractorPublisher()
-        testSearch()
     }
     
-    func testSearch() {
-        interactor?.serachItem(searchText: "iphone")
+    func serachItem(offSet: Int, searchText: String) {
+        interactor?.serachItem(offSet: offSet, searchText: searchText)
     }
 }
 

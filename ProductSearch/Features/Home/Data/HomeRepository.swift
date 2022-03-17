@@ -18,13 +18,13 @@ final class HomeRepository: HomeRepositoryProtocol {
         self.cloudDataSource = cloudDataSource
     }
     
-    func serachItem(searchText: String) -> Future<HomeSearchResultCodable, Error> {
+    func searchItem(offSet: Int, searchText: String) -> Future<HomeSearchResultCodable, Error> {
         guard let cloudDataSource = self.cloudDataSource else {
             return Future { promise in
                 promise(.failure(HomeCloudDataSourceDefaultError.unwrappableValue))
             }
         }
 
-        return cloudDataSource.searchItem(searchText: searchText)
+        return cloudDataSource.searchItem(offSet: offSet, searchText: searchText)
     }
 }

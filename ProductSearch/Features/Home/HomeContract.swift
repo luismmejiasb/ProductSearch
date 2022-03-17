@@ -18,14 +18,14 @@ protocol HomeInteractorProtocol: AnyObject {
     var repository: HomeRepositoryProtocol? { get set }
     var publisher: PassthroughSubject<HomePublisherResult, Error>? { get set }
     
-    func serachItem(searchText: String)
+    func serachItem(offSet: Int, searchText: String)
 }
 
 // MARK: - View
 protocol HomeViewProtocol: AnyObject {
     var presenter: HomePresenterProtocol? { get set }
     
-    func displaySearchResults(_ searchResults: [String:Any])
+    func displaySearchResults(_ searchResults: HomeSearchResultCodable)
     func displaySearchResultsError(_ error: Error)
 }
 
@@ -41,10 +41,10 @@ protocol HomePresenterProtocol: AnyObject {
     var view: HomeViewProtocol? { get set }
 
     func viewDidLoad()
-    func testSearch()
+    func serachItem(offSet: Int, searchText: String)
 }
 
 enum HomePublisherResult {
-    case itemsSearchedWithSuccess([String:Any])
+    case itemsSearchedWithSuccess(HomeSearchResultCodable)
     case itemsSearchedWithFailure(Error)
 }

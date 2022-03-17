@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A97AB47227E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */; };
 		A980E17E27E114C200A68880 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17D27E114C200A68880 /* AppDelegate.swift */; };
 		A980E18027E114C200A68880 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17F27E114C200A68880 /* SceneDelegate.swift */; };
 		A980E18727E114C400A68880 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A980E18627E114C400A68880 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewViewController+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
 		A980E17A27E114C200A68880 /* ProductSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProductSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A980E17D27E114C200A68880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A980E17F27E114C200A68880 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A97AB47027E390F100EC300E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A980E17127E114C200A68880 = {
 			isa = PBXGroup;
 			children = (
@@ -155,8 +164,8 @@
 		A980E1AD27E1164100A68880 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A980E1AF27E1168300A68880 /* HomeFactory.swift */,
 				A980E1B027E1168300A68880 /* HomeContract.swift */,
+				A980E1AF27E1168300A68880 /* HomeFactory.swift */,
 				A980E1B127E1168300A68880 /* HomePresenter.swift */,
 				A980E1B227E1168300A68880 /* HomeRouter.swift */,
 				A980E1B627E1168300A68880 /* HomeInteractor.swift */,
@@ -185,8 +194,10 @@
 		A980E1C827E1188F00A68880 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A97AB47027E390F100EC300E /* View */,
 				A980E1B427E1168300A68880 /* HomeViewController.swift */,
 				A980E1B727E1168300A68880 /* HomeViewController.xib */,
+				A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -342,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A97AB47227E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift in Sources */,
 				A980E1BE27E1168300A68880 /* HomeLocalDataSource.swift in Sources */,
 				A980E1BC27E1168300A68880 /* HomePresenter.swift in Sources */,
 				A980E1BB27E1168300A68880 /* HomeContract.swift in Sources */,
