@@ -18,7 +18,7 @@ protocol SearchResultInteractorProtocol: AnyObject {
     var repository: SearchResultRepositoryProtocol? { get set }
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>? { get set }
     
-    func serachItem(offSet: Int, searchText: String)
+    func fetchNextOffSet(_ offSet: Int, searchText: String)
 }
 
 // MARK: - View
@@ -45,6 +45,7 @@ protocol SearchResultPresenterProtocol: AnyObject {
     
     func viewDidLoad()
     func presentFilterTypeActionSheet()
+    func fetchNextOffSet()
 }
 
 // MARK: - InteractorOutput

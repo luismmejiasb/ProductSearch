@@ -14,6 +14,9 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     internal var router: SearchResultRouterProtocol?
     internal weak var view: SearchResultViewProtocol?
     private var searchItemsTokens = Set<AnyCancellable>()
+    private var offSet: Int = 0
+    var searchText = ""
+    let pagingLength = 50
 
     // MARK: - Inits
     init(interactor: SearchResultInteractorProtocol?, router: SearchResultRouterProtocol?) {
@@ -22,11 +25,16 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     }
     
     func viewDidLoad() {
-        
+        registerToInteractorPublisher()
     }
     
     func presentFilterTypeActionSheet() {
         router?.presentFilterTypeActionSheet()
+    }
+    
+    func fetchNextOffSet() {
+        offSet = offSet + pagingLength
+        interactor?.fetchNextOffSet(offSet, searchText: searchText)
     }
 }
 

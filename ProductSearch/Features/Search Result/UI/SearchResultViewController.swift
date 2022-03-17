@@ -22,7 +22,7 @@ final class SearchResultViewController: UIViewController {
     private var searchText = ""
     var searchResult: SearchResult? {
         didSet {
-            searchText = searchResult?.query ?? "tu producto"
+            searchText = searchResult?.query ?? "Tu producto"
         }
     }
 
@@ -37,6 +37,7 @@ final class SearchResultViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.viewDidLoad()
         setUpUI()
     }
     @IBAction func filterSearchResult(_ sender: Any) {
@@ -48,9 +49,13 @@ final class SearchResultViewController: UIViewController {
 private extension SearchResultViewController {
     func setUpUI() {
         title = "Resultados para \(searchText)"
+        if let paging = searchResult?.paging,
+           let totalCount = paging.total {
+            resultCountLabel.text = "\(totalCount) resultados"
+        } else {
+            resultCountLabel.text = "Filtra los resultados de tu búsqueda"
+        }
     }
-    
-    
 }
 
 // MARK: SearchResultViewProtocol
@@ -66,6 +71,7 @@ extension SearchResultViewController: SearchResultViewProtocol {
             return
         }
         self.searchResult?.results = searchResults + nextOffSetResults
+        searchResultTableView.reloadData()
     }
 
     func displayNextOffSetResultError(_ error: Error) {

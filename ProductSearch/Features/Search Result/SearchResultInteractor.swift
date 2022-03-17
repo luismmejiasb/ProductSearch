@@ -17,8 +17,8 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
     init(repository: SearchResultRepositoryProtocol?) {
         self.repository = repository
     }
-    
-    func serachItem(offSet: Int, searchText: String) {
+
+    func fetchNextOffSet(_ offSet: Int, searchText: String) {
         repository?.searchItem(offSet: offSet, searchText: searchText)
             .sink(
                 receiveCompletion: { completion in
