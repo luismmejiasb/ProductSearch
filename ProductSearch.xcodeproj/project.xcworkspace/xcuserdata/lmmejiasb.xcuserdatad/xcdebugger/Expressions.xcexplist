@@ -10,5 +10,21 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "closure #1 in HomeCloudDataSource.searchItem(searchText:):HomeCloudDataSource.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "APIURL.searchItem(searchText: searchText).url">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in HomeCloudDataSource.searchItem(searchText:):HomeCloudDataSource.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "APIURL.searchItem(offSet:0, searchText: searchText).url">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

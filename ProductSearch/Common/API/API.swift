@@ -9,7 +9,7 @@ import Foundation
 
 enum APIURL {
     case getCategories
-    case searchItem(searchText: String)
+    case searchItem(offSet: Int, searchText: String)
 
     var url: URL {
         var urlComponents = URLComponents()
@@ -17,7 +17,7 @@ enum APIURL {
         urlComponents.host = "api.mercadolibre.com"
         urlComponents.path = path
         
-        guard let uwrappedUrl = urlComponents.url else {
+        guard let uwrappedUrl = URL(string: "https://api.mercadolibre.com/sites/MLC" + path) else {
             fatalError("The provided URL must be valid")
         }
         
@@ -29,9 +29,9 @@ extension APIURL {
     fileprivate var path: String {
         switch self {
         case .getCategories:
-            return "/sites/users"
-        case .searchItem(let searchText):
-            return "/sites/MLA/search?q=\(searchText)"
+            return "/users"
+        case .searchItem(let offSet, let searchText):
+            return "/search?limit=30&offset=\(offSet)&q=\(searchText)"
         }
     }
 }

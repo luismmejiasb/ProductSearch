@@ -9,5 +9,6 @@ import Foundation
 
 enum HomeCloudDataSourceDefaultError: Error {
     case unwrappableValue
+    case responseCannotBeParsed
     case httpError(code: Int, message: String)
 }

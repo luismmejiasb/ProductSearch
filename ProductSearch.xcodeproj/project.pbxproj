@@ -26,7 +26,7 @@
 		A980E1C327E1168300A68880 /* HomeCloudDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */; };
 		A980E1C727E1181C00A68880 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1C627E1181C00A68880 /* API.swift */; };
 		A980E1CC27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CB27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift */; };
-		A980E1CE27E1389C00A68880 /* HomeResultCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CD27E1389C00A68880 /* HomeResultCodable.swift */; };
+		A980E1CE27E1389C00A68880 /* HomeSearchResultCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E1CD27E1389C00A68880 /* HomeSearchResultCodable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +72,7 @@
 		A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCloudDataSource.swift; sourceTree = "<group>"; };
 		A980E1C627E1181C00A68880 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A980E1CB27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCloudDataSourceDefaultError.swift; sourceTree = "<group>"; };
-		A980E1CD27E1389C00A68880 /* HomeResultCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResultCodable.swift; sourceTree = "<group>"; };
+		A980E1CD27E1389C00A68880 /* HomeSearchResultCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchResultCodable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +199,7 @@
 				A980E1B527E1168300A68880 /* HomeRepository.swift */,
 				A980E1B327E1168300A68880 /* HomeLocalDataSource.swift */,
 				A980E1B827E1168300A68880 /* HomeCloudDataSource.swift */,
-				A980E1CD27E1389C00A68880 /* HomeResultCodable.swift */,
+				A980E1CD27E1389C00A68880 /* HomeSearchResultCodable.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -354,7 +354,7 @@
 				A980E1B927E1168300A68880 /* HomeDataContract.swift in Sources */,
 				A980E18027E114C200A68880 /* SceneDelegate.swift in Sources */,
 				A980E1C327E1168300A68880 /* HomeCloudDataSource.swift in Sources */,
-				A980E1CE27E1389C00A68880 /* HomeResultCodable.swift in Sources */,
+				A980E1CE27E1389C00A68880 /* HomeSearchResultCodable.swift in Sources */,
 				A980E1CC27E1341100A68880 /* HomeCloudDataSourceDefaultError.swift in Sources */,
 				A980E1C027E1168300A68880 /* HomeRepository.swift in Sources */,
 			);

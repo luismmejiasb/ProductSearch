@@ -18,7 +18,7 @@ final class HomeRepository: HomeRepositoryProtocol {
         self.cloudDataSource = cloudDataSource
     }
     
-    func serachItem(searchText: String) -> Future<HomeResultCodable, Error> {
+    func serachItem(searchText: String) -> Future<HomeSearchResultCodable, Error> {
         guard let cloudDataSource = self.cloudDataSource else {
             return Future { promise in
                 promise(.failure(HomeCloudDataSourceDefaultError.unwrappableValue))
