@@ -78,8 +78,8 @@
             filePath = "ProductSearch/Features/Home/UI/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "displaySearchResultError(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "ProductSearch/Features/Search Result/UI/SearchResultViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "displayHomeSearchResult(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -129,22 +129,6 @@
             startingLineNumber = "21"
             endingLineNumber = "21"
             landmarkName = "configureCell(with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "01803ECF-288C-433E-A30B-D1E95FA16ADA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProductSearch/Features/Search Result/SearchResultFactory.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "initialize(homeSearchResult:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

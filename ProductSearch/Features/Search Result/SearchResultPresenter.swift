@@ -24,6 +24,10 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     func viewDidLoad() {
         
     }
+    
+    func presentFilterTypeActionSheet() {
+        router?.presentFilterTypeActionSheet()
+    }
 }
 
 // MARK: Interactor publisher subscription

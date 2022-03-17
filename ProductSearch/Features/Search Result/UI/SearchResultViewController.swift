@@ -16,9 +16,15 @@ final class SearchResultViewController: UIViewController {
             searchResultTableView.dataSource = self
         }
     }
+    @IBOutlet weak var resultCountLabel: UILabel!
+    @IBOutlet weak var filterButton: UIButton!
     var presenter: SearchResultPresenterProtocol?
-    var searchText = ""
-    var searchResult: SearchResult?
+    private var searchText = ""
+    var searchResult: SearchResult? {
+        didSet {
+            searchText = searchResult?.query ?? "tu producto"
+        }
+    }
 
     // MARK: Object lifecycle
     init() {
@@ -33,6 +39,9 @@ final class SearchResultViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
     }
+    @IBAction func filterSearchResult(_ sender: Any) {
+        presenter?.presentFilterTypeActionSheet()
+    }
 }
 
 // MARK: View Life Cycle
@@ -40,6 +49,8 @@ private extension SearchResultViewController {
     func setUpUI() {
         title = "Resultados para \(searchText)"
     }
+    
+    
 }
 
 // MARK: SearchResultViewProtocol

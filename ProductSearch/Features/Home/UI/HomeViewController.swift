@@ -26,6 +26,7 @@ final class HomeViewController: UIViewController {
         
         setUpUI()
         presenter?.viewDidLoad()
+        searchBar.searchTextField.text = "iPhone"
     }
 }
 
