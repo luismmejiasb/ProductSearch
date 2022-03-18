@@ -20,11 +20,6 @@ final class SearchResultViewController: UIViewController {
     @IBOutlet weak var filterButton: UIButton!
     var presenter: SearchResultPresenterProtocol?
     private var searchText = ""
-    var searchResult: SearchResult? {
-        didSet {
-            searchText = searchResult?.query ?? "Tu producto"
-        }
-    }
 
     // MARK: Object lifecycle
     init() {
@@ -49,7 +44,7 @@ final class SearchResultViewController: UIViewController {
 private extension SearchResultViewController {
     func setUpUI() {
         title = "Resultados para \(searchText)"
-        if let paging = searchResult?.paging,
+        if let paging = presenter?.searchResult.paging,
            let totalCount = paging.total {
             resultCountLabel.text = "\(totalCount) \((totalCount != 1) ? "resultados" : "resultado")"
         } else {
@@ -60,17 +55,16 @@ private extension SearchResultViewController {
 
 // MARK: SearchResultViewProtocol
 extension SearchResultViewController: SearchResultViewProtocol {
-    func displayHomeSearchResult(_ homeSearchResult: SearchResult) {
-        searchResult = homeSearchResult
+    func displaySearchResult() {
         searchResultTableView.reloadData()
     }
 
     func displayNextOffSetResult(_ nextOffSetResult: SearchResult) {
-        guard let searchResults = self.searchResult?.results,
+        guard let searchResults = presenter?.searchResult.results,
               let nextOffSetResults = nextOffSetResult.results else {
             return
         }
-        self.searchResult?.results = searchResults + nextOffSetResults
+        presenter?.searchResult.results = searchResults + nextOffSetResults
         searchResultTableView.reloadData()
         UILoadingIndicator.endLoadingIndicator(view)
     }

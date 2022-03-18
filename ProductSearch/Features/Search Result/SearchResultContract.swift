@@ -25,7 +25,7 @@ protocol SearchResultInteractorProtocol: AnyObject {
 protocol SearchResultViewProtocol: AnyObject {
     var presenter: SearchResultPresenterProtocol? { get set }
     
-    func displayHomeSearchResult(_ homeSearchResult: SearchResult)
+    func displaySearchResult()
     func displayNextOffSetResult(_ nextOffSetResult: SearchResult)
     func displayNextOffSetResultError(_ error: Error)
 }
@@ -33,9 +33,16 @@ protocol SearchResultViewProtocol: AnyObject {
 // MARK: - Router
 protocol SearchResultRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
+    var delegate: SearchResultRouterDelegate? { get set}
 
     func presentFilterTypeActionSheet()
     func presentProductDetail(_ result: Result)
+}
+
+// MARK: - Router Delegate
+
+protocol SearchResultRouterDelegate: AnyObject {
+    func didSelectFilter(_ filter: FilterType)
 }
 
 // MARK: - Presenter
@@ -43,7 +50,8 @@ protocol SearchResultPresenterProtocol: AnyObject {
     var interactor: SearchResultInteractorProtocol? { get set }
     var router: SearchResultRouterProtocol? { get set }
     var view: SearchResultViewProtocol? { get set }
-    
+    var searchResult: SearchResult { get set}
+
     func viewDidLoad()
     func presentFilterTypeActionSheet()
     func fetchNextOffSet()
@@ -57,4 +65,9 @@ protocol SearchResultInteractorDelegate: AnyObject {
 enum SearchResultPublisherResult {
     case displayNextOffSet(SearchResult)
     case displayNextOffSetFailed(Error)
+}
+
+enum FilterType {
+    case lowestPrice
+    case highestPrice
 }

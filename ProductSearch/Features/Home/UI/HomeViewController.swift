@@ -30,7 +30,6 @@ final class HomeViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpUI()
         presenter?.viewDidLoad()
     }
@@ -40,12 +39,6 @@ final class HomeViewController: UIViewController {
 private extension HomeViewController {
     func setUpUI() {
         self.navigationItem.titleView = searchBar
-        for textField in searchBar.subviews.first!.subviews where textField is UITextField {
-            textField.subviews.first?.backgroundColor = .white
-            textField.subviews.first?.layer.cornerRadius = 10.5 //I set 10.5 because is approximately the system value
-            textField.subviews.first?.layer.masksToBounds = true
-            //Continue changing more properties...
-        }
     }
 }
 

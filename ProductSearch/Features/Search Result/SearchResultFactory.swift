@@ -17,16 +17,16 @@ final class SearchResultFactory: SearchResultFactoryProtocol {
 
         let router = SearchResultRouter()
 
-        let presenter = SearchResultPresenter(interactor: interactor, router: router)
+        let presenter = SearchResultPresenter(interactor: interactor, router: router, searchResult: homeSearchResult)
 
         let viewController = SearchResultViewController()
-        viewController.searchResult = homeSearchResult
 
         presenter.view = viewController
         presenter.searchText = homeSearchResult.query ?? ""
         viewController.presenter = presenter
         router.view = viewController
         interactor.publisher = publisher
+        router.delegate = presenter as SearchResultRouterDelegate
 
         return viewController
     }

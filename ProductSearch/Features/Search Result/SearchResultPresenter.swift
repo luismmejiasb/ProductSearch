@@ -10,6 +10,7 @@ import Combine
 
 // MARK: - SearchResultPresenter
 final class SearchResultPresenter: SearchResultPresenterProtocol {
+    var searchResult: SearchResult
     internal var interactor: SearchResultInteractorProtocol?
     internal var router: SearchResultRouterProtocol?
     internal weak var view: SearchResultViewProtocol?
@@ -19,9 +20,10 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     let pagingLength = 50
 
     // MARK: - Inits
-    init(interactor: SearchResultInteractorProtocol?, router: SearchResultRouterProtocol?) {
+    init(interactor: SearchResultInteractorProtocol?, router: SearchResultRouterProtocol?, searchResult: SearchResult) {
         self.interactor = interactor
         self.router = router
+        self.searchResult = searchResult
     }
     
     func viewDidLoad() {
@@ -61,5 +63,25 @@ private extension SearchResultPresenter {
                     self?.view?.displayNextOffSetResultError(error)
                 }
             }).store(in: &searchItemsTokens)
+    }
+}
+
+
+// MARK: Router Delegate
+extension SearchResultPresenter: SearchResultRouterDelegate {
+    func didSelectFilter(_ filter: FilterType) {
+        guard let searchResults = searchResult.results else {
+            return
+        }
+
+        switch filter {
+        case .lowestPrice:
+            self.searchResult.results = searchResults.sorted { $0.price ?? 0 < $1.price ?? 0}
+            view?.displaySearchResult()
+        case .highestPrice:
+            self.searchResult.results = searchResults.sorted { $0.price ?? 0 > $1.price ?? 0}
+        }
+        
+        view?.displaySearchResult()
     }
 }

@@ -10,21 +10,21 @@ import UIKit
 
 class SearchResultUITableViewCell: UITableViewCell {
     @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var productPriceLabel: UILabel!
+    @IBOutlet weak var cellBackgroundView: UIView!
     static let reusableIdentifier = "searchResultTableViewCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        //setupUI()
     }
 
     func configureCell(with resultData: Result) {
+        setupUI()
         productNameLabel.text = resultData.title ?? "Producto sin título"
+        productPriceLabel.text = "$ \(resultData.price ?? 0)"
     }
     
     private func setupUI() {
-        layer.cornerRadius = 5
-        layer.borderWidth = 0.5
-        layer.backgroundColor = UIColors.clearColor.cgColor
-        layer.borderColor = UIColors.textColor.cgColor
+        cellBackgroundView.layer.cornerRadius = 5
     }
 }

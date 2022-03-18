@@ -10,25 +10,17 @@ import UIKit
 // MARK: - SearchResultRouter
 final class SearchResultRouter: SearchResultRouterProtocol {
     weak var view: UIViewController?
-    
+    var delegate: SearchResultRouterDelegate?
     
     func presentFilterTypeActionSheet() {
         let alert = UIAlertController(title: "Filtrar contenido", message: "Elige la forma en la que te gustaria filtrar tu búsqueda", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Menor precio", style: .default , handler:{ (UIAlertAction)in
-            print("User click Approve button")
+            self.delegate?.didSelectFilter(.lowestPrice)
         }))
 
         alert.addAction(UIAlertAction(title: "Mayor precio", style: .default , handler:{ (UIAlertAction)in
-            print("User click Edit button")
-        }))
-
-        alert.addAction(UIAlertAction(title: "Más reciente", style: .default , handler:{ (UIAlertAction)in
-            print("User click Delete button")
-        }))
-
-        alert.addAction(UIAlertAction(title: "Más atiguo", style: .default , handler:{ (UIAlertAction)in
-            print("User click Delete button")
+            self.delegate?.didSelectFilter(.highestPrice)
         }))
 
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler:{ (UIAlertAction)in
