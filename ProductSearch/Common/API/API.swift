@@ -27,7 +27,7 @@ extension APIURL {
         case .getCategories:
             return "/users"
         case .searchItem(let offSet, let searchText):
-            return "/search?limit=30&offset=\(offSet)&q=\(searchText.replacingOccurrences(of: " ", with: "%20"))"
+            return "/search?limit=50&offset=\(offSet)&q=\(searchText.replacingOccurrences(of: " ", with: "%20"))"
         }
     }
 }
