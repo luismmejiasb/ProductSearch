@@ -56,11 +56,6 @@ extension HomeViewController: HomeViewProtocol {
         UILoadingIndicator.endLoadingIndicator(view)
         presenter?.presentSearchResult(searchResult, searchType: searchType, searchCategory: searchCategory)
     }
-    
-    func displaySearchResultError(_ error: Error) {
-        UILoadingIndicator.endLoadingIndicator(view)
-        presenter?.
-    }
 
     func endLoadingIndicator() {
         UILoadingIndicator.endLoadingIndicator(view)
