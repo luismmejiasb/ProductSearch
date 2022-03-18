@@ -27,4 +27,14 @@ final class HomeRepository: HomeRepositoryProtocol {
 
         return cloudDataSource.searchItem(offSet: offSet, searchText: searchText)
     }
+    
+    func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
+        guard let cloudDataSource = self.cloudDataSource else {
+            return Future { promise in
+                promise(.failure(HomeCloudDataSourceDefaultError.unwrappableValue))
+            }
+        }
+
+        return cloudDataSource.searchCategory(offSet: offSet, category: category)
+    }
 }

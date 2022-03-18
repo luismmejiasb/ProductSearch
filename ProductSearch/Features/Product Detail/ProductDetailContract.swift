@@ -3,7 +3,7 @@
 //  ProductSearch
 //
 //  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Falabella FIF. All rights reserved.
+//  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
 import UIKit
 
@@ -36,5 +36,7 @@ protocol ProductDetailPresenterProtocol: AnyObject {
     var interactor: ProductDetailInteractorProtocol? { get set }
     var router: ProductDetailRouterProtocol? { get set }
     var view: ProductDetailViewProtocol? { get set }
+    var product: Result { get set }
+    
     func displayProductDetail()
 }

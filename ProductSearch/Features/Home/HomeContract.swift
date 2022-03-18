@@ -19,6 +19,7 @@ protocol HomeInteractorProtocol: AnyObject {
     var publisher: PassthroughSubject<HomePublisherResult, Error>? { get set }
     
     func serachItem(searchText: String)
+    func searchByCategory(_ category: HomeCategorySearch)
 }
 
 // MARK: - View
@@ -46,9 +47,12 @@ protocol HomePresenterProtocol: AnyObject {
     func viewDidLoad()
     func searchItem(searchText: String)
     func presentSearchResult(_ searchResult: SearchResult)
+    func searchByCategory(_ category: HomeCategorySearch)
 }
 
 enum HomePublisherResult {
     case itemsSearchedWithSuccess(SearchResult)
     case itemsSearchedWithFailure(Error)
+    case categorySearchedWithSuccess(SearchResult)
+    case categorySearchedWithFailure(Error)
 }

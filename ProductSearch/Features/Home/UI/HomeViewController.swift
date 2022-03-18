@@ -11,10 +11,10 @@ import UIKit
 final class HomeViewController: UIViewController {
     var searchBar: UISearchBar! {
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 70))
-        searchBar.backgroundColor = UIColors.normalTintColor
+        searchBar.backgroundColor = UIColors.themeRegularColor
         searchBar.delegate = self
         searchBar.setValue("Cancelar", forKey: "cancelButtonText")
-        searchBar.placeholder = "Nombre de producto"
+        searchBar.placeholder = "Busca en Mercado Libre"
         return searchBar
     }
 	var presenter: HomePresenterProtocol?
@@ -32,6 +32,14 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
         presenter?.viewDidLoad()
+    }
+
+    @IBAction func searchByCategory(_ sender: UIButton) {
+        guard let category = HomeCategorySearch(rawValue: sender.tag) else {
+            return
+        }
+        UILoadingIndicator.startLoadingIndicatorIn(view, position: .top)
+        presenter?.searchByCategory(category)
     }
 }
 

@@ -3,13 +3,12 @@
 //  ProductSearch
 //
 //  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Falabella FIF. All rights reserved.
+//  Copyright (c) 2022 Luis Mejías. All rights reserved.
 import Combine
 
 // MARK: - SearchResultInteractor
 final class SearchResultInteractor: SearchResultInteractorProtocol {
 	var repository: SearchResultRepositoryProtocol?
-    weak var delegate: SearchResultInteractorDelegate?
     private var searchTokens = Set<AnyCancellable>()
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>?
 

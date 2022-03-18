@@ -23,7 +23,7 @@ class UILoadingIndicator {
         var yPosition: CGFloat = 0.0
         switch position {
         case .top:
-            yPosition = 120
+            yPosition = 110
         case .center:
             yPosition = view.frame.size.height / 2 - 10
         case .bottom:

@@ -33,4 +33,19 @@ final class HomeInteractor: HomeInteractorProtocol {
                     self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult))
                 }).store(in: &searchTokens)
     }
+    
+    func searchByCategory(_ category: HomeCategorySearch) {
+        repository?.searchCategory(offSet: 0, category: category.stringValue)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped obversing")
+                    case .failure(let error):
+                        self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
+                    }
+                }, receiveValue: { searchResult in
+                    self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult))
+                }).store(in: &searchTokens)
+    }
 }

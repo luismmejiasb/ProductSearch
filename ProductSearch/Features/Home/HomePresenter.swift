@@ -32,6 +32,10 @@ final class HomePresenter: HomePresenterProtocol {
     func presentSearchResult(_ searchResult: SearchResult) {
         router?.presentSearchResult(searchResult)
     }
+
+    func searchByCategory(_ category: HomeCategorySearch) {
+        interactor?.searchByCategory(category)
+    }
 }
 
 // MARK: Interactor publisher subscription
@@ -48,10 +52,16 @@ private extension HomePresenter {
                 }
             }, receiveValue: { [weak self] (result) in
                 switch result {
-                case .itemsSearchedWithSuccess(let searchResults):
+                case .itemsSearchedWithSuccess(let searchResult):
                     self?.view?.endLoadingIndicator()
-                    self?.view?.displaySearchResult(searchResults)
+                    self?.view?.displaySearchResult(searchResult)
                 case .itemsSearchedWithFailure(let error):
+                    self?.view?.endLoadingIndicator()
+                    self?.displayError(error)
+                case .categorySearchedWithSuccess(let searchResult):
+                    self?.view?.endLoadingIndicator()
+                    self?.view?.displaySearchResult(searchResult)
+                case .categorySearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 }
