@@ -13,7 +13,6 @@ class SearchResultUITableViewCell: UITableViewCell {
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productLocationLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
-    @IBOutlet weak var productConditionLabel: UILabel!
     static let reusableIdentifier = "searchResultTableViewCell"
     
     override func awakeFromNib() {
@@ -22,7 +21,7 @@ class SearchResultUITableViewCell: UITableViewCell {
 
     func configureCell(with resultData: Result) {
         productNameLabel.text = resultData.title ?? "Producto sin título"
-        productPriceLabel.text = "$ \(resultData.price ?? 0)"
+        productPriceLabel.text = "\(resultData.price ?? 0) \(resultData.currencyID ?? "$") "
         
         if let city = resultData.sellerAddress?.city?.name,
            let state = resultData.sellerAddress?.state?.name {

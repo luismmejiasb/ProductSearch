@@ -23,7 +23,6 @@ final class SearchResultViewController: UIViewController {
         return filterButton
     }()
     var presenter: SearchResultPresenterProtocol?
-    private var searchText = ""
 
     // MARK: Object lifecycle
     init() {
@@ -85,7 +84,7 @@ extension SearchResultViewController: SearchResultViewProtocol {
         searchResultTableView.reloadData()
         UILoadingIndicator.endLoadingIndicator(view)
     }
-    
+
     func endLoadingIndicator() {
         UILoadingIndicator.endLoadingIndicator(view)
     }
