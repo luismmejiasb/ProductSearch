@@ -27,6 +27,8 @@ protocol ProductDetailViewProtocol: AnyObject {
 // MARK: - Router
 protocol ProductDetailRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
+    
+    func displayAlert(title: String, message: String)
 }
 
 // MARK: - Presenter

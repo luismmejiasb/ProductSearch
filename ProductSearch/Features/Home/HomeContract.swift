@@ -26,7 +26,7 @@ protocol HomeViewProtocol: AnyObject {
     var presenter: HomePresenterProtocol? { get set }
     
     func displaySearchResult(_ searchResults: SearchResult)
-    func displaySearchResultError(_ error: Error)
+    func endLoadingIndicator()
 }
 
 // MARK: - Router
@@ -34,6 +34,7 @@ protocol HomeRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
 
     func presentSearchResult(_ searchResult: SearchResult)
+    func displayAlert(title: String, message: String)
 }
 
 // MARK: - Presenter

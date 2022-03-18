@@ -19,7 +19,8 @@ extension SearchResultViewController: UITableViewDataSource {
               let result: Result = presenter?.searchResult.results?[indexPath.row] else {
             return UITableViewCell()
         }
-
+        cell.contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        cell.layoutIfNeeded()
         cell.configureCell(with: result)
         return cell
     }
@@ -32,6 +33,6 @@ extension SearchResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 118
+        return 94
     }
 }

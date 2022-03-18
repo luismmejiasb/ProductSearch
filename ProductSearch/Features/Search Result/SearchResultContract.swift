@@ -27,7 +27,7 @@ protocol SearchResultViewProtocol: AnyObject {
     
     func displaySearchResult()
     func displayNextOffSetResult(_ nextOffSetResult: SearchResult)
-    func displayNextOffSetResultError(_ error: Error)
+    func endLoadingIndicator()
 }
 
 // MARK: - Router
@@ -37,6 +37,7 @@ protocol SearchResultRouterProtocol: AnyObject {
 
     func presentFilterTypeActionSheet()
     func presentProductDetail(_ result: Result)
+    func displayAlert(title: String, message: String)
 }
 
 // MARK: - Router Delegate

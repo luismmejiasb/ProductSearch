@@ -17,7 +17,10 @@ final class SearchResultViewController: UIViewController {
         }
     }
     @IBOutlet weak var resultCountLabel: UILabel!
-    @IBOutlet weak var filterButton: UIButton!
+    private lazy var filterButton: UIBarButtonItem = {
+        let filterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "filterIcon"), style: .plain, target: self, action: #selector(filterSearchResult))
+        return filterButton
+    }()
     var presenter: SearchResultPresenterProtocol?
     private var searchText = ""
 
@@ -35,6 +38,7 @@ final class SearchResultViewController: UIViewController {
         presenter?.viewDidLoad()
         setUpUI()
     }
+
     @IBAction func filterSearchResult(_ sender: Any) {
         presenter?.presentFilterTypeActionSheet()
     }
@@ -43,13 +47,16 @@ final class SearchResultViewController: UIViewController {
 // MARK: Private functions
 private extension SearchResultViewController {
     func setUpUI() {
-        title = "Resultados para \(searchText)"
+        title = "Resultados para \(presenter?.searchResult.query ?? "")"
+
         if let paging = presenter?.searchResult.paging,
            let totalCount = paging.total {
             resultCountLabel.text = "\(totalCount) \((totalCount != 1) ? "resultados" : "resultado")"
         } else {
             resultCountLabel.text = "Filtra los resultados de tu búsqueda"
         }
+
+        self.navigationItem.setRightBarButtonItems([filterButton], animated: true)
     }
 }
 
@@ -68,8 +75,8 @@ extension SearchResultViewController: SearchResultViewProtocol {
         searchResultTableView.reloadData()
         UILoadingIndicator.endLoadingIndicator(view)
     }
-
-    func displayNextOffSetResultError(_ error: Error) {
-        
+    
+    func endLoadingIndicator() {
+        UILoadingIndicator.endLoadingIndicator(view)
     }
 }

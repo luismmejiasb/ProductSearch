@@ -25,7 +25,7 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
         self.router = router
         self.searchResult = searchResult
     }
-    
+
     func viewDidLoad() {
         registerToInteractorPublisher()
     }
@@ -51,18 +51,32 @@ private extension SearchResultPresenter {
             receiveCompletion: { [weak self] (completion) in
                 switch completion {
                 case .finished:
-                    print("Publisher stopped obversing")
+                    self?.view?.endLoadingIndicator()
                 case .failure(let error):
-                    self?.view?.displayNextOffSetResultError(error)
+                    self?.view?.endLoadingIndicator()
+                    self?.displayError(error)
                 }
             }, receiveValue: { [weak self] (result) in
                 switch result {
                 case .displayNextOffSet(let nextOffSetResults):
+                    self?.view?.endLoadingIndicator()
                     self?.view?.displayNextOffSetResult(nextOffSetResults)
                 case .displayNextOffSetFailed(let error):
-                    self?.view?.displayNextOffSetResultError(error)
+                    self?.view?.endLoadingIndicator()
+                    self?.displayError(error)
                 }
             }).store(in: &searchItemsTokens)
+    }
+
+    private func displayError(_ error: Error) {
+        if let error = error as? HomeCloudDataSourceDefaultError {
+            switch error {
+            case .httpError:
+                router?.displayAlert(title: "Error", message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde.")
+            default:
+                router?.displayAlert(title: "Error en tu busqueda", message: "No pudimos continuar con tu búsqueda. Por favor, intento nuevamente o con otra descripción de tu producto")
+            }
+        }
     }
 }
 

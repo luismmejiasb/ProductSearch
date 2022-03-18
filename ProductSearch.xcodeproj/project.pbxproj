@@ -38,6 +38,8 @@
 		A97AB4B627E3E14200EC300E /* ProductDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB4AB27E3E14200EC300E /* ProductDetailInteractor.swift */; };
 		A97AB4B727E3E14200EC300E /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97AB4AC27E3E14200EC300E /* ProductDetailViewController.xib */; };
 		A97AB4B827E3E14200EC300E /* ProductDetailCloudDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB4AD27E3E14200EC300E /* ProductDetailCloudDataSource.swift */; };
+		A97B513F27E4CA6700029CB5 /* SearchResultViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A97B513E27E4CA6700029CB5 /* SearchResultViewAssets.xcassets */; };
+		A97B514127E4E8E400029CB5 /* UIAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97B514027E4E8E400029CB5 /* UIAsyncImage.swift */; };
 		A980E17E27E114C200A68880 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17D27E114C200A68880 /* AppDelegate.swift */; };
 		A980E18027E114C200A68880 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A980E17F27E114C200A68880 /* SceneDelegate.swift */; };
 		A980E18727E114C400A68880 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A980E18627E114C400A68880 /* Assets.xcassets */; };
@@ -108,6 +110,8 @@
 		A97AB4AB27E3E14200EC300E /* ProductDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailInteractor.swift; sourceTree = "<group>"; };
 		A97AB4AC27E3E14200EC300E /* ProductDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailViewController.xib; sourceTree = "<group>"; };
 		A97AB4AD27E3E14200EC300E /* ProductDetailCloudDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailCloudDataSource.swift; sourceTree = "<group>"; };
+		A97B513E27E4CA6700029CB5 /* SearchResultViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SearchResultViewAssets.xcassets; sourceTree = "<group>"; };
+		A97B514027E4E8E400029CB5 /* UIAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAsyncImage.swift; sourceTree = "<group>"; };
 		A980E17A27E114C200A68880 /* ProductSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProductSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A980E17D27E114C200A68880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A980E17F27E114C200A68880 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 				A97AB47327E3AC7400EC300E /* UILoadingIndicator.swift */,
 				A97AB49B27E3C25000EC300E /* UIColors.swift */,
 				A97AB4A027E3D26C00EC300E /* UIView+Extension.swift */,
+				A97B514027E4E8E400029CB5 /* UIAsyncImage.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -207,11 +212,12 @@
 		A97AB48E27E3ACCC00EC300E /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A97AB49427E3C11B00EC300E /* View */,
 				A97AB47D27E3ACC300EC300E /* SearchResultViewController.swift */,
 				A97AB48027E3ACC300EC300E /* SearchResultViewController.xib */,
-				A97AB49427E3C11B00EC300E /* View */,
 				A97AB49027E3B5D800EC300E /* SearchResultViewController+UITableViewDelegate.swift */,
 				A97AB49227E3B5E800EC300E /* SearchResultViewController+UITableViewDataSource.swift */,
+				A97B513E27E4CA6700029CB5 /* SearchResultViewAssets.xcassets */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -495,6 +501,7 @@
 			files = (
 				A980E18A27E114C400A68880 /* LaunchScreen.storyboard in Resources */,
 				A980E18727E114C400A68880 /* Assets.xcassets in Resources */,
+				A97B513F27E4CA6700029CB5 /* SearchResultViewAssets.xcassets in Resources */,
 				A980E1C227E1168300A68880 /* HomeViewController.xib in Resources */,
 				A97AB49627E3C15100EC300E /* SearchResultUITableViewCell.xib in Resources */,
 				A97AB48B27E3ACC300EC300E /* SearchResultViewController.xib in Resources */,
@@ -535,6 +542,7 @@
 				A980E1BC27E1168300A68880 /* HomePresenter.swift in Sources */,
 				A97AB48527E3ACC300EC300E /* SearchResultPresenter.swift in Sources */,
 				A980E1BB27E1168300A68880 /* HomeContract.swift in Sources */,
+				A97B514127E4E8E400029CB5 /* UIAsyncImage.swift in Sources */,
 				A980E1C127E1168300A68880 /* HomeInteractor.swift in Sources */,
 				A980E1BA27E1168300A68880 /* HomeFactory.swift in Sources */,
 				A97AB4B327E3E14200EC300E /* ProductDetailLocalDataSource.swift in Sources */,

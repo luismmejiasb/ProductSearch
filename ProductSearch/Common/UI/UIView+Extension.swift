@@ -15,11 +15,6 @@ extension UIView {
 
 extension UINavigationController {
     func setUpNavigationController() {
-//        navigationBar.barTintColor = UIColors.normalTintColor
-//        navigationBar.isTranslucent = true
-//        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColors.textColor]
-//        navigationBar.backItem?.titleView?.tintColor = UIColors.darkTintColor
-        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColors.normalTintColor

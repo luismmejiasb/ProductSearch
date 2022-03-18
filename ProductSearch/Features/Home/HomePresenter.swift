@@ -41,17 +41,31 @@ private extension HomePresenter {
             receiveCompletion: { [weak self] (completion) in
                 switch completion {
                 case .finished:
-                    print("Publisher stopped obversing")
+                    self?.view?.endLoadingIndicator()
                 case .failure(let error):
-                    self?.view?.displaySearchResultError(error)
+                    self?.view?.endLoadingIndicator()
+                    self?.displayError(error)
                 }
             }, receiveValue: { [weak self] (result) in
                 switch result {
                 case .itemsSearchedWithSuccess(let searchResults):
+                    self?.view?.endLoadingIndicator()
                     self?.view?.displaySearchResult(searchResults)
                 case .itemsSearchedWithFailure(let error):
-                    self?.view?.displaySearchResultError(error)
+                    self?.view?.endLoadingIndicator()
+                    self?.displayError(error)
                 }
             }).store(in: &searchItemsTokens)
+    }
+    
+    private func displayError(_ error: Error) {
+        if let error = error as? HomeCloudDataSourceDefaultError {
+            switch error {
+            case .httpError:
+                router?.displayAlert(title: "Error", message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde.")
+            default:
+                router?.displayAlert(title: "Error en tu busqueda", message: "No pudimos continuar con tu búsqueda. Por favor, intento nuevamente o con otra descripción de tu producto")
+            }
+        }
     }
 }

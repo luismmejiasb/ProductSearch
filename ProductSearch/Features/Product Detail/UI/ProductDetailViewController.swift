@@ -9,7 +9,9 @@ import UIKit
 
 // MARK: - ProductDetailViewController
 final class ProductDetailViewController: UIViewController {
-    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var conditionLabel: UILabel!
+    @IBOutlet weak var selledAmountLabel: UILabel!
     var presenter: ProductDetailPresenterProtocol?
 
     // MARK: Object lifecycle
@@ -39,6 +41,12 @@ private extension ProductDetailViewController {
 // MARK: ProductDetailViewProtocol
 extension ProductDetailViewController: ProductDetailViewProtocol {
     func displayProductDetail(_ product: Result) {
-        productNameLabel.text = product.title
+        titleLabel.text = product.title
+        conditionLabel.text = product.condition
+        selledAmountLabel.text = product.condition
+        
+        if let availableQuantity = product.availableQuantity {
+            selledAmountLabel.text = "\(availableQuantity) en stock"
+        }
     }
 }

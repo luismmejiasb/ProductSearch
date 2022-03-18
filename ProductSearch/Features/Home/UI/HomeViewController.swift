@@ -50,7 +50,12 @@ extension HomeViewController: HomeViewProtocol {
     }
     
     func displaySearchResultError(_ error: Error) {
+        UILoadingIndicator.endLoadingIndicator(view)
         print(error.localizedDescription)
     }
-    
+
+    func endLoadingIndicator() {
+        UILoadingIndicator.endLoadingIndicator(view)
+    }
+
 }

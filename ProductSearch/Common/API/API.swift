@@ -13,7 +13,7 @@ enum APIURL {
 
     var url: URL {
         guard let uwrappedUrl = URL(string: "https://api.mercadolibre.com/sites/MLC" + path) else {
-            fatalError("The provided URL must be valid")
+            return URL(string: "https://api.mercadolibre.com/sites/MLC")!
         }
         
         return uwrappedUrl
