@@ -19,6 +19,7 @@ final class SearchResultViewController: UIViewController {
     @IBOutlet weak var resultCountLabel: UILabel!
     private lazy var filterButton: UIBarButtonItem = {
         let filterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "filterIcon"), style: .plain, target: self, action: #selector(filterSearchResult))
+        filterButton.isEnabled = (presenter?.searchResult.paging?.total ?? 0) != 0
         return filterButton
     }()
     var presenter: SearchResultPresenterProtocol?
@@ -53,10 +54,11 @@ private extension SearchResultViewController {
            let totalCount = paging.total {
             resultCountLabel.text = "\(totalCount) \((totalCount != 1) ? "resultados" : "resultado")"
         } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             resultCountLabel.text = "Filtra los resultados de tu búsqueda"
         }
 
-        self.navigationItem.setRightBarButtonItems([filterButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([filterButton], animated: false)
     }
 }
 
