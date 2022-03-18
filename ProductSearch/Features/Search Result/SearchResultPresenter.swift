@@ -11,6 +11,8 @@ import Combine
 // MARK: - SearchResultPresenter
 final class SearchResultPresenter: SearchResultPresenterProtocol {
     var searchResult: SearchResult
+    var searchType: SearchType
+    var searchCategory: HomeCategorySearch?
     internal var interactor: SearchResultInteractorProtocol?
     internal var router: SearchResultRouterProtocol?
     internal weak var view: SearchResultViewProtocol?
@@ -20,10 +22,16 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     let pagingLength = 50
 
     // MARK: - Inits
-    init(interactor: SearchResultInteractorProtocol?, router: SearchResultRouterProtocol?, searchResult: SearchResult) {
+    init(interactor: SearchResultInteractorProtocol?,
+         router: SearchResultRouterProtocol?,
+         searchResult: SearchResult,
+         searchType: SearchType,
+         searchCategory: HomeCategorySearch? = nil) {
         self.interactor = interactor
         self.router = router
+        self.searchType = searchType
         self.searchResult = searchResult
+        self.searchCategory = searchCategory
     }
 
     func viewDidLoad() {
@@ -36,7 +44,11 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     
     func fetchNextOffSet() {
         offSet = offSet + pagingLength
-        interactor?.fetchNextOffSet(offSet, searchText: searchText)
+        if searchType == .text {
+            interactor?.fetchNextOffSet(offSet, searchText: searchText)
+        } else {
+            interactor?.fetchNextOffSet(offSet, category: searchCategory?.stringValue ?? "")
+        }
     }
     
     func presentProductDetail(_ result: Result) {
@@ -60,7 +72,7 @@ private extension SearchResultPresenter {
                 switch result {
                 case .displayNextOffSet(let nextOffSetResults):
                     self?.view?.endLoadingIndicator()
-                    self?.view?.displayNextOffSetResult(nextOffSetResults)
+                    self?.view?.displayNextOffSetResult(nextOffSetResults, searchType: self?.searchType ?? .text, searchCategory: self?.searchCategory ?? .vehicule)
                 case .displayNextOffSetFailed(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
@@ -69,7 +81,7 @@ private extension SearchResultPresenter {
     }
 
     private func displayError(_ error: Error) {
-        if let error = error as? HomeCloudDataSourceDefaultError {
+        if let error = error as? CloudDataSourceDefaultError {
             switch error {
             case .httpError:
                 router?.displayAlert(title: "Error", message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde.")

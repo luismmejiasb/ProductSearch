@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "HomePresenter.viewDidLoad():HomePresenter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "interactor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static UILoadingIndicator.endLoadingIndicator(_:):UILoadingIndicator.swift">
          <PersistentStrings>
             <PersistentString
@@ -22,7 +30,13 @@
          contextName = "SearchResultPresenter.fetchNextOffSet():SearchResultPresenter.swift">
          <PersistentStrings>
             <PersistentString
+               value = "searchCategory">
+            </PersistentString>
+            <PersistentString
                value = "offSet">
+            </PersistentString>
+            <PersistentString
+               value = "searchType">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -35,10 +49,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "HomePresenter.viewDidLoad():HomePresenter.swift">
+         contextName = "HomeInteractor.searchByCategory(_:):HomeInteractor.swift">
          <PersistentStrings>
             <PersistentString
-               value = "interactor">
+               value = "category.stringValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SearchResultViewController.displayNextOffSetResult(_:searchType:searchCategory:):SearchResultViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "nextOffSetResult.results">
+            </PersistentString>
+            <PersistentString
+               value = "presenter?.searchResult.results">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

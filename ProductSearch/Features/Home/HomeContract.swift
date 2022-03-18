@@ -26,7 +26,7 @@ protocol HomeInteractorProtocol: AnyObject {
 protocol HomeViewProtocol: AnyObject {
     var presenter: HomePresenterProtocol? { get set }
     
-    func displaySearchResult(_ searchResults: SearchResult)
+    func displaySearchResult(_ searchResults: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
     func endLoadingIndicator()
 }
 
@@ -34,7 +34,7 @@ protocol HomeViewProtocol: AnyObject {
 protocol HomeRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
 
-    func presentSearchResult(_ searchResult: SearchResult)
+    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
     func displayAlert(title: String, message: String)
 }
 
@@ -46,13 +46,13 @@ protocol HomePresenterProtocol: AnyObject {
 
     func viewDidLoad()
     func searchItem(searchText: String)
-    func presentSearchResult(_ searchResult: SearchResult)
     func searchByCategory(_ category: HomeCategorySearch)
+    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
 }
 
 enum HomePublisherResult {
-    case itemsSearchedWithSuccess(SearchResult)
+    case itemsSearchedWithSuccess(searchResult: SearchResult)
     case itemsSearchedWithFailure(Error)
-    case categorySearchedWithSuccess(SearchResult)
+    case categorySearchedWithSuccess(searchResult: SearchResult, searchedCategory: HomeCategorySearch)
     case categorySearchedWithFailure(Error)
 }

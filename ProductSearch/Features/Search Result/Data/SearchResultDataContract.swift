@@ -13,6 +13,8 @@ protocol SearchResultLocalDataSourceProtocol {
 // MARK: - Cloud Data Source
 protocol SearchResultCloudDataSourceProtocol {
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
+    
+    func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
 }
 
 // MARK: - Repository
@@ -21,4 +23,5 @@ protocol SearchResultRepositoryProtocol {
     var cloudDataSource: SearchResultCloudDataSourceProtocol? { get set }
 
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
+    func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
 }

@@ -25,12 +25,12 @@ final class HomeInteractor: HomeInteractorProtocol {
                 receiveCompletion: { completion in
                     switch completion {
                     case .finished:
-                        print("Publisher stopped obversing")
+                        break
                     case .failure(let error):
                         self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in
-                    self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult))
+                    self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult: searchResult))
                 }).store(in: &searchTokens)
     }
     
@@ -40,12 +40,12 @@ final class HomeInteractor: HomeInteractorProtocol {
                 receiveCompletion: { completion in
                     switch completion {
                     case .finished:
-                        print("Publisher stopped obversing")
+                        break
                     case .failure(let error):
-                        self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
+                        self.publisher?.send(HomePublisherResult.categorySearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in
-                    self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult))
+                    self.publisher?.send(HomePublisherResult.categorySearchedWithSuccess(searchResult: searchResult, searchedCategory: category))
                 }).store(in: &searchTokens)
     }
 }

@@ -23,7 +23,7 @@ final class HomeCloudDataSource: HomeCloudDataSourceProtocol {
                         let searchResult = try JSONDecoder().decode(SearchResult.self, from: jsonData)
                         return promise(.success(searchResult))
                     } catch {
-                        return promise(.failure(HomeCloudDataSourceDefaultError.responseCannotBeParsed))
+                        return promise(.failure(CloudDataSourceDefaultError.responseCannotBeParsed))
                     }
                 case .failure(let error):
                     promise(.failure(error))
@@ -43,7 +43,7 @@ final class HomeCloudDataSource: HomeCloudDataSourceProtocol {
                         let searchResult = try JSONDecoder().decode(SearchResult.self, from: jsonData)
                         return promise(.success(searchResult))
                     } catch {
-                        return promise(.failure(HomeCloudDataSourceDefaultError.responseCannotBeParsed))
+                        return promise(.failure(CloudDataSourceDefaultError.responseCannotBeParsed))
                     }
                 case .failure(let error):
                     promise(.failure(error))

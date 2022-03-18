@@ -11,10 +11,12 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
 	var repository: SearchResultRepositoryProtocol?
     private var searchTokens = Set<AnyCancellable>()
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>?
-
+    var searchType: SearchType
+    
     // MARK: - Inits
-    init(repository: SearchResultRepositoryProtocol?) {
+    init(repository: SearchResultRepositoryProtocol?, searchType: SearchType) {
         self.repository = repository
+        self.searchType = searchType
     }
 
     func fetchNextOffSet(_ offSet: Int, searchText: String) {
@@ -23,12 +25,27 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
                 receiveCompletion: { completion in
                     switch completion {
                     case .finished:
-                        print("Publisher stopped obversing")
+                        break
                     case .failure(let error):
                         self.publisher?.send(SearchResultPublisherResult.displayNextOffSetFailed(error))
                     }
                 }, receiveValue: { nextOffSetResult in
-                    self.publisher?.send(SearchResultPublisherResult.displayNextOffSet(nextOffSetResult))
+                    self.publisher?.send(SearchResultPublisherResult.displayNextOffSet(searchResult: nextOffSetResult))
+                }).store(in: &searchTokens)
+    }
+
+    func fetchNextOffSet(_ offSet: Int, category: String) {
+        repository?.searchCategory(offSet: offSet, category: category)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        self.publisher?.send(SearchResultPublisherResult.displayNextOffSetFailed(error))
+                    }
+                }, receiveValue: { nextOffSetResult in
+                    self.publisher?.send(SearchResultPublisherResult.displayNextOffSet(searchResult: nextOffSetResult))
                 }).store(in: &searchTokens)
     }
 }

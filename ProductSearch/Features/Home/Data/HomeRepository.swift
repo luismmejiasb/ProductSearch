@@ -21,7 +21,7 @@ final class HomeRepository: HomeRepositoryProtocol {
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error> {
         guard let cloudDataSource = self.cloudDataSource else {
             return Future { promise in
-                promise(.failure(HomeCloudDataSourceDefaultError.unwrappableValue))
+                promise(.failure(CloudDataSourceDefaultError.unwrappableValue))
             }
         }
 
@@ -31,7 +31,7 @@ final class HomeRepository: HomeRepositoryProtocol {
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
         guard let cloudDataSource = self.cloudDataSource else {
             return Future { promise in
-                promise(.failure(HomeCloudDataSourceDefaultError.unwrappableValue))
+                promise(.failure(CloudDataSourceDefaultError.unwrappableValue))
             }
         }
 

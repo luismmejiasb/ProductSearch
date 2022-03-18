@@ -25,12 +25,12 @@ final class HomePresenter: HomePresenterProtocol {
         registerToInteractorPublisher()
     }
     
+    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch? = nil) {
+        router?.presentSearchResult(searchResult, searchType: searchType, searchCategory: searchCategory)
+    }
+
     func searchItem(searchText: String) {
         interactor?.serachItem(searchText: searchText)
-    }
-    
-    func presentSearchResult(_ searchResult: SearchResult) {
-        router?.presentSearchResult(searchResult)
     }
 
     func searchByCategory(_ category: HomeCategorySearch) {
@@ -54,13 +54,13 @@ private extension HomePresenter {
                 switch result {
                 case .itemsSearchedWithSuccess(let searchResult):
                     self?.view?.endLoadingIndicator()
-                    self?.view?.displaySearchResult(searchResult)
+                    self?.view?.displaySearchResult(searchResult, searchType: .text, searchCategory: nil)
                 case .itemsSearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
-                case .categorySearchedWithSuccess(let searchResult):
+                case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     self?.view?.endLoadingIndicator()
-                    self?.view?.displaySearchResult(searchResult)
+                    self?.view?.displaySearchResult(searchResult, searchType: .category, searchCategory: searchedCategory)
                 case .categorySearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
@@ -69,7 +69,7 @@ private extension HomePresenter {
     }
     
     private func displayError(_ error: Error) {
-        if let error = error as? HomeCloudDataSourceDefaultError {
+        if let error = error as? CloudDataSourceDefaultError {
             switch error {
             case .httpError:
                 router?.displayAlert(title: "Error", message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde.")

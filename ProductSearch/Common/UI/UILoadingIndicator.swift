@@ -16,6 +16,8 @@ class UILoadingIndicator {
     }
 
     static func startLoadingIndicatorIn(_ view: UIView, position: UILoadingIndicatorPosition) {
+        view.isUserInteractionEnabled = false
+
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.color = .black
         spinner.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0.814472628)
@@ -37,6 +39,8 @@ class UILoadingIndicator {
     }
     
     static func endLoadingIndicator(_ view: UIView) {
+        view.isUserInteractionEnabled = true
+
         for subview in view.subviews where subview is UIActivityIndicatorView {
             subview.removeFromSuperview()
         }

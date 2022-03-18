@@ -41,4 +41,15 @@ enum HomeCategorySearch: Int {
             return "MLC1540"
         }
     }
+    
+    var uiTitle: String {
+        switch self {
+        case .vehicule:
+            return "Vehículos"
+        case .realState:
+            return "Inmuebles"
+        case .services:
+            return "Servicios"
+        }
+    }
 }

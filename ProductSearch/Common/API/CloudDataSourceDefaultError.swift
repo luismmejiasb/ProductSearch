@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HomeCloudDataSourceDefaultError: Error {
+enum CloudDataSourceDefaultError: Error {
     case unwrappableValue
     case responseCannotBeParsed
     case httpError(code: Int, message: String)

@@ -10,7 +10,7 @@ import Combine
 
 // MARK: - Factory
 protocol SearchResultFactoryProtocol: AnyObject {
-    static func initialize(homeSearchResult: SearchResult) -> SearchResultViewController
+    static func initialize(homeSearchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) -> SearchResultViewController
 }
 
 // MARK: - Interactor
@@ -19,6 +19,7 @@ protocol SearchResultInteractorProtocol: AnyObject {
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>? { get set }
     
     func fetchNextOffSet(_ offSet: Int, searchText: String)
+    func fetchNextOffSet(_ offSet: Int, category: String)
 }
 
 // MARK: - View
@@ -26,7 +27,7 @@ protocol SearchResultViewProtocol: AnyObject {
     var presenter: SearchResultPresenterProtocol? { get set }
     
     func displaySearchResult()
-    func displayNextOffSetResult(_ nextOffSetResult: SearchResult)
+    func displayNextOffSetResult(_ nextOffSetResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
     func endLoadingIndicator()
 }
 
@@ -52,6 +53,8 @@ protocol SearchResultPresenterProtocol: AnyObject {
     var router: SearchResultRouterProtocol? { get set }
     var view: SearchResultViewProtocol? { get set }
     var searchResult: SearchResult { get set}
+    var searchType: SearchType { get set}
+    var searchCategory: HomeCategorySearch? { get set}
 
     func viewDidLoad()
     func presentFilterTypeActionSheet()
@@ -60,11 +63,16 @@ protocol SearchResultPresenterProtocol: AnyObject {
 }
 
 enum SearchResultPublisherResult {
-    case displayNextOffSet(SearchResult)
+    case displayNextOffSet(searchResult: SearchResult)
     case displayNextOffSetFailed(Error)
 }
 
 enum FilterType {
     case lowestPrice
     case highestPrice
+}
+
+enum SearchType {
+    case text
+    case category
 }

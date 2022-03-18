@@ -52,9 +52,9 @@ private extension HomeViewController {
 
 // MARK: HomeViewProtocol
 extension HomeViewController: HomeViewProtocol {
-    func displaySearchResult(_ searchResult: SearchResult) {
+    func displaySearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
         UILoadingIndicator.endLoadingIndicator(view)
-        presenter?.presentSearchResult(searchResult)
+        presenter?.presentSearchResult(searchResult, searchType: searchType, searchCategory: searchCategory)
     }
     
     func displaySearchResultError(_ error: Error) {

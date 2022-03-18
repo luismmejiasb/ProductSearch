@@ -34,6 +34,3 @@ extension APIURL {
         }
     }
 }
-
-//API.getUsers(pageIndex: 2).url!
-//API.postRegister.url!

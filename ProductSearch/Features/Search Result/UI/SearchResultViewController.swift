@@ -48,7 +48,15 @@ final class SearchResultViewController: UIViewController {
 // MARK: Private functions
 private extension SearchResultViewController {
     func setUpUI() {
-        title = "Resultados para \(presenter?.searchResult.query ?? "")"
+        if presenter?.searchType == .text {
+            title = "Resultados para \(presenter?.searchResult.query ?? "")"
+        } else if presenter?.searchType == .category {
+            guard let category = presenter?.searchCategory else {
+                return
+            }
+
+            title = "Resultados para \(category.uiTitle)"
+        }
 
         if let paging = presenter?.searchResult.paging,
            let totalCount = paging.total {
@@ -68,7 +76,7 @@ extension SearchResultViewController: SearchResultViewProtocol {
         searchResultTableView.reloadData()
     }
 
-    func displayNextOffSetResult(_ nextOffSetResult: SearchResult) {
+    func displayNextOffSetResult(_ nextOffSetResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?){
         guard let searchResults = presenter?.searchResult.results,
               let nextOffSetResults = nextOffSetResult.results else {
             return
