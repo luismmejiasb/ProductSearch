@@ -1,6 +1,6 @@
-#  ProductSearch
+## ProductSearch
 
-Application that uses [Mercado Libre's API](https://developers.mercadolibre.com.ar/es_ar/items-y-busquedas)  web services to have a look at how API REST services can be consumed with VIPER architecture using the Swift programming language. The dependencies are managed with CocoaPods. The information Property List is used to store custom key-values such as API keys and base URLs. The Application is capable to handle the Localization/Internalization behavior.
+Application that uses [Mercado Libre's API](https://developers.mercadolibre.com.ar/es_ar/items-y-busquedas)  web services to have a look at how API REST services can be consumed with VIPER architecture using the Swift programming language. The dependencies are managed with Swift Package Manger. The Application is capable to handle landscape and portrait screen positions.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Platforms](https://img.shields.io/badge/platform-iOS14.5-blue.svg)
