@@ -9,6 +9,14 @@ import UIKit
 
 // MARK: - HomeViewController
 final class HomeViewController: UIViewController {
+    var searchBar: UISearchBar! {
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 70))
+        searchBar.backgroundColor = UIColor.themeRegularColor
+        searchBar.delegate = self
+        searchBar.setValue("Cancelar", forKey: "cancelButtonText")
+        searchBar.placeholder = "Busca en Mercado Libre"
+        return searchBar
+    }
 	var presenter: HomePresenterProtocol?
 
     // MARK: Object lifecycle
@@ -19,26 +27,38 @@ final class HomeViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
        fatalError("Missing presenter")
     }
-}
-
-// MARK: View Life Cycle
-extension HomeViewController {
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpUI()
         presenter?.viewDidLoad()
-        presenter?.testSearch()
+    }
+
+    @IBAction func searchByCategory(_ sender: UIButton) {
+        guard let category = HomeCategorySearch(rawValue: sender.tag) else {
+            return
+        }
+        UILoadingIndicator.startLoadingIndicatorIn(view, position: .top)
+        presenter?.searchByCategory(category)
+    }
+}
+
+// MARK: Private UI functions
+private extension HomeViewController {
+    func setUpUI() {
+        self.navigationItem.titleView = searchBar
     }
 }
 
 // MARK: HomeViewProtocol
 extension HomeViewController: HomeViewProtocol {
-    func displaySearchResults(_ searchResults: [String : Any]) {
-        print(searchResults)
+    func displaySearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
+        UILoadingIndicator.endLoadingIndicator(view)
+        presenter?.presentSearchResult(searchResult, searchType: searchType, searchCategory: searchCategory)
     }
-    
-    func displaySearchResultsError(_ error: Error) {
-        print(error.localizedDescription)
+
+    func endLoadingIndicator() {
+        UILoadingIndicator.endLoadingIndicator(view)
     }
-    
+
 }

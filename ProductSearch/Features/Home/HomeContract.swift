@@ -19,19 +19,23 @@ protocol HomeInteractorProtocol: AnyObject {
     var publisher: PassthroughSubject<HomePublisherResult, Error>? { get set }
     
     func serachItem(searchText: String)
+    func searchByCategory(_ category: HomeCategorySearch)
 }
 
 // MARK: - View
 protocol HomeViewProtocol: AnyObject {
     var presenter: HomePresenterProtocol? { get set }
     
-    func displaySearchResults(_ searchResults: [String:Any])
-    func displaySearchResultsError(_ error: Error)
+    func displaySearchResult(_ searchResults: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func endLoadingIndicator()
 }
 
 // MARK: - Router
 protocol HomeRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
+
+    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func displayAlert(title: String, message: String)
 }
 
 // MARK: - Presenter
@@ -41,10 +45,14 @@ protocol HomePresenterProtocol: AnyObject {
     var view: HomeViewProtocol? { get set }
 
     func viewDidLoad()
-    func testSearch()
+    func searchItem(searchText: String)
+    func searchByCategory(_ category: HomeCategorySearch)
+    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
 }
 
 enum HomePublisherResult {
-    case itemsSearchedWithSuccess([String:Any])
+    case itemsSearchedWithSuccess(searchResult: SearchResult)
     case itemsSearchedWithFailure(Error)
+    case categorySearchedWithSuccess(searchResult: SearchResult, searchedCategory: HomeCategorySearch)
+    case categorySearchedWithFailure(Error)
 }
