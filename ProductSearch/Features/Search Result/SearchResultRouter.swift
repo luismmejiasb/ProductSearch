@@ -15,22 +15,20 @@ final class SearchResultRouter: SearchResultRouterProtocol {
     func presentFilterTypeActionSheet() {
         let alert = UIAlertController(title: "Filtrar contenido", message: "Elige la forma en la que te gustaria filtrar tu búsqueda", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Menor precio", style: .default , handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: "Menor precio", style: .default , handler:{ (UIAlertAction) in
             self.delegate?.didSelectFilter(.lowestPrice)
         }))
 
-        alert.addAction(UIAlertAction(title: "Mayor precio", style: .default , handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: "Mayor precio", style: .default , handler:{ (UIAlertAction) in
             self.delegate?.didSelectFilter(.highestPrice)
         }))
 
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler:{ (UIAlertAction)in
-            print("User click Dismiss button")
-        }))     
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler:{ (UIAlertAction) in }))
 
         alert.popoverPresentationController?.sourceView = self.view?.view ?? UIView()
 
         view?.present(alert, animated: true, completion: {
-            // We can add a tag here if we want to track how many times is being this feature presented
+            // We can add a tag here if we want to track how many times is being the Filter actionSheet presented
         })
     }
     

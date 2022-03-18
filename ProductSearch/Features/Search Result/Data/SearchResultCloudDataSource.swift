@@ -32,7 +32,6 @@ final class SearchResultCloudDataSource: SearchResultCloudDataSourceProtocol {
     
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
         return Future { promise in
-            print(APIURL.searchByCategory(offSet: offSet, category: category).url.absoluteString)
             AF.request(APIURL.searchByCategory(offSet: offSet, category: category).url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { response in
                 switch response.result {
                 case .success(let response):

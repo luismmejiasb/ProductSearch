@@ -19,7 +19,7 @@ class UILoadingIndicator {
         view.isUserInteractionEnabled = false
 
         let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.color = .black
+        spinner.color = UIColor.primaryActionColor
         spinner.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0.814472628)
         
         var yPosition: CGFloat = 0.0

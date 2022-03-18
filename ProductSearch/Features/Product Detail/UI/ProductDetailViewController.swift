@@ -15,7 +15,7 @@ final class ProductDetailViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = UIColors.whiteColor
+        scrollView.backgroundColor = UIColor.whiteColor
         scrollView.alwaysBounceHorizontal = false
         scrollView.alwaysBounceVertical = true
         scrollView.showsVerticalScrollIndicator = false
@@ -93,9 +93,10 @@ extension ProductDetailViewController: ProductDetailViewProtocol {
     func displayProductDetail(_ product: Result) {
         if let productImageURL = product.thumbnail {
             productImageView.imageFromServerURL(productImageURL, placeHolder: #imageLiteral(resourceName: "productPlaceholderIcon"))
-            self.infoView = InfoView(product: product)
-            self.infoView.translatesAutoresizingMaskIntoConstraints = false
-            scrollView.addSubview(infoView)
         }
+
+        self.infoView = InfoView(product: product)
+        self.infoView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(infoView)
     }
 }

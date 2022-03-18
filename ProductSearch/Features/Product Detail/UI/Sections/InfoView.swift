@@ -24,7 +24,7 @@ class InfoView: UIView {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         titleLabel.textColor = .darkGray
         titleLabel.numberOfLines = 0
         titleLabel.text = product?.title ?? "Producto sin título"
@@ -78,7 +78,7 @@ class InfoView: UIView {
         let buyButton = UIButton(type: .system)
         buyButton.translatesAutoresizingMaskIntoConstraints = false
         buyButton.tintColor = UIColor.white
-        buyButton.backgroundColor = UIColors.primaryActionColor
+        buyButton.backgroundColor = UIColor.primaryActionColor
         buyButton.setTitle("Comprar", for: .normal)
         buyButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         buyButton.layer.cornerRadius = 5

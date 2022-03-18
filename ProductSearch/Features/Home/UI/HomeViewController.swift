@@ -11,7 +11,7 @@ import UIKit
 final class HomeViewController: UIViewController {
     var searchBar: UISearchBar! {
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 70))
-        searchBar.backgroundColor = UIColors.themeRegularColor
+        searchBar.backgroundColor = UIColor.themeRegularColor
         searchBar.delegate = self
         searchBar.setValue("Cancelar", forKey: "cancelButtonText")
         searchBar.placeholder = "Busca en Mercado Libre"
@@ -59,7 +59,7 @@ extension HomeViewController: HomeViewProtocol {
     
     func displaySearchResultError(_ error: Error) {
         UILoadingIndicator.endLoadingIndicator(view)
-        print(error.localizedDescription)
+        presenter?.
     }
 
     func endLoadingIndicator() {

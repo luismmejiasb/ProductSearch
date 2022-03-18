@@ -20,6 +20,8 @@ class SearchResultUITableViewCell: UITableViewCell {
     }
 
     func configureCell(with resultData: Result) {
+        self.selectionStyle = .none
+
         productNameLabel.text = resultData.title ?? "Producto sin título"
         productPriceLabel.text = "\(resultData.price ?? 0) \(resultData.currencyID ?? "$") "
         
