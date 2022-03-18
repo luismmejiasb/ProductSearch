@@ -51,7 +51,7 @@ private extension SearchResultViewController {
         title = "Resultados para \(searchText)"
         if let paging = searchResult?.paging,
            let totalCount = paging.total {
-            resultCountLabel.text = "\(totalCount) resultados"
+            resultCountLabel.text = "\(totalCount) \((totalCount != 1) ? "resultados" : "resultado")"
         } else {
             resultCountLabel.text = "Filtra los resultados de tu búsqueda"
         }
@@ -72,6 +72,7 @@ extension SearchResultViewController: SearchResultViewProtocol {
         }
         self.searchResult?.results = searchResults + nextOffSetResults
         searchResultTableView.reloadData()
+        UILoadingIndicator.endLoadingIndicator(view)
     }
 
     func displayNextOffSetResultError(_ error: Error) {

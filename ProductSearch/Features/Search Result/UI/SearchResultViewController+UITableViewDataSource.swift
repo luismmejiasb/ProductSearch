@@ -26,6 +26,7 @@ extension SearchResultViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == searchResult?.results?.count {
+            UILoadingIndicator.startLoadingIndicatorIn(view ?? UIView(), position: .bottom)
             presenter?.fetchNextOffSet()
         }
     }

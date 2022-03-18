@@ -9,7 +9,14 @@ import UIKit
 
 // MARK: - HomeViewController
 final class HomeViewController: UIViewController {
-    @IBOutlet private weak var searchBar: UISearchBar!
+    var searchBar: UISearchBar! {
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 70))
+        searchBar.backgroundColor = UIColors.normalTintColor
+        searchBar.delegate = self
+        searchBar.setValue("Cancelar", forKey: "cancelButtonText")
+        searchBar.placeholder = "Nombre de producto"
+        return searchBar
+    }
 	var presenter: HomePresenterProtocol?
 
     // MARK: Object lifecycle
@@ -26,22 +33,26 @@ final class HomeViewController: UIViewController {
         
         setUpUI()
         presenter?.viewDidLoad()
-        searchBar.searchTextField.text = "iPhone"
     }
 }
 
 // MARK: Private UI functions
 private extension HomeViewController {
     func setUpUI() {
-        searchBar.delegate = self
-        searchBar.setValue("Buscar", forKey: "cancelButtonText")
-        searchBar.placeholder = "Nombre de producto"
+        self.navigationItem.titleView = searchBar
+        for textField in searchBar.subviews.first!.subviews where textField is UITextField {
+            textField.subviews.first?.backgroundColor = .white
+            textField.subviews.first?.layer.cornerRadius = 10.5 //I set 10.5 because is approximately the system value
+            textField.subviews.first?.layer.masksToBounds = true
+            //Continue changing more properties...
+        }
     }
 }
 
 // MARK: HomeViewProtocol
 extension HomeViewController: HomeViewProtocol {
     func displaySearchResult(_ searchResult: SearchResult) {
+        UILoadingIndicator.endLoadingIndicator(view)
         presenter?.presentSearchResult(searchResult)
     }
     

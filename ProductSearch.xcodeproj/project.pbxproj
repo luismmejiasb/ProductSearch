@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A927DA7A27E425E200BF6B0C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A927DA7927E425E200BF6B0C /* Alamofire */; };
 		A97AB47227E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */; };
 		A97AB47427E3AC7400EC300E /* UILoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47327E3AC7400EC300E /* UILoadingIndicator.swift */; };
 		A97AB48227E3ACC300EC300E /* SearchResultDataContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47727E3ACC300EC300E /* SearchResultDataContract.swift */; };
@@ -25,7 +26,6 @@
 		A97AB49627E3C15100EC300E /* SearchResultUITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97AB49527E3C15100EC300E /* SearchResultUITableViewCell.xib */; };
 		A97AB49A27E3C16D00EC300E /* SearchResultUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB49927E3C16D00EC300E /* SearchResultUITableViewCell.swift */; };
 		A97AB49C27E3C25000EC300E /* UIColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB49B27E3C25000EC300E /* UIColors.swift */; };
-		A97AB49F27E3CE2100EC300E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A97AB49E27E3CE2100EC300E /* Alamofire */; };
 		A97AB4A127E3D26C00EC300E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB4A027E3D26C00EC300E /* UIView+Extension.swift */; };
 		A97AB4AE27E3E14200EC300E /* ProductDetailDataContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB4A327E3E14200EC300E /* ProductDetailDataContract.swift */; };
 		A97AB4AF27E3E14200EC300E /* ProductDetailFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB4A427E3E14200EC300E /* ProductDetailFactory.swift */; };
@@ -141,7 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A97AB49F27E3CE2100EC300E /* Alamofire in Frameworks */,
+				A927DA7A27E425E200BF6B0C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +401,7 @@
 			);
 			name = ProductSearch;
 			packageProductDependencies = (
-				A97AB49E27E3CE2100EC300E /* Alamofire */,
+				A927DA7927E425E200BF6B0C /* Alamofire */,
 			);
 			productName = ProductSearch;
 			productReference = A980E17A27E114C200A68880 /* ProductSearch.app */;
@@ -475,7 +475,7 @@
 			);
 			mainGroup = A980E17127E114C200A68880;
 			packageReferences = (
-				A97AB49D27E3CE2100EC300E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A927DA7827E425E200BF6B0C /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = A980E17B27E114C200A68880 /* Products */;
 			projectDirPath = "";
@@ -885,7 +885,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A97AB49D27E3CE2100EC300E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		A927DA7827E425E200BF6B0C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -896,9 +896,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A97AB49E27E3CE2100EC300E /* Alamofire */ = {
+		A927DA7927E425E200BF6B0C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A97AB49D27E3CE2100EC300E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = A927DA7827E425E200BF6B0C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

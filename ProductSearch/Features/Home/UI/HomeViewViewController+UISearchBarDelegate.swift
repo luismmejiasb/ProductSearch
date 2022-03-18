@@ -24,6 +24,8 @@ extension HomeViewController: UISearchBarDelegate {
         guard let searchBarText = searchBar.text else {
             return
         }
+        UILoadingIndicator.startLoadingIndicatorIn(view, position: .top)
+        
         searchBar.resignFirstResponder()
         presenter?.searchItem(searchText: searchBarText)
     }

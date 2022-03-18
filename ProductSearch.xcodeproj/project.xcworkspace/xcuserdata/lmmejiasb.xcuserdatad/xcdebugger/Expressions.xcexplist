@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "static UILoadingIndicator.endLoadingIndicator(_:):UILoadingIndicator.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "view.subviews">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in HomeCloudDataSource.searchItem(searchText:):HomeCloudDataSource.swift">
          <PersistentStrings>
             <PersistentString
