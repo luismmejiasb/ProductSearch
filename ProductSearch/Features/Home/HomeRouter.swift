@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - HomeRouter
 final class HomeRouter: HomeRouterProtocol {
-    weak var view: UIViewController?
+    weak var view: HomeViewControllerProtocol?
 
     func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
         let searchResultViewController = SearchResultFactory.initialize(homeSearchResult: searchResult, searchType: searchType, searchCategory: searchCategory)

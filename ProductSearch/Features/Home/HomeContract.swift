@@ -32,7 +32,7 @@ protocol HomeViewProtocol: AnyObject {
 
 // MARK: - Router
 protocol HomeRouterProtocol: AnyObject {
-    var view: UIViewController? { get set }
+    var view: HomeViewControllerProtocol? { get set }
 
     func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
     func displayAlert(title: String, message: String)
@@ -42,7 +42,7 @@ protocol HomeRouterProtocol: AnyObject {
 protocol HomePresenterProtocol: AnyObject {
     var interactor: HomeInteractorProtocol? { get set }
     var router: HomeRouterProtocol? { get set }
-    var view: HomeViewProtocol? { get set }
+    var view: HomeViewControllerProtocol? { get set }
 
     func viewDidLoad()
     func searchItem(searchText: String)
@@ -56,3 +56,5 @@ enum HomePublisherResult {
     case categorySearchedWithSuccess(searchResult: SearchResult, searchedCategory: HomeCategorySearch)
     case categorySearchedWithFailure(Error)
 }
+
+typealias HomeViewControllerProtocol = HomeViewProtocol & UIViewController

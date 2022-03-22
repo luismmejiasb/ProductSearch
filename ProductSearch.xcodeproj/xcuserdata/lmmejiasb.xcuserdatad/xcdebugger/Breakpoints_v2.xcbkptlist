@@ -516,5 +516,320 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6456A600-880A-40A5-9F7A-C745CA8DF31A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearch/Features/Home/HomeInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "searchByCategory(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "00E30F0D-CF4F-4A76-99C1-C63153BA3AB1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearch/Features/Home/HomeInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "searchByCategory(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "632D63E0-26B8-4D67-8175-AF3E46CE19B3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanInteractorMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "serachItem(searchText:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7DC3B3DB-263D-4954-A83E-2FFC8E4FB1A6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanInteractorMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "serachItem(searchText:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "681BE848-3500-4969-AC8F-A38EBAFBF0CD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanInteractorMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "serachItem(searchText:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF5AB1F1-AB37-4BFF-9C82-ECFF64C8236D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanInteractorMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "searchByCategory(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9A6AAFF9-FF7A-40B5-8468-FF68B01B9213"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanInteractorMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "searchByCategory(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "168D4620-B7AC-4FBA-8FD7-5BA7BB79BF1A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanInteractorMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "searchByCategory(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "07FE8432-CFEC-46AF-94C3-C2A3AE06590D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Tests/HomeInteractorTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "testSerachItemWithFailure()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C6E448C-2EAC-4820-B9CB-61BC4B7DBC78"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Tests/HomeInteractorTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "testSearchByCategoryWithFailure()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F2CF76FC-9859-467C-9958-AB786749ECC6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanViewMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "displaySearchResult(_:searchType:searchCategory:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73E770A1-2195-4F07-8448-5EF5C9201A0F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Mocks/FIFPaymentPlanViewMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "endLoadingIndicator()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "812EC389-F861-4F1A-B5B3-1D989465A430"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductSearchTests/Tests/HomeRepositoryTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "HomeRepositoryTests"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "812EC389-F861-4F1A-B5B3-1D989465A430 - 185c3ec33f98faaa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProductSearchTests.HomeRepositoryTests.searchTokens.getter : Swift.Set&lt;Combine.AnyCancellable&gt;"
+                  moduleName = "ProductSearchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lmmejiasb/Documents/Dev/iOS/Other/ProductSearch/ProductSearchTests/Tests/HomeRepositoryTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  uuid = "812EC389-F861-4F1A-B5B3-1D989465A430 - b66d4a70681686de"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProductSearchTests.HomeRepositoryTests.searchTokens.setter : Swift.Set&lt;Combine.AnyCancellable&gt;"
+                  moduleName = "ProductSearchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lmmejiasb/Documents/Dev/iOS/Other/ProductSearch/ProductSearchTests/Tests/HomeRepositoryTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "812EC389-F861-4F1A-B5B3-1D989465A430 - 94e5ca0a149a6e5d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProductSearchTests.HomeRepositoryTests.searchTokens.modify : Swift.Set&lt;Combine.AnyCancellable&gt;"
+                  moduleName = "ProductSearchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lmmejiasb/Documents/Dev/iOS/Other/ProductSearch/ProductSearchTests/Tests/HomeRepositoryTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  uuid = "812EC389-F861-4F1A-B5B3-1D989465A430 - 1b3acb466b3dd35b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProductSearchTests.HomeRepositoryTests.searchTokens.modify : Swift.Set&lt;Combine.AnyCancellable&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "ProductSearchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lmmejiasb/Documents/Dev/iOS/Other/ProductSearch/ProductSearchTests/Tests/HomeRepositoryTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "812EC389-F861-4F1A-B5B3-1D989465A430 - 810245f3b47f71cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProductSearchTests.HomeRepositoryTests.init(invocation: Swift.Optional&lt;__C.NSInvocation&gt;) -&gt; ProductSearchTests.HomeRepositoryTests"
+                  moduleName = "ProductSearchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lmmejiasb/Documents/Dev/iOS/Other/ProductSearch/ProductSearchTests/Tests/HomeRepositoryTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "63">
+               </Location>
+               <Location
+                  uuid = "812EC389-F861-4F1A-B5B3-1D989465A430 - f26a531cf67ce46d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProductSearchTests.HomeRepositoryTests.init(selector: ObjectiveC.Selector) -&gt; ProductSearchTests.HomeRepositoryTests"
+                  moduleName = "ProductSearchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lmmejiasb/Documents/Dev/iOS/Other/ProductSearch/ProductSearchTests/Tests/HomeRepositoryTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "63">
+               </Location>
+               <Location
+                  uuid = "812EC389-F861-4F1A-B5B3-1D989465A430 - 16e60146818fe40"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProductSearchTests.HomeRepositoryTests.init() -&gt; ProductSearchTests.HomeRepositoryTests"
+                  moduleName = "ProductSearchTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lmmejiasb/Documents/Dev/iOS/Other/ProductSearch/ProductSearchTests/Tests/HomeRepositoryTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "47">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

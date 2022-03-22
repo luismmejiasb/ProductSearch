@@ -54,6 +54,20 @@
             <PersistentString
                value = "category.stringValue">
             </PersistentString>
+            <PersistentString
+               value = "self.publisher">
+            </PersistentString>
+            <PersistentString
+               value = "self.repository">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in HomeInteractor.searchByCategory(_:):HomeInteractor.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.publisher">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState

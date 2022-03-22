@@ -2,10 +2,11 @@
 //  ProductSearchTests.swift
 //  ProductSearchTests
 //
-//  Created by Luis Mejias on 15-03-22.
+//  Created by Luis Mejias on 22-03-22.
 //
 
 import XCTest
+@testable import ProductSearch
 @testable import ProductSearch
 
 class ProductSearchTests: XCTestCase {
