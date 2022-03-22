@@ -12,7 +12,7 @@ import Combine
 final class HomePresenter: HomePresenterProtocol {
     internal var interactor: HomeInteractorProtocol?
     internal var router: HomeRouterProtocol?
-    internal weak var view: HomeViewProtocol?
+    internal weak var view: HomeViewControllerProtocol?
     private var searchItemsTokens = Set<AnyCancellable>()
 
     // MARK: - Inits

@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A91106C827EA41C900B5A2C1 /* TransactionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106C727EA41C900B5A2C1 /* TransactionResult.swift */; };
+		A91106E227EA458200B5A2C1 /* HomePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106DA27EA458200B5A2C1 /* HomePresenterTests.swift */; };
+		A91106E427EA458200B5A2C1 /* HomeInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106DC27EA458200B5A2C1 /* HomeInteractorTests.swift */; };
+		A91106E527EA458200B5A2C1 /* HomeFactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106DD27EA458200B5A2C1 /* HomeFactoryTest.swift */; };
+		A91106E727EA458200B5A2C1 /* HomeRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106DF27EA458200B5A2C1 /* HomeRepositoryTests.swift */; };
+		A91106EF27EA45B700B5A2C1 /* HomeRouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106E927EA45B700B5A2C1 /* HomeRouterMock.swift */; };
+		A91106F127EA45B700B5A2C1 /* HomePresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106EB27EA45B700B5A2C1 /* HomePresenterMock.swift */; };
+		A91106F327EA45B700B5A2C1 /* HomeViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106ED27EA45B700B5A2C1 /* HomeViewMock.swift */; };
+		A91106F427EA45B700B5A2C1 /* HomeInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106EE27EA45B700B5A2C1 /* HomeInteractorMock.swift */; };
+		A91106FA27EA45DB00B5A2C1 /* HomeRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106F627EA45DA00B5A2C1 /* HomeRepositoryMock.swift */; };
+		A91106FB27EA45DB00B5A2C1 /* HomeCloudDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106F727EA45DA00B5A2C1 /* HomeCloudDataSourceMock.swift */; };
+		A91106FC27EA45DB00B5A2C1 /* HomeLocalDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106F827EA45DB00B5A2C1 /* HomeLocalDataSourceMock.swift */; };
+		A91106FD27EA45DB00B5A2C1 /* HomePlanDataMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91106F927EA45DB00B5A2C1 /* HomePlanDataMocks.swift */; };
 		A927DA7A27E425E200BF6B0C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A927DA7927E425E200BF6B0C /* Alamofire */; };
 		A97AB47227E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */; };
 		A97AB47427E3AC7400EC300E /* UILoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AB47327E3AC7400EC300E /* UILoadingIndicator.swift */; };
@@ -81,6 +94,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A91106C727EA41C900B5A2C1 /* TransactionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionResult.swift; sourceTree = "<group>"; };
+		A91106DA27EA458200B5A2C1 /* HomePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePresenterTests.swift; sourceTree = "<group>"; };
+		A91106DC27EA458200B5A2C1 /* HomeInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractorTests.swift; sourceTree = "<group>"; };
+		A91106DD27EA458200B5A2C1 /* HomeFactoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFactoryTest.swift; sourceTree = "<group>"; };
+		A91106DF27EA458200B5A2C1 /* HomeRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRepositoryTests.swift; sourceTree = "<group>"; };
+		A91106E927EA45B700B5A2C1 /* HomeRouterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRouterMock.swift; sourceTree = "<group>"; };
+		A91106EB27EA45B700B5A2C1 /* HomePresenterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePresenterMock.swift; sourceTree = "<group>"; };
+		A91106ED27EA45B700B5A2C1 /* HomeViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewMock.swift; sourceTree = "<group>"; };
+		A91106EE27EA45B700B5A2C1 /* HomeInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractorMock.swift; sourceTree = "<group>"; };
+		A91106F627EA45DA00B5A2C1 /* HomeRepositoryMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRepositoryMock.swift; sourceTree = "<group>"; };
+		A91106F727EA45DA00B5A2C1 /* HomeCloudDataSourceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCloudDataSourceMock.swift; sourceTree = "<group>"; };
+		A91106F827EA45DB00B5A2C1 /* HomeLocalDataSourceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeLocalDataSourceMock.swift; sourceTree = "<group>"; };
+		A91106F927EA45DB00B5A2C1 /* HomePlanDataMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePlanDataMocks.swift; sourceTree = "<group>"; };
 		A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewViewController+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
 		A97AB47327E3AC7400EC300E /* UILoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILoadingIndicator.swift; sourceTree = "<group>"; };
 		A97AB47727E3ACC300EC300E /* SearchResultDataContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDataContract.swift; sourceTree = "<group>"; };
@@ -168,6 +194,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A91106C427EA41AB00B5A2C1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A91106C727EA41C900B5A2C1 /* TransactionResult.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A91106C527EA41B300B5A2C1 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A91106DD27EA458200B5A2C1 /* HomeFactoryTest.swift */,
+				A91106DC27EA458200B5A2C1 /* HomeInteractorTests.swift */,
+				A91106DA27EA458200B5A2C1 /* HomePresenterTests.swift */,
+				A91106DF27EA458200B5A2C1 /* HomeRepositoryTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		A91106C627EA41B700B5A2C1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A91106F527EA45BB00B5A2C1 /* Data */,
+				A91106EE27EA45B700B5A2C1 /* HomeInteractorMock.swift */,
+				A91106EB27EA45B700B5A2C1 /* HomePresenterMock.swift */,
+				A91106E927EA45B700B5A2C1 /* HomeRouterMock.swift */,
+				A91106ED27EA45B700B5A2C1 /* HomeViewMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A91106F527EA45BB00B5A2C1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A91106F927EA45DB00B5A2C1 /* HomePlanDataMocks.swift */,
+				A91106F627EA45DA00B5A2C1 /* HomeRepositoryMock.swift */,
+				A91106F727EA45DA00B5A2C1 /* HomeCloudDataSourceMock.swift */,
+				A91106F827EA45DB00B5A2C1 /* HomeLocalDataSourceMock.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		A97AB47027E390F100EC300E /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +389,9 @@
 		A980E19327E114C400A68880 /* ProductSearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				A91106C627EA41B700B5A2C1 /* Mocks */,
+				A91106C527EA41B300B5A2C1 /* Tests */,
+				A91106C427EA41AB00B5A2C1 /* Common */,
 				A980E19427E114C400A68880 /* ProductSearchTests.swift */,
 				A980E19627E114C400A68880 /* Info.plist */,
 			);
@@ -592,7 +663,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A91106F427EA45B700B5A2C1 /* HomeInteractorMock.swift in Sources */,
+				A91106EF27EA45B700B5A2C1 /* HomeRouterMock.swift in Sources */,
+				A91106E527EA458200B5A2C1 /* HomeFactoryTest.swift in Sources */,
 				A980E19527E114C400A68880 /* ProductSearchTests.swift in Sources */,
+				A91106C827EA41C900B5A2C1 /* TransactionResult.swift in Sources */,
+				A91106F327EA45B700B5A2C1 /* HomeViewMock.swift in Sources */,
+				A91106FB27EA45DB00B5A2C1 /* HomeCloudDataSourceMock.swift in Sources */,
+				A91106FD27EA45DB00B5A2C1 /* HomePlanDataMocks.swift in Sources */,
+				A91106E227EA458200B5A2C1 /* HomePresenterTests.swift in Sources */,
+				A91106E427EA458200B5A2C1 /* HomeInteractorTests.swift in Sources */,
+				A91106E727EA458200B5A2C1 /* HomeRepositoryTests.swift in Sources */,
+				A91106F127EA45B700B5A2C1 /* HomePresenterMock.swift in Sources */,
+				A91106FA27EA45DB00B5A2C1 /* HomeRepositoryMock.swift in Sources */,
+				A91106FC27EA45DB00B5A2C1 /* HomeLocalDataSourceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,7 +844,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = luismejias.ios.dev.ProductSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -779,7 +863,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = luismejias.ios.dev.ProductSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

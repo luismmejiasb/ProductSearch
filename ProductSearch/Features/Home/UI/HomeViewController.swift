@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - HomeViewController
-final class HomeViewController: UIViewController {
+final class HomeViewController: HomeViewControllerProtocol {
     var searchBar: UISearchBar! {
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 70))
         searchBar.backgroundColor = UIColor.themeRegularColor
@@ -51,7 +51,7 @@ private extension HomeViewController {
 }
 
 // MARK: HomeViewProtocol
-extension HomeViewController: HomeViewProtocol {
+extension HomeViewController {
     func displaySearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
         UILoadingIndicator.endLoadingIndicator(view)
         presenter?.presentSearchResult(searchResult, searchType: searchType, searchCategory: searchCategory)
