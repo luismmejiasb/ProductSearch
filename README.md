@@ -2,7 +2,7 @@
 
 Application that uses [Mercado Libre's API](https://developers.mercadolibre.com.ar/es_ar/items-y-busquedas)  web services to have a look at how API REST services can be consumed with VIPER architecture using the Swift programming language. The dependencies are managed with Swift Package Manger. The Application is capable to handle landscape and portrait screen positions.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)
 ![Platforms](https://img.shields.io/badge/platform-iOS14.5-blue.svg)
 ![Swift version](https://img.shields.io/badge/swift-5-blue.svg)
 
@@ -14,13 +14,13 @@ Application that uses [Mercado Libre's API](https://developers.mercadolibre.com.
 * Xcode 12+
 * iOS 14+
 
-## 3. Versioning
+## 2. Versioning
 
 [SemVer](http://semver.org/) 
 
-## 5. Implementations
+## 2. Implementations
 
-## a) Viper Architecture
+### a) Viper Architecture
 
 ### Module Components
 
@@ -45,22 +45,31 @@ The dependence graph is unidirectional, which means:
 
 Note: Viper is like an onion. The outer layers are dependent on the closest inner layer. And the inner layers have no knowledge of the outer layers. 
 
+### b) Unit Testing
 
-## b) Unit Testing
+Testing main VIPER layer:
+- Presenter
+- Interactor
+- Repository
+- Factory
 
-Unffortunilly due to time issues, I couldn't develop for this version The Unit Test. But you can have a look at here for an example: [Unit Tests Example](https://github.com/luismmejiasb/ArtistSearch/blob/master/ArtistSearchTests/ArtistSearch/Tests/ArtistSearchPresenterTests.swift)
 
-
-## c) Delegation
+### c) Delegation
 
 Delegation is a simple and powerful pattern in which one object in a program acts on behalf of, or in coordination with, another object. Due to that is a pattern created and largely used by apple, we can see it in all the UI components that uses it, like:
 - SearchResultRouterDelegate
 - UITableViewDelegate
 - UISearchBarDelegate
 
-## e) Singleton
+### d) Singleton
 
 Singleton is a design pattern that ensures that only one object of its type exists and provides a single point of access to it for any other code. We can find this implementation in:
 - UILoadingIndicator.startLoadingIndicatorIn(view, position: .top)
 
+### e) Combine
 
+Making use of the Apple's reactive framework for the Data layer
+
+### f) Repository Pattern
+
+Used to better separate the data layer logic and responsibilities
