@@ -7,5 +7,5 @@
 //
 
 // MARK: - ProductDetailCloudDataSource
-
-final class ProductDetailCloudDataSource: ProductDetailCloudDataSourceProtocol {}
+final class ProductDetailCloudDataSource: ProductDetailCloudDataSourceProtocol {
+}

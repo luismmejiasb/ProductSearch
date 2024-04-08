@@ -4,11 +4,12 @@
 //  Created by Luis Mejias on 22-03-22.
 //
 
+import XCTest
 @testable import ProductSearch
 import UIKit
-import XCTest
 
 class HomeFactoryTest: XCTestCase {
+    
     func testInitializeModule() {
         XCTAssertNotNil(HomeFactory.initialize())
     }

@@ -6,18 +6,18 @@
 //
 
 import Foundation
-@testable import ProductSearch
 import UIKit
+@testable import ProductSearch
 
 class HomeRouterMock: HomeRouterProtocol {
     var view: HomeViewControllerProtocol?
     var functionsCalled = [String]()
-
-    func presentSearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch?) {
+    
+    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
         functionsCalled.append(#function)
     }
-
-    func displayAlert(title _: String, message _: String) {
+    
+    func displayAlert(title: String, message: String) {
         functionsCalled.append(#function)
     }
 }

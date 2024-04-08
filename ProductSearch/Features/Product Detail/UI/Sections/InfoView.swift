@@ -10,9 +10,8 @@ import UIKit
 
 class InfoView: UIView {
     var product: Result?
-
+    
     // MARK: Views
-
     private lazy var conditionLabel: UILabel = {
         let conditionLabel = UILabel()
         conditionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +20,7 @@ class InfoView: UIView {
         conditionLabel.text = "Estado: \((product?.condition ?? "NA").capitalized) - \(product?.availableQuantity ?? 0) en Stock"
         return conditionLabel
     }()
-
+    
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -31,17 +30,18 @@ class InfoView: UIView {
         titleLabel.text = product?.title ?? "Producto sin título"
         return titleLabel
     }()
-
+    
     private lazy var priceLabel: UILabel = {
         let priceLabel = UILabel()
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         priceLabel.textColor = .black
-
+        
+        
         priceLabel.text = "\(product?.price ?? 0) \(product?.currencyID ?? "$") "
         return priceLabel
     }()
-
+    
     private lazy var locationLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -49,8 +49,7 @@ class InfoView: UIView {
         locationLabel.textColor = .darkGray
 
         if let city = product?.sellerAddress?.city?.name,
-           let state = product?.sellerAddress?.state?.name
-        {
+           let state = product?.sellerAddress?.state?.name {
             locationLabel.text = "Ubicación: \(city), \(state)"
         } else {
             locationLabel.text = "Sin ubicación"
@@ -58,7 +57,8 @@ class InfoView: UIView {
 
         return locationLabel
     }()
-
+    
+    
     private lazy var soldQuantityLabel: UILabel = {
         let soldQuantityLabel = UILabel()
         soldQuantityLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +73,7 @@ class InfoView: UIView {
 
         return soldQuantityLabel
     }()
-
+    
     private let buyButton: UIButton = {
         let buyButton = UIButton(type: .system)
         buyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -84,19 +84,18 @@ class InfoView: UIView {
         buyButton.layer.cornerRadius = 5
         return buyButton
     }()
-
+    
     // MARK: Initializers
-
     required init(product: Result?) {
         self.product = product
         super.init(frame: CGRect.zero)
 
-        addSubview(conditionLabel)
-        addSubview(titleLabel)
-        addSubview(priceLabel)
-        addSubview(locationLabel)
-        addSubview(soldQuantityLabel)
-        addSubview(buyButton)
+        self.addSubview(conditionLabel)
+        self.addSubview(titleLabel)
+        self.addSubview(priceLabel)
+        self.addSubview(locationLabel)
+        self.addSubview(soldQuantityLabel)
+        self.addSubview(buyButton)
 
         setupLayout()
     }
@@ -105,42 +104,42 @@ class InfoView: UIView {
         super.init(frame: CGRect.zero)
     }
 
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: Layout
-
     private func setupLayout() {
         let borderPadding = CGFloat(20)
 
         NSLayoutConstraint.activate([
-            conditionLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: borderPadding),
-            conditionLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
-            conditionLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
-
+            conditionLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: borderPadding),
+            conditionLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
+            conditionLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
+            
             titleLabel.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 15),
-            titleLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
-            titleLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
-
+            titleLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
+            titleLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
+            
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-            priceLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
-            priceLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
-
+            priceLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
+            priceLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
+            
             locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 15),
-            locationLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
-            locationLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
-
+            locationLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
+            locationLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
+            
             soldQuantityLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 15),
-            soldQuantityLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
-            soldQuantityLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
-
+            soldQuantityLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
+            soldQuantityLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
+            
             buyButton.topAnchor.constraint(equalTo: soldQuantityLabel.bottomAnchor, constant: 25),
-            buyButton.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
-            buyButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
+            buyButton.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: borderPadding),
+            buyButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -borderPadding),
             buyButton.heightAnchor.constraint(equalToConstant: 50),
-            buyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -borderPadding),
+            buyButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -borderPadding)
         ])
     }
+
 }
+

@@ -5,28 +5,26 @@
 //  Created by Luis Mejias on 15-03-22.
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
-import Combine
 import UIKit
+import Combine
 
 // MARK: - HomePresenter
-
 final class HomePresenter: HomePresenterProtocol {
-    var interactor: HomeInteractorProtocol?
-    var router: HomeRouterProtocol?
-    weak var view: HomeViewControllerProtocol?
+    internal var interactor: HomeInteractorProtocol?
+    internal var router: HomeRouterProtocol?
+    internal weak var view: HomeViewControllerProtocol?
     private var searchItemsTokens = Set<AnyCancellable>()
 
     // MARK: - Inits
-
     init(interactor: HomeInteractorProtocol?, router: HomeRouterProtocol?) {
         self.interactor = interactor
         self.router = router
     }
-
+    
     func viewDidLoad() {
         registerToInteractorPublisher()
     }
-
+    
     func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch? = nil) {
         router?.presentSearchResult(searchResult, searchType: searchType, searchCategory: searchCategory)
     }
@@ -41,37 +39,35 @@ final class HomePresenter: HomePresenterProtocol {
 }
 
 // MARK: Interactor publisher subscription
-
 private extension HomePresenter {
     private func registerToInteractorPublisher() {
         interactor?.publisher?.sink(
-            receiveCompletion: { [weak self] completion in
+            receiveCompletion: { [weak self] (completion) in
                 switch completion {
                 case .finished:
                     self?.view?.endLoadingIndicator()
-                case let .failure(error):
+                case .failure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 }
-            }, receiveValue: { [weak self] result in
+            }, receiveValue: { [weak self] (result) in
                 switch result {
-                case let .itemsSearchedWithSuccess(searchResult):
+                case .itemsSearchedWithSuccess(let searchResult):
                     self?.view?.endLoadingIndicator()
                     self?.view?.displaySearchResult(searchResult, searchType: .text, searchCategory: nil)
-                case let .itemsSearchedWithFailure(error):
+                case .itemsSearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
-                case let .categorySearchedWithSuccess(searchResult, searchedCategory):
+                case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     self?.view?.endLoadingIndicator()
                     self?.view?.displaySearchResult(searchResult, searchType: .category, searchCategory: searchedCategory)
-                case let .categorySearchedWithFailure(error):
+                case .categorySearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 }
-            }
-        ).store(in: &searchItemsTokens)
+            }).store(in: &searchItemsTokens)
     }
-
+    
     private func displayError(_ error: Error) {
         if let error = error as? CloudDataSourceDefaultError {
             switch error {

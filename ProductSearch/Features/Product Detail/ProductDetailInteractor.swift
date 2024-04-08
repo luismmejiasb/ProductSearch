@@ -6,12 +6,10 @@
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
 // MARK: - ProductDetailInteractor
-
 final class ProductDetailInteractor: ProductDetailInteractorProtocol {
-    var repository: ProductDetailRepositoryProtocol?
+	var repository: ProductDetailRepositoryProtocol?
 
     // MARK: - Inits
-
     init(repository: ProductDetailRepositoryProtocol?) {
         self.repository = repository
     }

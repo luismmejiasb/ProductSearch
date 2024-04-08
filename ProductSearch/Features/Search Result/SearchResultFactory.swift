@@ -7,7 +7,6 @@
 import Combine
 
 // MARK: - SearchResultFactory
-
 final class SearchResultFactory: SearchResultFactoryProtocol {
     static func initialize(homeSearchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch? = nil) -> SearchResultViewController {
         let localDataSource = SearchResultLocalDataSource()

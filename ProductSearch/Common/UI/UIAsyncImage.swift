@@ -10,11 +10,11 @@ import UIKit
 
 extension UIImageView {
     func imageFromServerURL(_ URLString: String, placeHolder: UIImage?) {
-        image = nil
+        self.image = nil
         let imageServerUrl = URLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?.replacingOccurrences(of: "http:", with: "https:") ?? ""
 
         if let url = URL(string: imageServerUrl) {
-            URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
+            URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async {
                         self.image = placeHolder
@@ -24,6 +24,7 @@ extension UIImageView {
                 DispatchQueue.main.async {
                     if let data = data {
                         if let downloadedImage = UIImage(data: data) {
+                       
                             self.image = downloadedImage
                         }
                     }

@@ -8,7 +8,6 @@
 import UIKit
 
 // MARK: - HomeRouter
-
 final class HomeRouter: HomeRouterProtocol {
     weak var view: HomeViewControllerProtocol?
 
