@@ -21,7 +21,7 @@ class UILoadingIndicator {
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.color = UIColor.primaryActionColor
         spinner.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0.814472628)
-        
+
         var yPosition: CGFloat = 0.0
         switch position {
         case .top:
@@ -37,7 +37,7 @@ class UILoadingIndicator {
 
         view.addSubview(spinner)
     }
-    
+
     static func endLoadingIndicator(_ view: UIView) {
         view.isUserInteractionEnabled = true
 

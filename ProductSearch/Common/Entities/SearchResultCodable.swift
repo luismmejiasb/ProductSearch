@@ -14,6 +14,7 @@ import Foundation
 import Foundation
 
 // MARK: - Welcome
+
 struct SearchResult: Codable {
     let siteID, countryDefaultTimeZone, query: String?
     let paging: Paging?
@@ -34,29 +35,34 @@ struct SearchResult: Codable {
 }
 
 // MARK: - AvailableFilter
+
 struct AvailableFilter: Codable {
     let id, name, type: String?
     let values: [AvailableFilterValue]?
 }
 
 // MARK: - AvailableFilterValue
+
 struct AvailableFilterValue: Codable {
     let id, name: String?
     let results: Int?
 }
 
 // MARK: - Sort
+
 struct Sort: Codable {
     let id, name: String?
 }
 
 // MARK: - Filter
+
 struct Filter: Codable {
     let id, name, type: String?
     let values: [FilterValue]?
 }
 
 // MARK: - FilterValue
+
 struct FilterValue: Codable {
     let id, name: String?
     let pathFromRoot: [Sort]?
@@ -68,6 +74,7 @@ struct FilterValue: Codable {
 }
 
 // MARK: - Paging
+
 struct Paging: Codable {
     let total, primaryResults, offset, limit: Int?
 
@@ -79,6 +86,7 @@ struct Paging: Codable {
 }
 
 // MARK: - Result
+
 struct Result: Codable {
     let id, siteID, title: String?
     let seller: Seller?
@@ -135,6 +143,7 @@ struct Result: Codable {
 }
 
 // MARK: - Address
+
 struct Address: Codable {
     let stateID, stateName, cityID, cityName: String?
 
@@ -147,6 +156,7 @@ struct Address: Codable {
 }
 
 // MARK: - Attribute
+
 struct Attribute: Codable {
     let id, name, valueID: String?
     let values: [AttributeValue]?
@@ -166,6 +176,7 @@ struct Attribute: Codable {
 }
 
 // MARK: - AttributeValue
+
 struct AttributeValue: Codable {
     let source: Int?
     let id, name: String?
@@ -176,11 +187,13 @@ struct AttributeValue: Codable {
 }
 
 // MARK: - DifferentialPricing
+
 struct DifferentialPricing: Codable {
     let id: Int?
 }
 
 // MARK: - Installments
+
 struct Installments: Codable {
     let quantity: Int?
     let amount: Double?
@@ -194,6 +207,7 @@ struct Installments: Codable {
 }
 
 // MARK: - Prices
+
 struct Prices: Codable {
     let id: String?
     let prices: [Price]?
@@ -207,6 +221,7 @@ struct Prices: Codable {
 }
 
 // MARK: - Presentation
+
 struct Presentation: Codable {
     let displayCurrency: String?
 
@@ -216,6 +231,7 @@ struct Presentation: Codable {
 }
 
 // MARK: - Price
+
 struct Price: Codable {
     let id, type: String?
     let amount: Int?
@@ -238,6 +254,7 @@ struct Price: Codable {
 }
 
 // MARK: - Conditions
+
 struct Conditions: Codable {
     let contextRestrictions: [String]?
     let startTime, endTime: String?
@@ -252,10 +269,11 @@ struct Conditions: Codable {
 }
 
 // MARK: - Metadata
-struct Metadata: Codable {
-}
+
+struct Metadata: Codable {}
 
 // MARK: - Seller
+
 struct Seller: Codable {
     let id: Int?
     let permalink, registrationDate: String?
@@ -270,6 +288,7 @@ struct Seller: Codable {
 }
 
 // MARK: - SellerAddress
+
 struct SellerAddress: Codable {
     let id, comment, addressLine, zipCode: String?
     let country, state, city: Sort?
@@ -284,6 +303,7 @@ struct SellerAddress: Codable {
 }
 
 // MARK: - Shipping
+
 struct Shipping: Codable {
     let freeShipping: Bool?
     let mode: String?

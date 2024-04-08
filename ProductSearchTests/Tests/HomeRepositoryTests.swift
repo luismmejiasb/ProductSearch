@@ -4,9 +4,9 @@
 //  Created by Luis Mejias on 22-03-22.
 //
 
-import XCTest
 import Combine
 @testable import ProductSearch
+import XCTest
 
 class HomeRepositoryTests: XCTestCase {
     private var searchTokens = Set<AnyCancellable>()
@@ -23,13 +23,14 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         XCTAssertNil(error, "Result must not retreive error")
                     }
                 }, receiveValue: { searchResult in
                     XCTAssertNotNil(searchResult, "Result must not be nil")
                     XCTAssertEqual(searchResult.results![0].categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult?.results![0].categoryID)
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
 
     func testSearchCategoryWithFailure() {
@@ -44,14 +45,15 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         XCTAssertNotNil(error, "Result must retreive error")
                     }
                 }, receiveValue: { _ in
                     XCTAssertTrue(false, "Result must not be successfull")
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
-    
+
     func testSearchTextWithSuccess() {
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
         let localDataSourceMock = HomeLocalDataSourceMock()
@@ -64,13 +66,14 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         XCTAssertNil(error, "Result must not retreive error")
                     }
                 }, receiveValue: { searchResult in
                     XCTAssertNotNil(searchResult, "Result must not be nil")
                     XCTAssertEqual(searchResult.results![0].categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult?.results![0].categoryID)
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
 
     func testSearchTextWithFailure() {
@@ -85,12 +88,12 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         XCTAssertNotNil(error, "Result must retreive error")
                     }
                 }, receiveValue: { _ in
                     XCTAssertTrue(false, "Result must not be successfull")
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
-
 }

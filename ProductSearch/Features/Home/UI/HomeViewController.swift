@@ -8,26 +8,30 @@
 import UIKit
 
 // MARK: - HomeViewController
+
 final class HomeViewController: HomeViewControllerProtocol {
     var searchBar: UISearchBar! {
-        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 70))
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
         searchBar.backgroundColor = UIColor.themeRegularColor
         searchBar.delegate = self
         searchBar.setValue("Cancelar", forKey: "cancelButtonText")
         searchBar.placeholder = "Busca en Mercado Libre"
         return searchBar
     }
-	var presenter: HomePresenterProtocol?
+
+    var presenter: HomePresenterProtocol?
 
     // MARK: Object lifecycle
+
     init() {
-       super.init(nibName: String(describing: HomeViewController.self), bundle: Bundle(for: HomeViewController.classForCoder()))
+        super.init(nibName: String(describing: HomeViewController.self), bundle: Bundle(for: HomeViewController.classForCoder()))
     }
 
-    required init?(coder aDecoder: NSCoder) {
-       fatalError("Missing presenter")
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("Missing presenter")
     }
-    
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -44,13 +48,15 @@ final class HomeViewController: HomeViewControllerProtocol {
 }
 
 // MARK: Private UI functions
+
 private extension HomeViewController {
     func setUpUI() {
-        self.navigationItem.titleView = searchBar
+        navigationItem.titleView = searchBar
     }
 }
 
 // MARK: HomeViewProtocol
+
 extension HomeViewController {
     func displaySearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
         UILoadingIndicator.endLoadingIndicator(view)
@@ -60,5 +66,4 @@ extension HomeViewController {
     func endLoadingIndicator() {
         UILoadingIndicator.endLoadingIndicator(view)
     }
-
 }

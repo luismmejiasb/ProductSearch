@@ -6,5 +6,5 @@
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
 // MARK: - HomeLocalDataSource
-final class HomeLocalDataSource: HomeLocalDataSourceProtocol {
-}
+
+final class HomeLocalDataSource: HomeLocalDataSourceProtocol {}

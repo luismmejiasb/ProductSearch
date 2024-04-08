@@ -1,5 +1,5 @@
 //
-//  HomeView+UISearchBarDelegate.swift
+//  HomeViewViewController+UISearchBarDelegate.swift
 //  ProductSearch
 //
 //  Created by Luis Mejias on 17-03-22.
@@ -25,10 +25,8 @@ extension HomeViewController: UISearchBarDelegate {
             return
         }
         UILoadingIndicator.startLoadingIndicatorIn(view, position: .top)
-        
+
         searchBar.resignFirstResponder()
         presenter?.searchItem(searchText: searchBarText)
     }
 }
-
-

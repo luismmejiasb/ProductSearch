@@ -13,21 +13,20 @@ class HomePresenterMock: HomePresenterProtocol {
     var router: HomeRouterProtocol?
     var view: HomeViewControllerProtocol?
     var functionsCalled = [String]()
-    
+
     func viewDidLoad() {
         functionsCalled.append(#function)
     }
-    
-    func searchItem(searchText: String) {
+
+    func searchItem(searchText _: String) {
         functionsCalled.append(#function)
     }
-    
-    func searchByCategory(_ category: HomeCategorySearch) {
+
+    func searchByCategory(_: HomeCategorySearch) {
         functionsCalled.append(#function)
     }
-    
-    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
+
+    func presentSearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch?) {
         functionsCalled.append(#function)
     }
-    
 }

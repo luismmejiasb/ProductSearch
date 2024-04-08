@@ -6,22 +6,24 @@
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
 // MARK: - Local Data Source
+
 import Combine
 
-protocol HomeLocalDataSourceProtocol {
-}
+protocol HomeLocalDataSourceProtocol {}
 
 // MARK: - Cloud Data Source
+
 protocol HomeCloudDataSourceProtocol {
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
 }
 
 // MARK: - Repository
+
 protocol HomeRepositoryProtocol {
     var localDataSource: HomeLocalDataSourceProtocol? { get set }
     var cloudDataSource: HomeCloudDataSourceProtocol? { get set }
-    
+
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
 }
@@ -30,7 +32,7 @@ enum HomeCategorySearch: Int {
     case vehicule
     case realState
     case services
-    
+
     var stringValue: String {
         switch self {
         case .vehicule:
@@ -41,7 +43,7 @@ enum HomeCategorySearch: Int {
             return "MLC1540"
         }
     }
-    
+
     var uiTitle: String {
         switch self {
         case .vehicule:
