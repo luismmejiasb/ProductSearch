@@ -12,10 +12,10 @@ class HomeViewMock: HomeViewControllerProtocol {
     var presenter: HomePresenterProtocol?
     var functionsCalled = [String]()
 
-    func displaySearchResult(_ searchResults: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
+    func displaySearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch?) {
         functionsCalled.append(#function)
     }
-    
+
     func endLoadingIndicator() {
         functionsCalled.append(#function)
     }

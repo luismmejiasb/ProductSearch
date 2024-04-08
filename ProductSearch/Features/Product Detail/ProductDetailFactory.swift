@@ -6,6 +6,7 @@
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
 // MARK: - ProductDetailFactory
+
 final class ProductDetailFactory: ProductDetailFactoryProtocol {
     static func initialize(product: Result) -> ProductDetailViewController {
         let localDataSource = ProductDetailLocalDataSource()

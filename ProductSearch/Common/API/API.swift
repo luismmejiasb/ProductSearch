@@ -16,20 +16,19 @@ enum APIURL {
         guard let uwrappedUrl = URL(string: "https://api.mercadolibre.com/sites/MLC" + path) else {
             return URL(string: "https://api.mercadolibre.com/sites/MLC")!
         }
-        
+
         return uwrappedUrl
     }
-    
 }
 
-extension APIURL {
-    fileprivate var path: String {
+private extension APIURL {
+    var path: String {
         switch self {
         case .getCategories:
             return "/users"
-        case .searchItem(let offSet, let searchText):
+        case let .searchItem(offSet, searchText):
             return "/search?limit=50&offset=\(offSet)&q=\(searchText.replacingOccurrences(of: " ", with: "%20"))"
-        case .searchByCategory(let offSet, let category):
+        case let .searchByCategory(offSet, category):
             return "/search?limit=50&category=\(category)&offset=\(offSet)"
         }
     }

@@ -5,32 +5,36 @@
 //  Created by Luis Mejias on 15-03-22.
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
-import UIKit
 import Combine
+import UIKit
 
 // MARK: - Factory
+
 protocol HomeFactoryProtocol: AnyObject {
     static func initialize() -> HomeViewController
 }
 
 // MARK: - Interactor
+
 protocol HomeInteractorProtocol: AnyObject {
     var repository: HomeRepositoryProtocol? { get set }
     var publisher: PassthroughSubject<HomePublisherResult, Error>? { get set }
-    
+
     func serachItem(searchText: String)
     func searchByCategory(_ category: HomeCategorySearch)
 }
 
 // MARK: - View
+
 protocol HomeViewProtocol: AnyObject {
     var presenter: HomePresenterProtocol? { get set }
-    
+
     func displaySearchResult(_ searchResults: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
     func endLoadingIndicator()
 }
 
 // MARK: - Router
+
 protocol HomeRouterProtocol: AnyObject {
     var view: HomeViewControllerProtocol? { get set }
 
@@ -39,6 +43,7 @@ protocol HomeRouterProtocol: AnyObject {
 }
 
 // MARK: - Presenter
+
 protocol HomePresenterProtocol: AnyObject {
     var interactor: HomeInteractorProtocol? { get set }
     var router: HomeRouterProtocol? { get set }

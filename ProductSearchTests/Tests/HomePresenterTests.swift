@@ -4,9 +4,9 @@
 //  Created by Luis Mejias on 22-03-22.
 //
 
-import XCTest
 import Combine
 @testable import ProductSearch
+import XCTest
 
 class HomePresenterTests: XCTestCase {
     var viewMock = HomeViewMock()
@@ -27,7 +27,7 @@ class HomePresenterTests: XCTestCase {
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let interactorMock = HomeInteractorMock(repository: repositoryMock)
         interactorMock.publisher = publisher
-        
+
         presenterToTest = HomePresenter(interactor: interactorMock, router: routerMock)
 
         routerMock.view = viewMock
@@ -45,7 +45,7 @@ class HomePresenterTests: XCTestCase {
         } else {
             XCTFail("Missing Functions Called. Expected \(expectedInteractorFunctionsCalled) but called \(interactorMock.functionsCalled.count)")
         }
-        
+
         let expectedViewFunctionsCalled = 2
         if viewMock.functionsCalled.count == expectedViewFunctionsCalled {
             XCTAssertEqual(viewMock.functionsCalled[0], endLoadingIndicatorSelectorName)
@@ -63,7 +63,7 @@ class HomePresenterTests: XCTestCase {
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let interactorMock = HomeInteractorMock(repository: repositoryMock)
         interactorMock.publisher = publisher
-        
+
         presenterToTest = HomePresenter(interactor: interactorMock, router: routerMock)
 
         routerMock.view = viewMock
@@ -74,14 +74,14 @@ class HomePresenterTests: XCTestCase {
 
         presenterToTest?.viewDidLoad()
         presenterToTest?.searchByCategory(.realState)
-        
+
         let expectedInteractorFunctionsCalled = 1
         if interactorMock.functionsCalled.count == expectedInteractorFunctionsCalled {
             XCTAssertEqual(interactorMock.functionsCalled[0], searchByCategorySelectorName)
         } else {
             XCTFail("Missing Functions Called. Expected \(expectedInteractorFunctionsCalled) but called \(interactorMock.functionsCalled.count)")
         }
-        
+
         let expectedViewFunctionsCalled = 2
         if viewMock.functionsCalled.count == expectedViewFunctionsCalled {
             XCTAssertEqual(viewMock.functionsCalled[0], endLoadingIndicatorSelectorName)
@@ -99,7 +99,7 @@ class HomePresenterTests: XCTestCase {
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let interactorMock = HomeInteractorMock(repository: repositoryMock)
         interactorMock.publisher = publisher
-        
+
         presenterToTest = HomePresenter(interactor: interactorMock, router: routerMock)
 
         routerMock.view = viewMock
@@ -118,7 +118,7 @@ class HomePresenterTests: XCTestCase {
             XCTFail("Missing Functions Called. Expected \(expectedRouterFunctionsCalled) but called \(routerMock.functionsCalled.count)")
         }
     }
-    
+
     func testPresentSearchCategoryResult() {
         let status: TransactionStatus = .success
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
@@ -127,7 +127,7 @@ class HomePresenterTests: XCTestCase {
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let interactorMock = HomeInteractorMock(repository: repositoryMock)
         interactorMock.publisher = publisher
-        
+
         presenterToTest = HomePresenter(interactor: interactorMock, router: routerMock)
 
         routerMock.view = viewMock
@@ -146,5 +146,4 @@ class HomePresenterTests: XCTestCase {
             XCTFail("Missing Functions Called. Expected \(expectedRouterFunctionsCalled) but called \(routerMock.functionsCalled.count)")
         }
     }
-
 }

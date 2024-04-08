@@ -1,5 +1,5 @@
 //
-//  HomeDataMocks.swift
+//  HomePlanDataMocks.swift
 //  Alamofire
 //
 //  Created by Luis Mejias on 22-03-22.
@@ -10,7 +10,7 @@ import Foundation
 
 enum HomeMLCDataMock {
     case homeSearchItem
-    
+
     var data: Data {
         switch self {
         case .homeSearchItem:
@@ -18,7 +18,7 @@ enum HomeMLCDataMock {
             return jsonData
         }
     }
-    
+
     var searchDefaultResult: SearchResult? {
         switch self {
         case .homeSearchItem:
@@ -69,7 +69,7 @@ let homeSearchJsonString = """
                   "last_updated":"2021-10-19T13:15:38Z",
                   "conditions":{
                      "context_restrictions":[
-                        
+
                      ],
                      "start_time":null,
                      "end_time":null,
@@ -77,7 +77,7 @@ let homeSearchJsonString = """
                   },
                   "exchange_rate_context":"DEFAULT",
                   "metadata":{
-                     
+
                   }
                }
             ],
@@ -85,13 +85,13 @@ let homeSearchJsonString = """
                "display_currency":"CLP"
             },
             "payment_method_prices":[
-               
+
             ],
             "reference_prices":[
-               
+
             ],
             "purchase_discounts":[
-               
+
             ]
          },
          "sale_price":null,
@@ -222,7 +222,7 @@ let homeSearchJsonString = """
       }
    ],
    "filters":[
-      
+
    ],
    "available_filters":[
       {

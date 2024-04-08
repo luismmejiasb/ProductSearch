@@ -6,5 +6,5 @@
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
 // MARK: - ProductDetailLocalDataSource
-final class ProductDetailLocalDataSource: ProductDetailLocalDataSourceProtocol {
-}
+
+final class ProductDetailLocalDataSource: ProductDetailLocalDataSourceProtocol {}
