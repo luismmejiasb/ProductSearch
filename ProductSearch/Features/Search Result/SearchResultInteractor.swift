@@ -7,13 +7,15 @@
 import Combine
 
 // MARK: - SearchResultInteractor
+
 final class SearchResultInteractor: SearchResultInteractorProtocol {
-	var repository: SearchResultRepositoryProtocol?
+    var repository: SearchResultRepositoryProtocol?
     private var searchTokens = Set<AnyCancellable>()
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>?
     var searchType: SearchType
-    
+
     // MARK: - Inits
+
     init(repository: SearchResultRepositoryProtocol?, searchType: SearchType) {
         self.repository = repository
         self.searchType = searchType
@@ -26,12 +28,13 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         self.publisher?.send(SearchResultPublisherResult.displayNextOffSetFailed(error))
                     }
                 }, receiveValue: { nextOffSetResult in
                     self.publisher?.send(SearchResultPublisherResult.displayNextOffSet(searchResult: nextOffSetResult))
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
 
     func fetchNextOffSet(_ offSet: Int, category: String) {
@@ -41,11 +44,12 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         self.publisher?.send(SearchResultPublisherResult.displayNextOffSetFailed(error))
                     }
                 }, receiveValue: { nextOffSetResult in
                     self.publisher?.send(SearchResultPublisherResult.displayNextOffSet(searchResult: nextOffSetResult))
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
 }

@@ -8,13 +8,15 @@
 import UIKit
 
 // MARK: - ProductDetailPresenter
+
 final class ProductDetailPresenter: ProductDetailPresenterProtocol {
-    internal var interactor: ProductDetailInteractorProtocol?
-    internal var router: ProductDetailRouterProtocol?
-    internal weak var view: ProductDetailViewProtocol?
+    var interactor: ProductDetailInteractorProtocol?
+    var router: ProductDetailRouterProtocol?
+    weak var view: ProductDetailViewProtocol?
     var product: Result
 
     // MARK: - Inits
+
     init(interactor: ProductDetailInteractorProtocol?, router: ProductDetailRouterProtocol?, product: Result) {
         self.interactor = interactor
         self.router = router

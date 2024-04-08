@@ -5,18 +5,18 @@
 //  Created by Luis Mejias on 22-03-22.
 //
 
-import Foundation
 import Combine
+import Foundation
 @testable import ProductSearch
 
 class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
     var status: TransactionStatus = .success
-    
+
     init(status: TransactionStatus) {
         self.status = status
     }
 
-    func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error> {
+    func searchItem(offSet _: Int, searchText _: String) -> Future<SearchResult, Error> {
         return Future { promise in
             if self.status == .success {
                 return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult!))
@@ -25,8 +25,8 @@ class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
             }
         }
     }
-    
-    func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
+
+    func searchCategory(offSet _: Int, category _: String) -> Future<SearchResult, Error> {
         return Future { promise in
             if self.status == .success {
                 return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult!))
