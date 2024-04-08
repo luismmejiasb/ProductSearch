@@ -10,15 +10,16 @@
 import Combine
 
 final class HomeInteractor: HomeInteractorProtocol {
-	var repository: HomeRepositoryProtocol?
+    var repository: HomeRepositoryProtocol?
     var publisher: PassthroughSubject<HomePublisherResult, Error>?
     private var searchTokens = Set<AnyCancellable>()
 
     // MARK: - Inits
+
     init(repository: HomeRepositoryProtocol?) {
         self.repository = repository
     }
-    
+
     func serachItem(searchText: String) {
         repository?.searchItem(offSet: 0, searchText: searchText)
             .sink(
@@ -26,14 +27,15 @@ final class HomeInteractor: HomeInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in
                     self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult: searchResult))
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
-    
+
     func searchByCategory(_ category: HomeCategorySearch) {
         repository?.searchCategory(offSet: 0, category: category.stringValue)
             .sink(
@@ -41,11 +43,12 @@ final class HomeInteractor: HomeInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case let .failure(error):
                         self.publisher?.send(HomePublisherResult.categorySearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in
                     self.publisher?.send(HomePublisherResult.categorySearchedWithSuccess(searchResult: searchResult, searchedCategory: category))
-                }).store(in: &searchTokens)
+                }
+            ).store(in: &searchTokens)
     }
 }

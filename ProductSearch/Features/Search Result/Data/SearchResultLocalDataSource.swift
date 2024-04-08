@@ -6,5 +6,5 @@
 //  Copyright (c) 2022 Luis Mejías. All rights reserved.
 
 // MARK: - SearchResultLocalDataSource
-final class SearchResultLocalDataSource: SearchResultLocalDataSourceProtocol {
-}
+
+final class SearchResultLocalDataSource: SearchResultLocalDataSourceProtocol {}

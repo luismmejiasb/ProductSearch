@@ -8,10 +8,12 @@
 import UIKit
 
 // MARK: - ProductDetailViewController
+
 final class ProductDetailViewController: UIViewController {
     var presenter: ProductDetailPresenterProtocol?
 
     // MARK: Views
+
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,12 +36,14 @@ final class ProductDetailViewController: UIViewController {
     var infoView = InfoView()
 
     // MARK: Object lifecycle
+
     init() {
-       super.init(nibName: String(describing: ProductDetailViewController.self), bundle: Bundle(for: ProductDetailViewController.classForCoder()))
+        super.init(nibName: String(describing: ProductDetailViewController.self), bundle: Bundle(for: ProductDetailViewController.classForCoder()))
     }
 
-    required init?(coder aDecoder: NSCoder) {
-       fatalError("Missing presenter")
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("Missing presenter")
     }
 
     override public func viewDidLoad() {
@@ -47,39 +51,40 @@ final class ProductDetailViewController: UIViewController {
         presenter?.displayProductDetail()
         setUpUI()
     }
-    
 }
 
 // MARK: Private functions
+
 private extension ProductDetailViewController {
     func setUpUI() {
         title = "Detalle de tu producto"
-        self.view.addSubview(scrollView)
+        view.addSubview(scrollView)
         scrollView.addSubview(productImageView)
         setupLayout()
     }
 
     // MARK: Layout
+
     func setupLayout() {
         let borderPadding = CGFloat(20)
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            scrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+
             productImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             productImageView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             productImageView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
-            productImageView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-            productImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            
+            productImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
+            productImageView.widthAnchor.constraint(equalTo: view.widthAnchor),
+
             infoView.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: borderPadding),
             infoView.leftAnchor.constraint(equalTo: productImageView.leftAnchor),
-            infoView.rightAnchor.constraint(equalTo: productImageView.rightAnchor)
+            infoView.rightAnchor.constraint(equalTo: productImageView.rightAnchor),
         ])
-        
+
         if presenter?.product.attributes?.count != 0 {
             NSLayoutConstraint.activate([
                 infoView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -89,14 +94,15 @@ private extension ProductDetailViewController {
 }
 
 // MARK: ProductDetailViewProtocol
+
 extension ProductDetailViewController: ProductDetailViewProtocol {
     func displayProductDetail(_ product: Result) {
         if let productImageURL = product.thumbnail {
             productImageView.imageFromServerURL(productImageURL, placeHolder: #imageLiteral(resourceName: "productPlaceholderIcon"))
         }
 
-        self.infoView = InfoView(product: product)
-        self.infoView.translatesAutoresizingMaskIntoConstraints = false
+        infoView = InfoView(product: product)
+        infoView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(infoView)
     }
 }
