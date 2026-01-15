@@ -1,20 +1,13 @@
-//
-//  HomeContract.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import Combine
 import UIKit
 
-// MARK: - Factory
+// MARK: - HomeFactoryProtocol
 
 protocol HomeFactoryProtocol: AnyObject {
     static func initialize() -> HomeViewController
 }
 
-// MARK: - Interactor
+// MARK: - HomeInteractorProtocol
 
 protocol HomeInteractorProtocol: AnyObject {
     var repository: HomeRepositoryProtocol? { get set }
@@ -24,7 +17,7 @@ protocol HomeInteractorProtocol: AnyObject {
     func searchByCategory(_ category: HomeCategorySearch)
 }
 
-// MARK: - View
+// MARK: - HomeViewProtocol
 
 protocol HomeViewProtocol: AnyObject {
     var presenter: HomePresenterProtocol? { get set }
@@ -33,7 +26,7 @@ protocol HomeViewProtocol: AnyObject {
     func endLoadingIndicator()
 }
 
-// MARK: - Router
+// MARK: - HomeRouterProtocol
 
 protocol HomeRouterProtocol: AnyObject {
     var view: HomeViewControllerProtocol? { get set }
@@ -42,7 +35,7 @@ protocol HomeRouterProtocol: AnyObject {
     func displayAlert(title: String, message: String)
 }
 
-// MARK: - Presenter
+// MARK: - HomePresenterProtocol
 
 protocol HomePresenterProtocol: AnyObject {
     var interactor: HomeInteractorProtocol? { get set }
@@ -54,6 +47,8 @@ protocol HomePresenterProtocol: AnyObject {
     func searchByCategory(_ category: HomeCategorySearch)
     func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
 }
+
+// MARK: - HomePublisherResult
 
 enum HomePublisherResult {
     case itemsSearchedWithSuccess(searchResult: SearchResult)

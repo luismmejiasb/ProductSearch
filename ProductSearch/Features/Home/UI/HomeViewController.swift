@@ -1,15 +1,14 @@
-//
-//  HomeViewController.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import UIKit
 
 // MARK: - HomeViewController
 
 final class HomeViewController: HomeViewControllerProtocol {
+    // MARK: Properties
+
+    var presenter: HomePresenterProtocol?
+
+    // MARK: Computed Properties
+
     var searchBar: UISearchBar! {
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
         searchBar.backgroundColor = UIColor.themeRegularColor
@@ -19,7 +18,7 @@ final class HomeViewController: HomeViewControllerProtocol {
         return searchBar
     }
 
-    var presenter: HomePresenterProtocol?
+    // MARK: Lifecycle
 
     // MARK: Object lifecycle
 
@@ -32,11 +31,15 @@ final class HomeViewController: HomeViewControllerProtocol {
         fatalError("Missing presenter")
     }
 
+    // MARK: Overridden Functions
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         presenter?.viewDidLoad()
     }
+
+    // MARK: Functions
 
     @IBAction func searchByCategory(_ sender: UIButton) {
         guard let category = HomeCategorySearch(rawValue: sender.tag) else {

@@ -1,23 +1,22 @@
-//
-//  HomeCloudDataSourceMock.swift
-//  Alamofire
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Combine
 import Foundation
 @testable import ProductSearch
 
 class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
+    // MARK: Properties
+
     var status: TransactionStatus = .success
+
+    // MARK: Lifecycle
 
     init(status: TransactionStatus) {
         self.status = status
     }
 
+    // MARK: Functions
+
     func searchItem(offSet _: Int, searchText _: String) -> Future<SearchResult, Error> {
-        return Future { promise in
+        Future { promise in
             if self.status == .success {
                 return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult!))
             } else {
@@ -27,7 +26,7 @@ class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
     }
 
     func searchCategory(offSet _: Int, category _: String) -> Future<SearchResult, Error> {
-        return Future { promise in
+        Future { promise in
             if self.status == .success {
                 return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult!))
             } else {

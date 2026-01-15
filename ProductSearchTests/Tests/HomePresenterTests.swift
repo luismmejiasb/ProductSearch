@@ -1,14 +1,10 @@
-//
-//  HomePresenterTests.swift
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Combine
-@testable import ProductSearch
 import XCTest
+@testable import ProductSearch
 
 class HomePresenterTests: XCTestCase {
+    // MARK: Properties
+
     var viewMock = HomeViewMock()
     var routerMock = HomeRouterMock()
     var presenterToTest: HomePresenterProtocol?
@@ -18,6 +14,8 @@ class HomePresenterTests: XCTestCase {
     let endLoadingIndicatorSelectorName = "endLoadingIndicator()"
     let displaySearchResultSelectorName = "displaySearchResult(_:searchType:searchCategory:)"
     let presentSearchResultSelectorName = "presentSearchResult(_:searchType:searchCategory:)"
+
+    // MARK: Functions
 
     func testSearchItem() {
         let status: TransactionStatus = .success

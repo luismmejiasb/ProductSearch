@@ -1,23 +1,25 @@
-//
-//  SearchResultUITableViewCell.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//
-
 import Foundation
 import UIKit
 
 class SearchResultUITableViewCell: UITableViewCell {
+    // MARK: Static Properties
+
+    static let reusableIdentifier = "searchResultTableViewCell"
+
+    // MARK: Properties
+
     @IBOutlet var productNameLabel: UILabel!
     @IBOutlet var productPriceLabel: UILabel!
     @IBOutlet var productLocationLabel: UILabel!
     @IBOutlet var productImageView: UIImageView!
-    static let reusableIdentifier = "searchResultTableViewCell"
+
+    // MARK: Overridden Functions
 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+
+    // MARK: Functions
 
     func configureCell(with resultData: Result) {
         selectionStyle = .none
@@ -26,8 +28,7 @@ class SearchResultUITableViewCell: UITableViewCell {
         productPriceLabel.text = "\(resultData.price ?? 0) \(resultData.currencyID ?? "$") "
 
         if let city = resultData.sellerAddress?.city?.name,
-           let state = resultData.sellerAddress?.state?.name
-        {
+           let state = resultData.sellerAddress?.state?.name {
             productLocationLabel.text = "\(city), \(state)"
         } else {
             productLocationLabel.text = "Sin ubicación"

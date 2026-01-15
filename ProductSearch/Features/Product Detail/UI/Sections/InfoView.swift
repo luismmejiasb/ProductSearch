@@ -1,14 +1,9 @@
-//
-//  InfoView.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 18-03-22.
-//
-
 import Foundation
 import UIKit
 
 class InfoView: UIView {
+    // MARK: Properties
+
     var product: Result?
 
     // MARK: Views
@@ -49,8 +44,7 @@ class InfoView: UIView {
         locationLabel.textColor = .darkGray
 
         if let city = product?.sellerAddress?.city?.name,
-           let state = product?.sellerAddress?.state?.name
-        {
+           let state = product?.sellerAddress?.state?.name {
             locationLabel.text = "Ubicación: \(city), \(state)"
         } else {
             locationLabel.text = "Sin ubicación"
@@ -85,6 +79,8 @@ class InfoView: UIView {
         return buyButton
     }()
 
+    // MARK: Lifecycle
+
     // MARK: Initializers
 
     required init(product: Result?) {
@@ -109,6 +105,8 @@ class InfoView: UIView {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: Functions
 
     // MARK: Layout
 

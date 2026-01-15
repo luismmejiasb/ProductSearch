@@ -1,23 +1,24 @@
-//
-//  HomeInteractorTests.swift
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Combine
-@testable import ProductSearch
 import XCTest
+@testable import ProductSearch
 
 class HomeInteractorTests: XCTestCase {
+    // MARK: Properties
+
     var interactorToTest: HomeInteractorProtocol?
-    private var searchTokens = Set<AnyCancellable>()
     let searchItemSelectorName = "searchItem(offSet:searchText:)"
     let searchCategorySelectorName = "searchCategory(offSet:category:)"
+
+    private var searchTokens = Set<AnyCancellable>()
+
+    // MARK: Overridden Functions
 
     override func tearDown() {
         super.tearDown()
         interactorToTest = nil
     }
+
+    // MARK: Functions
 
     func testSerachItemWithSuccess() {
         let status: TransactionStatus = .success
@@ -38,7 +39,7 @@ class HomeInteractorTests: XCTestCase {
                 }
             }, receiveValue: { result in
                 switch result {
-                case let .itemsSearchedWithSuccess(searchResult):
+                case .itemsSearchedWithSuccess(let searchResult):
                     XCTAssertNotNil(searchResult)
                 case .itemsSearchedWithFailure:
                     XCTAssertTrue(false, "Item searched must be successfull")
@@ -74,14 +75,14 @@ class HomeInteractorTests: XCTestCase {
                 switch completion {
                 case .finished:
                     break
-                case let .failure(error):
+                case .failure(let error):
                     XCTAssertNotNil(error, "Publisher should retreive error when completiting observing")
                 }
             }, receiveValue: { result in
                 switch result {
                 case .itemsSearchedWithSuccess:
                     XCTAssertTrue(false, "Item searched must not be successfull")
-                case let .itemsSearchedWithFailure(error):
+                case .itemsSearchedWithFailure(let error):
                     XCTAssertNotNil(error, "Publisher should retreive error receiving value")
                 case .categorySearchedWithSuccess:
                     XCTAssertTrue(false, "categorySearchedWithSuccess should not be called")
@@ -124,7 +125,7 @@ class HomeInteractorTests: XCTestCase {
                     XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
                 case .itemsSearchedWithFailure:
                     XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
-                case let .categorySearchedWithSuccess(searchResult, searchedCategory):
+                case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     XCTAssertNotNil(searchResult)
                     XCTAssertEqual(searchedCategory, .realState)
                 case .categorySearchedWithFailure:
@@ -157,7 +158,7 @@ class HomeInteractorTests: XCTestCase {
                 switch completion {
                 case .finished:
                     break
-                case let .failure(error):
+                case .failure(let error):
                     XCTAssertNotNil(error, "Publisher should retreive error when completiting observing")
                 }
             }, receiveValue: { result in
@@ -168,7 +169,7 @@ class HomeInteractorTests: XCTestCase {
                     XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
                 case .categorySearchedWithSuccess:
                     XCTAssertTrue(false, "Category searched result should not be successfull")
-                case let .categorySearchedWithFailure(error):
+                case .categorySearchedWithFailure(let error):
                     XCTAssertNotNil(error, "Publisher should retreive error receiving value")
                 }
             }

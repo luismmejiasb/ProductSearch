@@ -1,25 +1,18 @@
-//
-//  ProductDetailContract.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import UIKit
 
-// MARK: - Factory
+// MARK: - ProductDetailFactoryProtocol
 
 protocol ProductDetailFactoryProtocol: AnyObject {
     static func initialize(product: Result) -> ProductDetailViewController
 }
 
-// MARK: - Interactor
+// MARK: - ProductDetailInteractorProtocol
 
 protocol ProductDetailInteractorProtocol: AnyObject {
     var repository: ProductDetailRepositoryProtocol? { get set }
 }
 
-// MARK: - View
+// MARK: - ProductDetailViewProtocol
 
 protocol ProductDetailViewProtocol: AnyObject {
     var presenter: ProductDetailPresenterProtocol? { get set }
@@ -27,7 +20,7 @@ protocol ProductDetailViewProtocol: AnyObject {
     func displayProductDetail(_ product: Result)
 }
 
-// MARK: - Router
+// MARK: - ProductDetailRouterProtocol
 
 protocol ProductDetailRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
@@ -35,7 +28,7 @@ protocol ProductDetailRouterProtocol: AnyObject {
     func displayAlert(title: String, message: String)
 }
 
-// MARK: - Presenter
+// MARK: - ProductDetailPresenterProtocol
 
 protocol ProductDetailPresenterProtocol: AnyObject {
     var interactor: ProductDetailInteractorProtocol? { get set }

@@ -1,41 +1,42 @@
-//
-//  SearchResultPresenter.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import Combine
 import UIKit
 
 // MARK: - SearchResultPresenter
 
 final class SearchResultPresenter: SearchResultPresenterProtocol {
+    // MARK: Properties
+
     var searchResult: SearchResult
     var searchType: SearchType
     var searchCategory: HomeCategorySearch?
     var interactor: SearchResultInteractorProtocol?
     var router: SearchResultRouterProtocol?
     weak var view: SearchResultViewProtocol?
-    private var searchItemsTokens = Set<AnyCancellable>()
-    private var offSet: Int = 0
     var searchText = ""
     let pagingLength = 50
 
+    private var searchItemsTokens = Set<AnyCancellable>()
+    private var offSet: Int = 0
+
+    // MARK: Lifecycle
+
     // MARK: - Inits
 
-    init(interactor: SearchResultInteractorProtocol?,
-         router: SearchResultRouterProtocol?,
-         searchResult: SearchResult,
-         searchType: SearchType,
-         searchCategory: HomeCategorySearch? = nil)
-    {
+    init(
+        interactor: SearchResultInteractorProtocol?,
+        router: SearchResultRouterProtocol?,
+        searchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch? = nil
+    ) {
         self.interactor = interactor
         self.router = router
         self.searchType = searchType
         self.searchResult = searchResult
         self.searchCategory = searchCategory
     }
+
+    // MARK: Functions
 
     func viewDidLoad() {
         registerToInteractorPublisher()
@@ -68,16 +69,16 @@ private extension SearchResultPresenter {
                 switch completion {
                 case .finished:
                     self?.view?.endLoadingIndicator()
-                case let .failure(error):
+                case .failure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 }
             }, receiveValue: { [weak self] result in
                 switch result {
-                case let .displayNextOffSet(nextOffSetResults):
+                case .displayNextOffSet(let nextOffSetResults):
                     self?.view?.endLoadingIndicator()
                     self?.view?.displayNextOffSetResult(nextOffSetResults, searchType: self?.searchType ?? .text, searchCategory: self?.searchCategory ?? .vehicule)
-                case let .displayNextOffSetFailed(error):
+                case .displayNextOffSetFailed(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 }

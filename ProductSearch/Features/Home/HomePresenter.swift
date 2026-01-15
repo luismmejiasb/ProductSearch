@@ -1,20 +1,18 @@
-//
-//  HomePresenter.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import Combine
 import UIKit
 
 // MARK: - HomePresenter
 
 final class HomePresenter: HomePresenterProtocol {
+    // MARK: Properties
+
     var interactor: HomeInteractorProtocol?
     var router: HomeRouterProtocol?
     weak var view: HomeViewControllerProtocol?
+
     private var searchItemsTokens = Set<AnyCancellable>()
+
+    // MARK: Lifecycle
 
     // MARK: - Inits
 
@@ -22,6 +20,8 @@ final class HomePresenter: HomePresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
+
+    // MARK: Functions
 
     func viewDidLoad() {
         registerToInteractorPublisher()
@@ -49,22 +49,22 @@ private extension HomePresenter {
                 switch completion {
                 case .finished:
                     self?.view?.endLoadingIndicator()
-                case let .failure(error):
+                case .failure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 }
             }, receiveValue: { [weak self] result in
                 switch result {
-                case let .itemsSearchedWithSuccess(searchResult):
+                case .itemsSearchedWithSuccess(let searchResult):
                     self?.view?.endLoadingIndicator()
                     self?.view?.displaySearchResult(searchResult, searchType: .text, searchCategory: nil)
-                case let .itemsSearchedWithFailure(error):
+                case .itemsSearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
-                case let .categorySearchedWithSuccess(searchResult, searchedCategory):
+                case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     self?.view?.endLoadingIndicator()
                     self?.view?.displaySearchResult(searchResult, searchType: .category, searchCategory: searchedCategory)
-                case let .categorySearchedWithFailure(error):
+                case .categorySearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 }

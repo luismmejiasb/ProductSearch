@@ -1,10 +1,3 @@
-//
-//  UIAsyncImage.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 18-03-22.
-//
-
 import Foundation
 import UIKit
 
@@ -22,7 +15,7 @@ extension UIImageView {
                     return
                 }
                 DispatchQueue.main.async {
-                    if let data = data {
+                    if let data {
                         if let downloadedImage = UIImage(data: data) {
                             self.image = downloadedImage
                         }

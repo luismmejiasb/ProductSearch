@@ -1,15 +1,10 @@
-//
-//  SearchResultViewController.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import UIKit
 
 // MARK: - SearchResultViewController
 
 final class SearchResultViewController: UIViewController {
+    // MARK: Properties
+
     @IBOutlet var searchResultTableView: UITableView! {
         didSet {
             searchResultTableView.register(SearchResultUITableViewCell.nib, forCellReuseIdentifier: SearchResultUITableViewCell.reusableIdentifier)
@@ -19,13 +14,15 @@ final class SearchResultViewController: UIViewController {
     }
 
     @IBOutlet var resultCountLabel: UILabel!
+    var presenter: SearchResultPresenterProtocol?
+
     private lazy var filterButton: UIBarButtonItem = {
         let filterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "filterIcon"), style: .plain, target: self, action: #selector(filterSearchResult))
         filterButton.isEnabled = (presenter?.searchResult.paging?.total ?? 0) != 0
         return filterButton
     }()
 
-    var presenter: SearchResultPresenterProtocol?
+    // MARK: Lifecycle
 
     // MARK: Object lifecycle
 
@@ -38,11 +35,15 @@ final class SearchResultViewController: UIViewController {
         fatalError("Missing presenter")
     }
 
+    // MARK: Overridden Functions
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()
         setUpUI()
     }
+
+    // MARK: Functions
 
     @IBAction func filterSearchResult(_: Any) {
         presenter?.presentFilterTypeActionSheet()
@@ -64,8 +65,7 @@ private extension SearchResultViewController {
         }
 
         if let paging = presenter?.searchResult.paging,
-           let totalCount = paging.total
-        {
+           let totalCount = paging.total {
             resultCountLabel.text = "\(totalCount) \((totalCount != 1) ? "resultados" : "resultado")"
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
@@ -85,8 +85,7 @@ extension SearchResultViewController: SearchResultViewProtocol {
 
     func displayNextOffSetResult(_ nextOffSetResult: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch?) {
         guard let searchResults = presenter?.searchResult.results,
-              let nextOffSetResults = nextOffSetResult.results
-        else {
+              let nextOffSetResults = nextOffSetResult.results else {
             return
         }
         presenter?.searchResult.results = searchResults + nextOffSetResults

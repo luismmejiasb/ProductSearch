@@ -1,18 +1,17 @@
-//
-//  SearchResultInteractor.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
 import Combine
 
 // MARK: - SearchResultInteractor
 
 final class SearchResultInteractor: SearchResultInteractorProtocol {
+    // MARK: Properties
+
     var repository: SearchResultRepositoryProtocol?
-    private var searchTokens = Set<AnyCancellable>()
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>?
     var searchType: SearchType
+
+    private var searchTokens = Set<AnyCancellable>()
+
+    // MARK: Lifecycle
 
     // MARK: - Inits
 
@@ -21,6 +20,8 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
         self.searchType = searchType
     }
 
+    // MARK: Functions
+
     func fetchNextOffSet(_ offSet: Int, searchText: String) {
         repository?.searchItem(offSet: offSet, searchText: searchText)
             .sink(
@@ -28,7 +29,7 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         self.publisher?.send(SearchResultPublisherResult.displayNextOffSetFailed(error))
                     }
                 }, receiveValue: { nextOffSetResult in
@@ -44,7 +45,7 @@ final class SearchResultInteractor: SearchResultInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         self.publisher?.send(SearchResultPublisherResult.displayNextOffSetFailed(error))
                     }
                 }, receiveValue: { nextOffSetResult in

@@ -1,20 +1,13 @@
-//
-//  SearchResultContract.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import Combine
 import UIKit
 
-// MARK: - Factory
+// MARK: - SearchResultFactoryProtocol
 
 protocol SearchResultFactoryProtocol: AnyObject {
     static func initialize(homeSearchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) -> SearchResultViewController
 }
 
-// MARK: - Interactor
+// MARK: - SearchResultInteractorProtocol
 
 protocol SearchResultInteractorProtocol: AnyObject {
     var repository: SearchResultRepositoryProtocol? { get set }
@@ -24,7 +17,7 @@ protocol SearchResultInteractorProtocol: AnyObject {
     func fetchNextOffSet(_ offSet: Int, category: String)
 }
 
-// MARK: - View
+// MARK: - SearchResultViewProtocol
 
 protocol SearchResultViewProtocol: AnyObject {
     var presenter: SearchResultPresenterProtocol? { get set }
@@ -34,7 +27,7 @@ protocol SearchResultViewProtocol: AnyObject {
     func endLoadingIndicator()
 }
 
-// MARK: - Router
+// MARK: - SearchResultRouterProtocol
 
 protocol SearchResultRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
@@ -45,13 +38,13 @@ protocol SearchResultRouterProtocol: AnyObject {
     func displayAlert(title: String, message: String)
 }
 
-// MARK: - Router Delegate
+// MARK: - SearchResultRouterDelegate
 
 protocol SearchResultRouterDelegate: AnyObject {
     func didSelectFilter(_ filter: FilterType)
 }
 
-// MARK: - Presenter
+// MARK: - SearchResultPresenterProtocol
 
 protocol SearchResultPresenterProtocol: AnyObject {
     var interactor: SearchResultInteractorProtocol? { get set }
@@ -67,15 +60,21 @@ protocol SearchResultPresenterProtocol: AnyObject {
     func presentProductDetail(_ result: Result)
 }
 
+// MARK: - SearchResultPublisherResult
+
 enum SearchResultPublisherResult {
     case displayNextOffSet(searchResult: SearchResult)
     case displayNextOffSetFailed(Error)
 }
 
+// MARK: - FilterType
+
 enum FilterType {
     case lowestPrice
     case highestPrice
 }
+
+// MARK: - SearchType
 
 enum SearchType {
     case text

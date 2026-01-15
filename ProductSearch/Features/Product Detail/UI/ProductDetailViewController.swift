@@ -1,16 +1,13 @@
-//
-//  ProductDetailViewController.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import UIKit
 
 // MARK: - ProductDetailViewController
 
 final class ProductDetailViewController: UIViewController {
+    // MARK: Properties
+
     var presenter: ProductDetailPresenterProtocol?
+
+    var infoView = InfoView()
 
     // MARK: Views
 
@@ -33,7 +30,7 @@ final class ProductDetailViewController: UIViewController {
         return img
     }()
 
-    var infoView = InfoView()
+    // MARK: Lifecycle
 
     // MARK: Object lifecycle
 
@@ -45,6 +42,8 @@ final class ProductDetailViewController: UIViewController {
     required init?(coder _: NSCoder) {
         fatalError("Missing presenter")
     }
+
+    // MARK: Overridden Functions
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +84,7 @@ private extension ProductDetailViewController {
             infoView.rightAnchor.constraint(equalTo: productImageView.rightAnchor),
         ])
 
-        if presenter?.product.attributes?.count != 0 {
+        if presenter?.product.attributes?.isEmpty != true {
             NSLayoutConstraint.activate([
                 infoView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             ])

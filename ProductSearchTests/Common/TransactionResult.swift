@@ -1,20 +1,23 @@
-//
-//  TransactionResult.swift
-//  ProductSearchTests
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Foundation
 
+// MARK: - TransactionStatus
+
 enum TransactionStatus {
-    case success, failure, nilValue
+    case success
+    case failure
+    case nilValue
 }
+
+// MARK: - CloudSourceMockError
 
 enum CloudSourceMockError: LocalizedError {
-    case nilValue, unknow
+    case nilValue
+    case unknow
 }
 
+// MARK: - RepositoryMockError
+
 enum RepositoryMockError: LocalizedError {
-    case nilValue, unknow
+    case nilValue
+    case unknow
 }

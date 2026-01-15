@@ -1,14 +1,11 @@
-//
-//  SceneDelegate.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    // MARK: Properties
+
     var window: UIWindow?
+
+    // MARK: Functions
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
