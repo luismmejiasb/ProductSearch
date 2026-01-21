@@ -26,6 +26,7 @@
         case vehicule
         case realState
         case services
+        case none
 
         // MARK: Computed Properties
 
@@ -37,6 +38,8 @@
                 return "MLC1459"
             case .services:
                 return "MLC1540"
+            case .none:
+                return  ""
             }
         }
 
@@ -48,6 +51,8 @@
                 return "Inmuebles"
             case .services:
                 return "Servicios"
+            case .none:
+                return ""
             }
         }
     }

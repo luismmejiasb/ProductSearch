@@ -7,8 +7,8 @@ import UIKit
 final class HomePresenter: HomePresenterProtocol {
     // MARK: Properties
 
-    private let interactor: HomeInteractorProtocol?
-    private let router: HomeRouterProtocol?
+    private let interactor: HomeInteractorProtocol
+    private let router: HomeRouterProtocol
     weak var view: HomeViewControllerProtocol?
 
     private var searchItemsTokens = Set<AnyCancellable>()
@@ -17,7 +17,7 @@ final class HomePresenter: HomePresenterProtocol {
 
     // MARK: - Inits
 
-    init(interactor: HomeInteractorProtocol?, router: HomeRouterProtocol?) {
+    init(interactor: HomeInteractorProtocol, router: HomeRouterProtocol) {
         self.interactor = interactor
         self.router = router
     }
@@ -28,16 +28,24 @@ final class HomePresenter: HomePresenterProtocol {
         registerToInteractorPublisher()
     }
 
-    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch? = nil) {
-        router?.presentSearchResult(searchResult, searchType: searchType, searchCategory: searchCategory)
+    func presentSearchResult(
+        _ searchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    ) {
+        router.presentSearchResult(
+            searchResult,
+            searchType: searchType,
+            searchCategory: searchCategory
+        )
     }
 
     func searchItem(searchText: String) {
-        interactor?.serachItem(searchText: searchText)
+        interactor.serachItem(searchText: searchText)
     }
 
     func searchByCategory(_ category: HomeCategorySearch) {
-        interactor?.searchByCategory(category)
+        interactor.searchByCategory(category)
     }
 }
 
@@ -45,7 +53,7 @@ final class HomePresenter: HomePresenterProtocol {
 
 private extension HomePresenter {
     private func registerToInteractorPublisher() {
-        interactor?.publisher?.sink(
+        interactor.publisher?.sink(
             receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -58,13 +66,21 @@ private extension HomePresenter {
                 switch result {
                 case .itemsSearchedWithSuccess(let searchResult):
                     self?.view?.endLoadingIndicator()
-                    self?.view?.displaySearchResult(searchResult, searchType: .text, searchCategory: nil)
+                    self?.view?.displaySearchResult(
+                        searchResult,
+                        searchType: .text,
+                        searchCategory: .none
+                    )
                 case .itemsSearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
                 case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     self?.view?.endLoadingIndicator()
-                    self?.view?.displaySearchResult(searchResult, searchType: .category, searchCategory: searchedCategory)
+                    self?.view?.displaySearchResult(
+                        searchResult,
+                        searchType: .category,
+                        searchCategory: searchedCategory
+                    )
                 case .categorySearchedWithFailure(let error):
                     self?.view?.endLoadingIndicator()
                     self?.displayError(error)
@@ -77,9 +93,15 @@ private extension HomePresenter {
         if let error = error as? CloudDataSourceDefaultError {
             switch error {
             case .httpError:
-                router?.displayAlert(title: "Error", message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde.")
+                router.displayAlert(
+                    title: "Error",
+                    message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde."
+                )
             default:
-                router?.displayAlert(title: "Error en tu busqueda", message: "No pudimos continuar con tu búsqueda. Por favor, intento nuevamente o con otra descripción de tu producto")
+                router.displayAlert(
+                    title: "Error en tu busqueda",
+                    message: "No pudimos continuar con tu búsqueda. Por favor, intento nuevamente o con otra descripción de tu producto"
+                )
             }
         }
     }

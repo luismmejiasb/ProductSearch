@@ -19,7 +19,7 @@ final class SearchResultViewController: UIViewController {
 
     private lazy var filterButton: UIBarButtonItem = {
         let filterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "filterIcon"), style: .plain, target: self, action: #selector(filterSearchResult))
-        filterButton.isEnabled = (presenter?.searchResult.paging?.total ?? 0) != 0
+        filterButton.isEnabled = (presenter?.getSearchResult()?.paging?.total ?? 0) != 0
         return filterButton
     }()
 
@@ -55,17 +55,19 @@ final class SearchResultViewController: UIViewController {
 
 private extension SearchResultViewController {
     func setUpUI() {
-        if presenter?.searchType == .text {
-            title = "Resultados para \(presenter?.searchResult.query ?? "")"
-        } else if presenter?.searchType == .category {
-            guard let category = presenter?.searchCategory else {
-                return
-            }
-
-            title = "Resultados para \(category.uiTitle)"
+        guard let presenter else {
+            return
+        }
+        let searchType = presenter.getSearchType()
+        
+        switch searchType {
+        case .text:
+            title = "Resultados para \(presenter.getSearchResult()?.query ?? "")"
+        case .category:
+            title = "Resultados para \(presenter.getSearchCategory().uiTitle)"
         }
 
-        if let paging = presenter?.searchResult.paging,
+        if let paging = presenter.getSearchResult()?.paging,
            let totalCount = paging.total {
             resultCountLabel.text = "\(totalCount) \((totalCount != 1) ? "resultados" : "resultado")"
         } else {
@@ -84,12 +86,18 @@ extension SearchResultViewController: SearchResultViewProtocol {
         searchResultTableView.reloadData()
     }
 
-    func displayNextOffSetResult(_ nextOffSetResult: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch?) {
-        guard let searchResults = presenter?.searchResult.results,
-              let nextOffSetResults = nextOffSetResult.results else {
+    func displayNextOffSetResult
+    (_ nextOffSetResult: SearchResult,
+     searchType _: SearchType,
+     searchCategory _: HomeCategorySearch?
+    ) {
+        guard
+            let searchResults = presenter?.getSearchResult()?.results,
+            let nextOffSetResults = nextOffSetResult.results else
+        {
             return
         }
-        presenter?.searchResult.results = searchResults + nextOffSetResults
+        presenter?.setSearchResult(results: searchResults + nextOffSetResults)
         searchResultTableView.reloadData()
         UILoadingIndicator.endLoadingIndicator(view)
     }

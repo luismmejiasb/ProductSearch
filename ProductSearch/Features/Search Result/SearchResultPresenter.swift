@@ -6,16 +6,14 @@ import UIKit
 @MainActor
 final class SearchResultPresenter: SearchResultPresenterProtocol {
     // MARK: Properties
-
-    var searchResult: SearchResult
-    var searchType: SearchType
-    var searchCategory: HomeCategorySearch?
-    var interactor: SearchResultInteractorProtocol?
-    var router: SearchResultRouterProtocol?
+    private let interactor: SearchResultInteractorProtocol
+    private let router: SearchResultRouterProtocol
+    private let pagingLength = 50
     weak var view: SearchResultViewProtocol?
-    var searchText = ""
-    let pagingLength = 50
-
+    private var searchResult: SearchResult
+    private var searchType: SearchType
+    private let searchCategory: HomeCategorySearch
+    private let searchText: String
     private var searchItemsTokens = Set<AnyCancellable>()
     private var offSet: Int = 0
 
@@ -24,17 +22,19 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     // MARK: - Inits
 
     init(
-        interactor: SearchResultInteractorProtocol?,
-        router: SearchResultRouterProtocol?,
+        interactor: SearchResultInteractorProtocol,
+        router: SearchResultRouterProtocol,
         searchResult: SearchResult,
         searchType: SearchType,
-        searchCategory: HomeCategorySearch? = nil
+        searchCategory: HomeCategorySearch,
+        searchText: String
     ) {
         self.interactor = interactor
         self.router = router
         self.searchType = searchType
         self.searchResult = searchResult
         self.searchCategory = searchCategory
+        self.searchText = searchText
     }
 
     // MARK: Functions
@@ -44,20 +44,36 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     }
 
     func presentFilterTypeActionSheet() {
-        router?.presentFilterTypeActionSheet()
+        router.presentFilterTypeActionSheet()
     }
 
     func fetchNextOffSet() {
         offSet = offSet + pagingLength
         if searchType == .text {
-            interactor?.fetchNextOffSet(offSet, searchText: searchText)
+            interactor.fetchNextOffSet(offSet, searchText: searchText)
         } else {
-            interactor?.fetchNextOffSet(offSet, category: searchCategory?.stringValue ?? "")
+            interactor.fetchNextOffSet(offSet, category: searchCategory.stringValue)
         }
     }
 
     func presentProductDetail(_ result: Result) {
-        router?.presentProductDetail(result)
+        router.presentProductDetail(result)
+    }
+    
+    func getSearchResult() -> SearchResult? {
+        searchResult
+    }
+    
+    func setSearchResult(results: [Result]?) {
+        searchResult.results = results
+    }
+    
+    func getSearchType() -> SearchType {
+        searchType
+    }
+    
+    func getSearchCategory() -> HomeCategorySearch {
+        searchCategory
     }
 }
 
@@ -65,7 +81,7 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
 
 private extension SearchResultPresenter {
     private func registerToInteractorPublisher() {
-        interactor?.publisher?.sink(
+        interactor.publisher?.sink(
             receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -75,13 +91,20 @@ private extension SearchResultPresenter {
                     self?.displayError(error)
                 }
             }, receiveValue: { [weak self] result in
+                guard let self else {
+                    return
+                }
                 switch result {
                 case .displayNextOffSet(let nextOffSetResults):
-                    self?.view?.endLoadingIndicator()
-                    self?.view?.displayNextOffSetResult(nextOffSetResults, searchType: self?.searchType ?? .text, searchCategory: self?.searchCategory ?? .vehicule)
+                    self.view?.endLoadingIndicator()
+                    self.view?.displayNextOffSetResult(
+                        nextOffSetResults,
+                        searchType: self.searchType,
+                        searchCategory: self.searchCategory
+                    )
                 case .displayNextOffSetFailed(let error):
-                    self?.view?.endLoadingIndicator()
-                    self?.displayError(error)
+                    self.view?.endLoadingIndicator()
+                    self.displayError(error)
                 }
             }
         ).store(in: &searchItemsTokens)
@@ -91,9 +114,15 @@ private extension SearchResultPresenter {
         if let error = error as? CloudDataSourceDefaultError {
             switch error {
             case .httpError:
-                router?.displayAlert(title: "Error", message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde.")
+                router.displayAlert(
+                    title: "Error",
+                    message: "Tuvimos un error con nuestros servicios. Por favor, intenta nuevamente más tarde."
+                )
             default:
-                router?.displayAlert(title: "Error en tu busqueda", message: "No pudimos continuar con tu búsqueda. Por favor, intento nuevamente o con otra descripción de tu producto")
+                router.displayAlert(
+                    title: "Error en tu busqueda",
+                    message: "No pudimos continuar con tu búsqueda. Por favor, intento nuevamente o con otra descripción de tu producto"
+                )
             }
         }
     }
@@ -101,6 +130,7 @@ private extension SearchResultPresenter {
 
 // MARK: Router Delegate
 
+@MainActor
 extension SearchResultPresenter: SearchResultRouterDelegate {
     func didSelectFilter(_ filter: FilterType) {
         guard let searchResults = searchResult.results else {

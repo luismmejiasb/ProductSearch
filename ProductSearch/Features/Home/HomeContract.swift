@@ -21,7 +21,11 @@ protocol HomeInteractorProtocol: AnyObject {
 
 @MainActor
 protocol HomeViewProtocol: AnyObject {
-    func displaySearchResult(_ searchResults: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func displaySearchResult(
+        _ searchResults: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    )
     func endLoadingIndicator()
 }
 
@@ -29,7 +33,11 @@ protocol HomeViewProtocol: AnyObject {
 
 @MainActor
 protocol HomeRouterProtocol: AnyObject {
-    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func presentSearchResult(
+        _ searchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    )
     func displayAlert(title: String, message: String)
 }
 
@@ -40,7 +48,11 @@ protocol HomePresenterProtocol: AnyObject {
     func viewDidLoad()
     func searchItem(searchText: String)
     func searchByCategory(_ category: HomeCategorySearch)
-    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func presentSearchResult(
+        _ searchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    )
 }
 
 // MARK: - HomePublisherResult
