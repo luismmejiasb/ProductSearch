@@ -5,7 +5,7 @@ The main goal of this project is to demonstrate a **clean, scalable VIPER archit
 
 The project uses **CocoaPods** for dependency management, **Property Lists** for environment configuration, and supports **Localization / Internationalization** out of the box.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-iOS%2014.5+-blue.svg)
 ![Swift](https://img.shields.io/badge/swift-5.x-orange.svg)
 
