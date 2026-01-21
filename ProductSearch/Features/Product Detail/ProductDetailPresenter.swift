@@ -6,16 +6,20 @@ import UIKit
 final class ProductDetailPresenter: ProductDetailPresenterProtocol {
     // MARK: Properties
 
-    var interactor: ProductDetailInteractorProtocol?
-    var router: ProductDetailRouterProtocol?
+    var interactor: ProductDetailInteractorProtocol
+    var router: ProductDetailRouterProtocol
     weak var view: ProductDetailViewProtocol?
-    var product: Result
+    private let product: Result
 
     // MARK: Lifecycle
 
     // MARK: - Inits
 
-    init(interactor: ProductDetailInteractorProtocol?, router: ProductDetailRouterProtocol?, product: Result) {
+    init(
+        interactor: ProductDetailInteractorProtocol,
+        router: ProductDetailRouterProtocol,
+        product: Result
+    ) {
         self.interactor = interactor
         self.router = router
         self.product = product

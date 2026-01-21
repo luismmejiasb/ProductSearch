@@ -9,6 +9,28 @@ The project uses **CocoaPods** for dependency management, **Property Lists** for
 ![Platform](https://img.shields.io/badge/platform-iOS%2014.5+-blue.svg)
 ![Swift](https://img.shields.io/badge/swift-5.x-orange.svg)
 
+
+
+
+## ⚠️ Maintenance Status
+
+This project is currently under **maintenance** regarding the product search and listing functionality.
+
+At the moment, product data may not be displayed correctly. This is most likely due to recent changes in **Mercado Libre’s public API**, which require adjustments in the networking layer and response parsing.
+
+I plan to address these changes and restore full functionality **as soon as possible**.
+
+In the meantime, this repository should be considered primarily as a **code and architecture reference**, showcasing a **real-world VIPER architecture** that I commonly use in production environments, including:
+
+- Separation of concerns
+- Explicit dependency injection
+- Scalable module composition
+- Clean navigation and routing patterns
+
+The architectural structure and code quality remain fully valid and representative of my day-to-day iOS development practices.
+
+
+
 ---
 
 ## 1. Getting Started

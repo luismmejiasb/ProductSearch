@@ -3,13 +3,13 @@
 final class ProductDetailInteractor: ProductDetailInteractorProtocol {
     // MARK: Properties
 
-    var repository: ProductDetailRepositoryProtocol?
+    private let repository: ProductDetailRepositoryProtocol
 
     // MARK: Lifecycle
 
     // MARK: - Inits
 
-    init(repository: ProductDetailRepositoryProtocol?) {
+    init(repository: ProductDetailRepositoryProtocol) {
         self.repository = repository
     }
 }

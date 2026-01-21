@@ -9,16 +9,12 @@ protocol ProductDetailFactoryProtocol: AnyObject {
 
 // MARK: - ProductDetailInteractorProtocol
 
-protocol ProductDetailInteractorProtocol: AnyObject {
-    var repository: ProductDetailRepositoryProtocol? { get set }
-}
+protocol ProductDetailInteractorProtocol: AnyObject {}
 
 // MARK: - ProductDetailViewProtocol
 
 @MainActor
 protocol ProductDetailViewProtocol: AnyObject {
-    var presenter: ProductDetailPresenterProtocol? { get set }
-
     func displayProductDetail(_ product: Result)
 }
 
@@ -35,10 +31,5 @@ protocol ProductDetailRouterProtocol: AnyObject {
 
 @MainActor
 protocol ProductDetailPresenterProtocol: AnyObject {
-    var interactor: ProductDetailInteractorProtocol? { get set }
-    var router: ProductDetailRouterProtocol? { get set }
-    var view: ProductDetailViewProtocol? { get set }
-    var product: Result { get set }
-
     func displayProductDetail()
 }
