@@ -7,6 +7,7 @@ extension UIView {
 }
 
 extension UINavigationController {
+    @MainActor
     func setUpNavigationController() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()

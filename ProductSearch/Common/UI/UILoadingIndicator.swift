@@ -12,6 +12,7 @@ class UILoadingIndicator {
 
     // MARK: Static Functions
 
+    @MainActor
     static func startLoadingIndicatorIn(_ view: UIView, position: UILoadingIndicatorPosition) {
         view.isUserInteractionEnabled = false
 
@@ -35,6 +36,7 @@ class UILoadingIndicator {
         view.addSubview(spinner)
     }
 
+    @MainActor
     static func endLoadingIndicator(_ view: UIView) {
         view.isUserInteractionEnabled = true
 
