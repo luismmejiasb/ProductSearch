@@ -1,16 +1,16 @@
-//
-//  ProductDetailViewController.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import UIKit
 
 // MARK: - ProductDetailViewController
 
+@MainActor
 final class ProductDetailViewController: UIViewController {
+    // MARK: Properties
+
     var presenter: ProductDetailPresenterProtocol?
+
+    private var imageLoadingTask: Task<Void, Never>?
+
+    private var infoView: InfoView?
 
     // MARK: Views
 
@@ -26,19 +26,20 @@ final class ProductDetailViewController: UIViewController {
     }()
 
     private lazy var productImageView: UIImageView = {
-        let img = UIImageView()
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.contentMode = .scaleAspectFit
-        img.backgroundColor = UIColor.white
-        return img
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = UIColor.white
+        return imageView
     }()
 
-    var infoView = InfoView()
-
-    // MARK: Object lifecycle
+    // MARK: Lifecycle
 
     init() {
-        super.init(nibName: String(describing: ProductDetailViewController.self), bundle: Bundle(for: ProductDetailViewController.classForCoder()))
+        super.init(
+            nibName: String(describing: ProductDetailViewController.self),
+            bundle: Bundle(for: ProductDetailViewController.classForCoder())
+        )
     }
 
     @available(*, unavailable)
@@ -46,27 +47,36 @@ final class ProductDetailViewController: UIViewController {
         fatalError("Missing presenter")
     }
 
-    override public func viewDidLoad() {
+    deinit {
+        imageLoadingTask?.cancel()
+    }
+
+    // MARK: Overridden Functions
+
+    override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.displayProductDetail()
         setUpUI()
+        presenter?.displayProductDetail()
     }
 }
 
-// MARK: Private functions
+// MARK: ProductDetailViewProtocol
+
+extension ProductDetailViewController: ProductDetailViewProtocol {
+    func displayProductDetail(_ product: Result) {
+        loadImage(from: product.thumbnail)
+        renderInfoView(for: product)
+    }
+}
+
+// MARK: - Private
 
 private extension ProductDetailViewController {
     func setUpUI() {
         title = "Detalle de tu producto"
         view.addSubview(scrollView)
         scrollView.addSubview(productImageView)
-        setupLayout()
-    }
 
-    // MARK: Layout
-
-    func setupLayout() {
-        let borderPadding = CGFloat(20)
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -79,30 +89,36 @@ private extension ProductDetailViewController {
             productImageView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             productImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
             productImageView.widthAnchor.constraint(equalTo: view.widthAnchor),
-
-            infoView.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: borderPadding),
-            infoView.leftAnchor.constraint(equalTo: productImageView.leftAnchor),
-            infoView.rightAnchor.constraint(equalTo: productImageView.rightAnchor),
         ])
-
-        if presenter?.product.attributes?.count != 0 {
-            NSLayoutConstraint.activate([
-                infoView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            ])
-        }
     }
-}
 
-// MARK: ProductDetailViewProtocol
+    func renderInfoView(for product: Result) {
+        infoView?.removeFromSuperview()
 
-extension ProductDetailViewController: ProductDetailViewProtocol {
-    func displayProductDetail(_ product: Result) {
-        if let productImageURL = product.thumbnail {
-            productImageView.imageFromServerURL(productImageURL, placeHolder: #imageLiteral(resourceName: "productPlaceholderIcon"))
+        let newInfoView = InfoView(product: product)
+        newInfoView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(newInfoView)
+        infoView = newInfoView
+
+        let borderPadding = CGFloat(20)
+
+        NSLayoutConstraint.activate([
+            newInfoView.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: borderPadding),
+            newInfoView.leftAnchor.constraint(equalTo: productImageView.leftAnchor),
+            newInfoView.rightAnchor.constraint(equalTo: productImageView.rightAnchor),
+
+            // Always pin bottom; UIScrollView needs it for content size.
+            newInfoView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+        ])
+    }
+
+    func loadImage(from urlString: String?) {
+        imageLoadingTask?.cancel()
+        imageLoadingTask = Task { @MainActor in
+            await productImageView.setImage(
+                from: urlString ?? "",
+                placeholder: UIImage(named: "productPlaceholderIcon")
+            )
         }
-
-        infoView = InfoView(product: product)
-        infoView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(infoView)
     }
 }

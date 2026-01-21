@@ -1,10 +1,3 @@
-//
-//  SearchResultCloudDataSource.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-//
 import Alamofire
 import Combine
 import Foundation
@@ -13,10 +6,10 @@ import Foundation
 
 final class SearchResultCloudDataSource: SearchResultCloudDataSourceProtocol {
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error> {
-        return Future { promise in
+        Future { promise in
             AF.request(APIURL.searchItem(offSet: offSet, searchText: searchText).url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { response in
                 switch response.result {
-                case let .success(response):
+                case .success(let response):
                     do {
                         let jsonData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
                         let searchResult = try JSONDecoder().decode(SearchResult.self, from: jsonData)
@@ -24,7 +17,7 @@ final class SearchResultCloudDataSource: SearchResultCloudDataSourceProtocol {
                     } catch {
                         return promise(.failure(CloudDataSourceDefaultError.responseCannotBeParsed))
                     }
-                case let .failure(error):
+                case .failure(let error):
                     promise(.failure(error))
                 }
             }
@@ -32,10 +25,10 @@ final class SearchResultCloudDataSource: SearchResultCloudDataSourceProtocol {
     }
 
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
-        return Future { promise in
+        Future { promise in
             AF.request(APIURL.searchByCategory(offSet: offSet, category: category).url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { response in
                 switch response.result {
-                case let .success(response):
+                case .success(let response):
                     do {
                         let jsonData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
                         let searchResult = try JSONDecoder().decode(SearchResult.self, from: jsonData)
@@ -43,7 +36,7 @@ final class SearchResultCloudDataSource: SearchResultCloudDataSourceProtocol {
                     } catch {
                         return promise(.failure(CloudDataSourceDefaultError.responseCannotBeParsed))
                     }
-                case let .failure(error):
+                case .failure(let error):
                     promise(.failure(error))
                 }
             }

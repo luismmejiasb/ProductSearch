@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -236,13 +236,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		A97AB47027E390F100EC300E /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		A97AB47527E3AC7800EC300E /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,7 +436,6 @@
 		A980E1C827E1188F00A68880 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				A97AB47027E390F100EC300E /* View */,
 				A980E1B427E1168300A68880 /* HomeViewController.swift */,
 				A980E1B727E1168300A68880 /* HomeViewController.xib */,
 				A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */,
@@ -840,11 +832,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProductSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = luismejias.ios.dev.ProductSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -859,11 +852,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProductSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = luismejias.ios.dev.ProductSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

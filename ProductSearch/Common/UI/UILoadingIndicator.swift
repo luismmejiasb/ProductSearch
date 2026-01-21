@@ -1,20 +1,18 @@
-//
-//  UILoadingIndicator.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//
-
 import Foundation
 import UIKit
 
 class UILoadingIndicator {
+    // MARK: Nested Types
+
     enum UILoadingIndicatorPosition {
         case top
         case center
         case bottom
     }
 
+    // MARK: Static Functions
+
+    @MainActor
     static func startLoadingIndicatorIn(_ view: UIView, position: UILoadingIndicatorPosition) {
         view.isUserInteractionEnabled = false
 
@@ -38,6 +36,7 @@ class UILoadingIndicator {
         view.addSubview(spinner)
     }
 
+    @MainActor
     static func endLoadingIndicator(_ view: UIView) {
         view.isUserInteractionEnabled = true
 

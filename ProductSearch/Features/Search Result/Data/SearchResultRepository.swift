@@ -1,16 +1,14 @@
-//
-//  SearchResultRepository.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
 import Combine
 
 // MARK: - SearchResultRepository
 
 final class SearchResultRepository: SearchResultRepositoryProtocol {
+    // MARK: Properties
+
     var localDataSource: SearchResultLocalDataSourceProtocol?
     var cloudDataSource: SearchResultCloudDataSourceProtocol?
+
+    // MARK: Lifecycle
 
     // MARK: - Inits
 
@@ -19,8 +17,10 @@ final class SearchResultRepository: SearchResultRepositoryProtocol {
         self.cloudDataSource = cloudDataSource
     }
 
+    // MARK: Functions
+
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error> {
-        guard let cloudDataSource = cloudDataSource else {
+        guard let cloudDataSource else {
             return Future { promise in
                 promise(.failure(CloudDataSourceDefaultError.unwrappableValue))
             }
@@ -30,7 +30,7 @@ final class SearchResultRepository: SearchResultRepositoryProtocol {
     }
 
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
-        guard let cloudDataSource = cloudDataSource else {
+        guard let cloudDataSource else {
             return Future { promise in
                 promise(.failure(CloudDataSourceDefaultError.unwrappableValue))
             }

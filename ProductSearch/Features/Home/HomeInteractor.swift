@@ -1,24 +1,24 @@
-//
-//  HomeInteractor.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 // MARK: - HomeInteractor
 
 import Combine
 
 final class HomeInteractor: HomeInteractorProtocol {
-    var repository: HomeRepositoryProtocol?
+    // MARK: Properties
+
     var publisher: PassthroughSubject<HomePublisherResult, Error>?
+
+    private let repository: HomeRepositoryProtocol?
     private var searchTokens = Set<AnyCancellable>()
+
+    // MARK: Lifecycle
 
     // MARK: - Inits
 
     init(repository: HomeRepositoryProtocol?) {
         self.repository = repository
     }
+
+    // MARK: Functions
 
     func serachItem(searchText: String) {
         repository?.searchItem(offSet: 0, searchText: searchText)
@@ -27,7 +27,7 @@ final class HomeInteractor: HomeInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in
@@ -43,7 +43,7 @@ final class HomeInteractor: HomeInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         self.publisher?.send(HomePublisherResult.categorySearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in

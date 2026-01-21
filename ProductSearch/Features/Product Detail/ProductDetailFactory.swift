@@ -1,12 +1,6 @@
-//
-//  ProductDetailFactory.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 // MARK: - ProductDetailFactory
 
+@MainActor
 final class ProductDetailFactory: ProductDetailFactoryProtocol {
     static func initialize(product: Result) -> ProductDetailViewController {
         let localDataSource = ProductDetailLocalDataSource()

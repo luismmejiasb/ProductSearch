@@ -1,14 +1,9 @@
-//
-//  ProductSearchUITests.swift
-//  ProductSearchUITests
-//
-//  Created by Luis Mejias on 15-03-22.
-//
-
-@testable import ProductSearch
 import XCTest
+@testable import ProductSearch
 
 class ProductSearchUITests: XCTestCase {
+    // MARK: Overridden Functions
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -21,6 +16,8 @@ class ProductSearchUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+
+    // MARK: Functions
 
     func testExample() throws {
         // UI tests must launch the application that they test.
