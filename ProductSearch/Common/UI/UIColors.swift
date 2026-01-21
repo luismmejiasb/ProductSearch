@@ -1,9 +1,3 @@
-//
-//  UIColors.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//
 import UIKit
 
 extension UIColor {

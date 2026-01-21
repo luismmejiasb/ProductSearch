@@ -1,37 +1,34 @@
-//
-//  HomeDataContract.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 // MARK: - Local Data Source
 
 import Combine
 
+// MARK: - HomeLocalDataSourceProtocol
+
 protocol HomeLocalDataSourceProtocol {}
 
-// MARK: - Cloud Data Source
+// MARK: - HomeCloudDataSourceProtocol
 
 protocol HomeCloudDataSourceProtocol {
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
 }
 
-// MARK: - Repository
+// MARK: - HomeRepositoryProtocol
 
 protocol HomeRepositoryProtocol {
-    var localDataSource: HomeLocalDataSourceProtocol? { get set }
-    var cloudDataSource: HomeCloudDataSourceProtocol? { get set }
-
     func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
 }
+
+// MARK: - HomeCategorySearch
 
 enum HomeCategorySearch: Int {
     case vehicule
     case realState
     case services
+    case none
+
+    // MARK: Computed Properties
 
     var stringValue: String {
         switch self {
@@ -41,6 +38,8 @@ enum HomeCategorySearch: Int {
             return "MLC1459"
         case .services:
             return "MLC1540"
+        case .none:
+            return ""
         }
     }
 
@@ -52,6 +51,8 @@ enum HomeCategorySearch: Int {
             return "Inmuebles"
         case .services:
             return "Servicios"
+        case .none:
+            return ""
         }
     }
 }

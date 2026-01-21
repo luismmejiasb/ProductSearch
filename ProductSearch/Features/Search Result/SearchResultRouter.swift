@@ -1,17 +1,15 @@
-//
-//  SearchResultRouter.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import UIKit
 
 // MARK: - SearchResultRouter
 
+@MainActor
 final class SearchResultRouter: SearchResultRouterProtocol {
+    // MARK: Properties
+
     weak var view: UIViewController?
     var delegate: SearchResultRouterDelegate?
+
+    // MARK: Functions
 
     func presentFilterTypeActionSheet() {
         let alert = UIAlertController(title: "Filtrar contenido", message: "Elige la forma en la que te gustaria filtrar tu búsqueda", preferredStyle: .actionSheet)

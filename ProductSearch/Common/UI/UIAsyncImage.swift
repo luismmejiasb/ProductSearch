@@ -1,34 +1,43 @@
-//
-//  UIAsyncImage.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 18-03-22.
-//
-
-import Foundation
 import UIKit
 
 extension UIImageView {
-    func imageFromServerURL(_ URLString: String, placeHolder: UIImage?) {
-        image = nil
-        let imageServerUrl = URLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?.replacingOccurrences(of: "http:", with: "https:") ?? ""
+    @MainActor
+    func setImage(
+        from urlString: String,
+        placeholder: UIImage? = nil
+    ) async {
+        image = placeholder
 
-        if let url = URL(string: imageServerUrl) {
-            URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-                if error != nil {
-                    DispatchQueue.main.async {
-                        self.image = placeHolder
-                    }
-                    return
-                }
-                DispatchQueue.main.async {
-                    if let data = data {
-                        if let downloadedImage = UIImage(data: data) {
-                            self.image = downloadedImage
-                        }
-                    }
-                }
-            }).resume()
+        guard let url = Self.buildSecureURL(from: urlString) else {
+            return
         }
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+
+            guard let downloadedImage = UIImage(data: data) else {
+                return
+            }
+
+            image = downloadedImage
+        } catch {
+            image = placeholder
+        }
+    }
+}
+
+// MARK: - Private helpers
+
+private extension UIImageView {
+    static func buildSecureURL(from urlString: String) -> URL? {
+        let sanitizedString = urlString
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?
+            .replacingOccurrences(of: "http:", with: "https:")
+
+        guard let sanitizedString else {
+            return nil
+        }
+
+        return URL(string: sanitizedString)
     }
 }

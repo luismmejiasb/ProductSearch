@@ -1,15 +1,12 @@
-//
-//  HomePlanDataMocks.swift
-//  Alamofire
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Foundation
 @testable import ProductSearch
 
+// MARK: - HomeMLCDataMock
+
 enum HomeMLCDataMock {
     case homeSearchItem
+
+    // MARK: Computed Properties
 
     var data: Data {
         switch self {

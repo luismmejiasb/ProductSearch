@@ -1,81 +1,77 @@
-//
-//  SearchResultContract.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import Combine
 import UIKit
 
-// MARK: - Factory
+// MARK: - SearchResultFactoryProtocol
 
+@MainActor
 protocol SearchResultFactoryProtocol: AnyObject {
-    static func initialize(homeSearchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) -> SearchResultViewController
+    static func initialize(
+        homeSearchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    ) -> SearchResultViewController
 }
 
-// MARK: - Interactor
+// MARK: - SearchResultInteractorProtocol
 
-protocol SearchResultInteractorProtocol: AnyObject {
-    var repository: SearchResultRepositoryProtocol? { get set }
+protocol SearchResultInteractorProtocol: AnyObject { func fetchNextOffSet(_ offSet: Int, searchText: String)
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>? { get set }
 
-    func fetchNextOffSet(_ offSet: Int, searchText: String)
     func fetchNextOffSet(_ offSet: Int, category: String)
 }
 
-// MARK: - View
+// MARK: - SearchResultViewProtocol
 
-protocol SearchResultViewProtocol: AnyObject {
-    var presenter: SearchResultPresenterProtocol? { get set }
-
-    func displaySearchResult()
+@MainActor
+protocol SearchResultViewProtocol: AnyObject { func displaySearchResult()
     func displayNextOffSetResult(_ nextOffSetResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
     func endLoadingIndicator()
 }
 
-// MARK: - Router
+// MARK: - SearchResultRouterProtocol
 
-protocol SearchResultRouterProtocol: AnyObject {
-    var view: UIViewController? { get set }
-    var delegate: SearchResultRouterDelegate? { get set }
-
-    func presentFilterTypeActionSheet()
+@MainActor
+protocol SearchResultRouterProtocol: AnyObject { func presentFilterTypeActionSheet()
     func presentProductDetail(_ result: Result)
     func displayAlert(title: String, message: String)
 }
 
-// MARK: - Router Delegate
+// MARK: - SearchResultRouterDelegate
 
+@MainActor
 protocol SearchResultRouterDelegate: AnyObject {
     func didSelectFilter(_ filter: FilterType)
 }
 
-// MARK: - Presenter
+// MARK: - SearchResultPresenterProtocol
 
+@MainActor
 protocol SearchResultPresenterProtocol: AnyObject {
-    var interactor: SearchResultInteractorProtocol? { get set }
-    var router: SearchResultRouterProtocol? { get set }
-    var view: SearchResultViewProtocol? { get set }
-    var searchResult: SearchResult { get set }
-    var searchType: SearchType { get set }
-    var searchCategory: HomeCategorySearch? { get set }
-
     func viewDidLoad()
     func presentFilterTypeActionSheet()
     func fetchNextOffSet()
     func presentProductDetail(_ result: Result)
+    func getSearchResult() -> SearchResult?
+    func setSearchResult(results: [Result]?)
+    func getSearchType() -> SearchType
+    func getSearchCategory() -> HomeCategorySearch
 }
+
+// MARK: - SearchResultPublisherResult
 
 enum SearchResultPublisherResult {
     case displayNextOffSet(searchResult: SearchResult)
     case displayNextOffSetFailed(Error)
 }
 
+// MARK: - FilterType
+
 enum FilterType {
     case lowestPrice
     case highestPrice
 }
+
+// MARK: - SearchType
 
 enum SearchType {
     case text

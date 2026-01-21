@@ -1,59 +1,61 @@
-//
-//  HomeContract.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import Combine
 import UIKit
 
-// MARK: - Factory
+// MARK: - HomeFactoryProtocol
 
+@MainActor
 protocol HomeFactoryProtocol: AnyObject {
     static func initialize() -> HomeViewController
 }
 
-// MARK: - Interactor
+// MARK: - HomeInteractorProtocol
 
 protocol HomeInteractorProtocol: AnyObject {
-    var repository: HomeRepositoryProtocol? { get set }
     var publisher: PassthroughSubject<HomePublisherResult, Error>? { get set }
 
     func serachItem(searchText: String)
     func searchByCategory(_ category: HomeCategorySearch)
 }
 
-// MARK: - View
+// MARK: - HomeViewProtocol
 
+@MainActor
 protocol HomeViewProtocol: AnyObject {
-    var presenter: HomePresenterProtocol? { get set }
-
-    func displaySearchResult(_ searchResults: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func displaySearchResult(
+        _ searchResults: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    )
     func endLoadingIndicator()
 }
 
-// MARK: - Router
+// MARK: - HomeRouterProtocol
 
+@MainActor
 protocol HomeRouterProtocol: AnyObject {
-    var view: HomeViewControllerProtocol? { get set }
-
-    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func presentSearchResult(
+        _ searchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    )
     func displayAlert(title: String, message: String)
 }
 
-// MARK: - Presenter
+// MARK: - HomePresenterProtocol
 
+@MainActor
 protocol HomePresenterProtocol: AnyObject {
-    var interactor: HomeInteractorProtocol? { get set }
-    var router: HomeRouterProtocol? { get set }
-    var view: HomeViewControllerProtocol? { get set }
-
     func viewDidLoad()
     func searchItem(searchText: String)
     func searchByCategory(_ category: HomeCategorySearch)
-    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
+    func presentSearchResult(
+        _ searchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    )
 }
+
+// MARK: - HomePublisherResult
 
 enum HomePublisherResult {
     case itemsSearchedWithSuccess(searchResult: SearchResult)

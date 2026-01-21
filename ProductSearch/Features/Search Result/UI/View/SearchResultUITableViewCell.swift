@@ -1,38 +1,68 @@
-//
-//  SearchResultUITableViewCell.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 17-03-22.
-//
-
-import Foundation
 import UIKit
 
-class SearchResultUITableViewCell: UITableViewCell {
-    @IBOutlet var productNameLabel: UILabel!
-    @IBOutlet var productPriceLabel: UILabel!
-    @IBOutlet var productLocationLabel: UILabel!
-    @IBOutlet var productImageView: UIImageView!
+// MARK: - SearchResultUITableViewCell
+
+@MainActor
+final class SearchResultUITableViewCell: UITableViewCell {
+    // MARK: Static Properties
+
     static let reusableIdentifier = "searchResultTableViewCell"
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    // MARK: Properties
+
+    // MARK: Outlets
+
+    @IBOutlet private var productNameLabel: UILabel!
+    @IBOutlet private var productPriceLabel: UILabel!
+    @IBOutlet private var productLocationLabel: UILabel!
+    @IBOutlet private var productImageView: UIImageView!
+
+    private var imageLoadingTask: Task<Void, Never>?
+
+    // MARK: Overridden Functions
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        imageLoadingTask?.cancel()
+        imageLoadingTask = nil
+
+        productImageView.image = nil
     }
+
+    // MARK: Functions
+
+    // MARK: Configuration
 
     func configureCell(with resultData: Result) {
         selectionStyle = .none
 
         productNameLabel.text = resultData.title ?? "Producto sin título"
-        productPriceLabel.text = "\(resultData.price ?? 0) \(resultData.currencyID ?? "$") "
+        productPriceLabel.text = "\(resultData.price ?? 0) \(resultData.currencyID ?? "$")"
 
-        if let city = resultData.sellerAddress?.city?.name,
-           let state = resultData.sellerAddress?.state?.name
-        {
-            productLocationLabel.text = "\(city), \(state)"
-        } else {
+        configureLocation(with: resultData)
+        loadImage(from: resultData.thumbnail)
+    }
+}
+
+private extension SearchResultUITableViewCell {
+    func configureLocation(with resultData: Result) {
+        guard
+            let city = resultData.sellerAddress?.city?.name,
+            let state = resultData.sellerAddress?.state?.name else {
             productLocationLabel.text = "Sin ubicación"
+            return
         }
 
-        productImageView.imageFromServerURL(resultData.thumbnail ?? "", placeHolder: #imageLiteral(resourceName: "productPlaceholderIcon"))
+        productLocationLabel.text = "\(city), \(state)"
+    }
+
+    func loadImage(from urlString: String?) {
+        imageLoadingTask = Task { @MainActor in
+            await productImageView.setImage(
+                from: urlString ?? "",
+                placeholder: UIImage(named: "productPlaceholderIcon")
+            )
+        }
     }
 }

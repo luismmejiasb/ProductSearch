@@ -1,0 +1,103 @@
+############################################
+# iOS / Xcode — CocoaPods + SwiftPM .gitignore
+############################################
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Xcode build artifacts
+DerivedData/
+build/
+*.xcarchive
+*.xctestrun
+*.xcresult
+*.profraw
+*.profdata
+*.dSYM
+*.dSYM.zip
+*.ipa
+
+# Xcode user-specific files (never commit)
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+timeline.xctimeline
+playground.xcworkspace/
+
+# Workspace / project user data
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+
+############################################
+# Swift Package Manager
+############################################
+.build/
+.swiftpm/
+**/.swiftpm/xcode/package.xcworkspace/xcuserdata/
+# Keep Package.resolved (recommended for apps)
+# (do not ignore Package.resolved)
+
+############################################
+# CocoaPods
+############################################
+Pods/
+# Keep these committed
+!Podfile
+!Podfile.lock
+
+############################################
+# Logs / temp
+############################################
+*.log
+*.tmp
+*.swp
+*.orig
+
+############################################
+# IDEs
+############################################
+.idea/
+.vscode/
+*.iml
+
+############################################
+# Secrets / local configuration
+############################################
+.env
+.env.*
+*.env
+
+*.local
+*.local.*
+Config/local/
+Secrets/
+secrets/
+
+# Signing / provisioning (never commit)
+*.p12
+*.mobileprovision
+*.cer
+*.key
+*.csr
+*.pem
+*.pfx
+
+# Firebase / Google services (ignore only if you keep real keys out of git)
+GoogleService-Info.plist
+**/GoogleService-Info*.plist
+
+############################################
+# Optional tooling caches
+############################################
+.swiftlint_cache/
+.swiftformat.cache
+.swiftformat.log

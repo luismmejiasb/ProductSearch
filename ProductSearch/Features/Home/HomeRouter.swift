@@ -1,19 +1,25 @@
-//
-//  HomeRouter.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//  Copyright (c) 2022 Luis Mejías. All rights reserved.
-
 import UIKit
 
 // MARK: - HomeRouter
 
+@MainActor
 final class HomeRouter: HomeRouterProtocol {
+    // MARK: Properties
+
     weak var view: HomeViewControllerProtocol?
 
-    func presentSearchResult(_ searchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) {
-        let searchResultViewController = SearchResultFactory.initialize(homeSearchResult: searchResult, searchType: searchType, searchCategory: searchCategory)
+    // MARK: Functions
+
+    func presentSearchResult(
+        _ searchResult: SearchResult,
+        searchType: SearchType,
+        searchCategory: HomeCategorySearch
+    ) {
+        let searchResultViewController = SearchResultFactory.initialize(
+            homeSearchResult: searchResult,
+            searchType: searchType,
+            searchCategory: searchCategory
+        )
 
         if let navController = view?.navigationController {
             navController.pushViewController(searchResultViewController, animated: true)
@@ -23,7 +29,11 @@ final class HomeRouter: HomeRouterProtocol {
     }
 
     func presentSearchResult(_ searchResult: SearchResult) {
-        let searchResultViewController = SearchResultFactory.initialize(homeSearchResult: searchResult, searchType: .text)
+        let searchResultViewController = SearchResultFactory.initialize(
+            homeSearchResult: searchResult,
+            searchType: .text,
+            searchCategory: .none
+        )
 
         if let navController = view?.navigationController {
             navController.pushViewController(searchResultViewController, animated: true)
@@ -33,8 +43,18 @@ final class HomeRouter: HomeRouterProtocol {
     }
 
     func displayAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Aceptar", style: UIAlertAction.Style.default, handler: nil))
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertController.Style.alert
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Aceptar",
+                style: UIAlertAction.Style.default,
+                handler: nil
+            )
+        )
         view?.present(alert, animated: true, completion: nil)
     }
 }

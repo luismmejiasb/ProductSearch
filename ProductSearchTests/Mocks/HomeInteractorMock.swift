@@ -1,23 +1,23 @@
-//
-//  HomeInteractorMock.swift
-//  Alamofire
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Combine
 import Foundation
 @testable import ProductSearch
 
 class HomeInteractorMock: HomeInteractorProtocol {
+    // MARK: Properties
+
     var repository: HomeRepositoryProtocol?
     var publisher: PassthroughSubject<HomePublisherResult, Error>?
     var functionsCalled = [String]()
+
     private var searchTokens = Set<AnyCancellable>()
+
+    // MARK: Lifecycle
 
     init(repository: HomeRepositoryProtocol?) {
         self.repository = repository
     }
+
+    // MARK: Functions
 
     func serachItem(searchText: String) {
         functionsCalled.append(#function)
@@ -28,7 +28,7 @@ class HomeInteractorMock: HomeInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in
@@ -46,7 +46,7 @@ class HomeInteractorMock: HomeInteractorProtocol {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
                     }
                 }, receiveValue: { searchResult in
