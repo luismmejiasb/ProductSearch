@@ -1,16 +1,13 @@
-//
-//  API.swift
-//  ProductSearch
-//
-//  Created by Luis Mejias on 15-03-22.
-//
-
 import Foundation
+
+// MARK: - APIURL
 
 enum APIURL {
     case getCategories
     case searchItem(offSet: Int, searchText: String)
     case searchByCategory(offSet: Int, category: String)
+
+    // MARK: Computed Properties
 
     var url: URL {
         guard let uwrappedUrl = URL(string: "https://api.mercadolibre.com/sites/MLC" + path) else {
@@ -26,9 +23,9 @@ private extension APIURL {
         switch self {
         case .getCategories:
             return "/users"
-        case let .searchItem(offSet, searchText):
+        case .searchItem(let offSet, let searchText):
             return "/search?limit=50&offset=\(offSet)&q=\(searchText.replacingOccurrences(of: " ", with: "%20"))"
-        case let .searchByCategory(offSet, category):
+        case .searchByCategory(let offSet, let category):
             return "/search?limit=50&category=\(category)&offset=\(offSet)"
         }
     }

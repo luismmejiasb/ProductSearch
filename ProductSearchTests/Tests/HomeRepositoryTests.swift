@@ -1,15 +1,13 @@
-//
-//  HomeRepositoryTests.swift
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Combine
-@testable import ProductSearch
 import XCTest
+@testable import ProductSearch
 
 class HomeRepositoryTests: XCTestCase {
+    // MARK: Properties
+
     private var searchTokens = Set<AnyCancellable>()
+
+    // MARK: Functions
 
     func testSearchCategoryWithSuccess() {
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
@@ -23,7 +21,7 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         XCTAssertNil(error, "Result must not retreive error")
                     }
                 }, receiveValue: { searchResult in
@@ -45,7 +43,7 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         XCTAssertNotNil(error, "Result must retreive error")
                     }
                 }, receiveValue: { _ in
@@ -66,7 +64,7 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         XCTAssertNil(error, "Result must not retreive error")
                     }
                 }, receiveValue: { searchResult in
@@ -88,7 +86,7 @@ class HomeRepositoryTests: XCTestCase {
                     switch completion {
                     case .finished:
                         break
-                    case let .failure(error):
+                    case .failure(let error):
                         XCTAssertNotNil(error, "Result must retreive error")
                     }
                 }, receiveValue: { _ in

@@ -1,17 +1,14 @@
-//
-//  HomeRouterMock.swift
-//  Alamofire
-//
-//  Created by Luis Mejias on 22-03-22.
-//
-
 import Foundation
-@testable import ProductSearch
 import UIKit
+@testable import ProductSearch
 
 class HomeRouterMock: HomeRouterProtocol {
+    // MARK: Properties
+
     var view: HomeViewControllerProtocol?
     var functionsCalled = [String]()
+
+    // MARK: Functions
 
     func presentSearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch?) {
         functionsCalled.append(#function)
