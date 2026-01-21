@@ -1,56 +1,53 @@
-// MARK: - Local Data Source
+    // MARK: - Local Data Source
 
-import Combine
+    import Combine
 
-// MARK: - HomeLocalDataSourceProtocol
+    // MARK: - HomeLocalDataSourceProtocol
 
-protocol HomeLocalDataSourceProtocol {}
+    protocol HomeLocalDataSourceProtocol {}
 
-// MARK: - HomeCloudDataSourceProtocol
+    // MARK: - HomeCloudDataSourceProtocol
 
-protocol HomeCloudDataSourceProtocol {
-    func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
-    func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
-}
-
-// MARK: - HomeRepositoryProtocol
-
-protocol HomeRepositoryProtocol {
-    var localDataSource: HomeLocalDataSourceProtocol? { get set }
-    var cloudDataSource: HomeCloudDataSourceProtocol? { get set }
-
-    func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
-    func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
-}
-
-// MARK: - HomeCategorySearch
-
-enum HomeCategorySearch: Int {
-    case vehicule
-    case realState
-    case services
-
-    // MARK: Computed Properties
-
-    var stringValue: String {
-        switch self {
-        case .vehicule:
-            return "MLC1743"
-        case .realState:
-            return "MLC1459"
-        case .services:
-            return "MLC1540"
-        }
+    protocol HomeCloudDataSourceProtocol {
+        func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
+        func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
     }
 
-    var uiTitle: String {
-        switch self {
-        case .vehicule:
-            return "Vehículos"
-        case .realState:
-            return "Inmuebles"
-        case .services:
-            return "Servicios"
+    // MARK: - HomeRepositoryProtocol
+
+    protocol HomeRepositoryProtocol {
+        func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error>
+        func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error>
+    }
+
+    // MARK: - HomeCategorySearch
+
+    enum HomeCategorySearch: Int {
+        case vehicule
+        case realState
+        case services
+
+        // MARK: Computed Properties
+
+        var stringValue: String {
+            switch self {
+            case .vehicule:
+                return "MLC1743"
+            case .realState:
+                return "MLC1459"
+            case .services:
+                return "MLC1540"
+            }
+        }
+
+        var uiTitle: String {
+            switch self {
+            case .vehicule:
+                return "Vehículos"
+            case .realState:
+                return "Inmuebles"
+            case .services:
+                return "Servicios"
+            }
         }
     }
-}

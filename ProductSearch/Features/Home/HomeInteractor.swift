@@ -4,10 +4,8 @@ import Combine
 
 final class HomeInteractor: HomeInteractorProtocol {
     // MARK: Properties
-
-    var repository: HomeRepositoryProtocol?
     var publisher: PassthroughSubject<HomePublisherResult, Error>?
-
+    private let repository: HomeRepositoryProtocol?
     private var searchTokens = Set<AnyCancellable>()
 
     // MARK: Lifecycle

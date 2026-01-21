@@ -5,8 +5,8 @@ import Combine
 final class HomeRepository: HomeRepositoryProtocol {
     // MARK: Properties
 
-    var localDataSource: HomeLocalDataSourceProtocol?
-    var cloudDataSource: HomeCloudDataSourceProtocol?
+    private let localDataSource: HomeLocalDataSourceProtocol?
+    private let cloudDataSource: HomeCloudDataSourceProtocol?
 
     // MARK: Lifecycle
 
