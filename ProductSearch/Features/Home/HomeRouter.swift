@@ -2,6 +2,7 @@ import UIKit
 
 // MARK: - HomeRouter
 
+@MainActor
 final class HomeRouter: HomeRouterProtocol {
     // MARK: Properties
 

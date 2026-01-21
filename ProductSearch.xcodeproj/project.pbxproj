@@ -236,13 +236,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		A97AB47027E390F100EC300E /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		A97AB47527E3AC7800EC300E /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,7 +436,6 @@
 		A980E1C827E1188F00A68880 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				A97AB47027E390F100EC300E /* View */,
 				A980E1B427E1168300A68880 /* HomeViewController.swift */,
 				A980E1B727E1168300A68880 /* HomeViewController.xib */,
 				A97AB47127E393A100EC300E /* HomeViewViewController+UISearchBarDelegate.swift */,

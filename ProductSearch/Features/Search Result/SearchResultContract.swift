@@ -3,6 +3,7 @@ import UIKit
 
 // MARK: - SearchResultFactoryProtocol
 
+@MainActor
 protocol SearchResultFactoryProtocol: AnyObject {
     static func initialize(homeSearchResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?) -> SearchResultViewController
 }
@@ -19,6 +20,7 @@ protocol SearchResultInteractorProtocol: AnyObject {
 
 // MARK: - SearchResultViewProtocol
 
+@MainActor
 protocol SearchResultViewProtocol: AnyObject {
     var presenter: SearchResultPresenterProtocol? { get set }
 
@@ -29,6 +31,7 @@ protocol SearchResultViewProtocol: AnyObject {
 
 // MARK: - SearchResultRouterProtocol
 
+@MainActor
 protocol SearchResultRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
     var delegate: SearchResultRouterDelegate? { get set }
@@ -46,6 +49,7 @@ protocol SearchResultRouterDelegate: AnyObject {
 
 // MARK: - SearchResultPresenterProtocol
 
+@MainActor
 protocol SearchResultPresenterProtocol: AnyObject {
     var interactor: SearchResultInteractorProtocol? { get set }
     var router: SearchResultRouterProtocol? { get set }

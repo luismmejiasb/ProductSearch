@@ -2,6 +2,7 @@ import UIKit
 
 // MARK: - SearchResultRouter
 
+@MainActor
 final class SearchResultRouter: SearchResultRouterProtocol {
     // MARK: Properties
 

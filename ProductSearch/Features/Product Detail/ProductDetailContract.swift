@@ -2,6 +2,7 @@ import UIKit
 
 // MARK: - ProductDetailFactoryProtocol
 
+@MainActor
 protocol ProductDetailFactoryProtocol: AnyObject {
     static func initialize(product: Result) -> ProductDetailViewController
 }
@@ -14,6 +15,7 @@ protocol ProductDetailInteractorProtocol: AnyObject {
 
 // MARK: - ProductDetailViewProtocol
 
+@MainActor
 protocol ProductDetailViewProtocol: AnyObject {
     var presenter: ProductDetailPresenterProtocol? { get set }
 
@@ -22,6 +24,7 @@ protocol ProductDetailViewProtocol: AnyObject {
 
 // MARK: - ProductDetailRouterProtocol
 
+@MainActor
 protocol ProductDetailRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
 
@@ -30,6 +33,7 @@ protocol ProductDetailRouterProtocol: AnyObject {
 
 // MARK: - ProductDetailPresenterProtocol
 
+@MainActor
 protocol ProductDetailPresenterProtocol: AnyObject {
     var interactor: ProductDetailInteractorProtocol? { get set }
     var router: ProductDetailRouterProtocol? { get set }

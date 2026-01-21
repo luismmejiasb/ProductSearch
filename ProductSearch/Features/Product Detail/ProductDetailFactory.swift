@@ -1,5 +1,6 @@
 // MARK: - ProductDetailFactory
 
+@MainActor
 final class ProductDetailFactory: ProductDetailFactoryProtocol {
     static func initialize(product: Result) -> ProductDetailViewController {
         let localDataSource = ProductDetailLocalDataSource()

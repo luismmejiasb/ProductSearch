@@ -3,6 +3,7 @@ import UIKit
 
 // MARK: - SearchResultPresenter
 
+@MainActor
 final class SearchResultPresenter: SearchResultPresenterProtocol {
     // MARK: Properties
 

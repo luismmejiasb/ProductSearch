@@ -2,6 +2,7 @@ import UIKit
 
 // MARK: - SearchResultViewController
 
+@MainActor
 final class SearchResultViewController: UIViewController {
     // MARK: Properties
 

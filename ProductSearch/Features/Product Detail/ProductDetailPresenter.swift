@@ -2,6 +2,7 @@ import UIKit
 
 // MARK: - ProductDetailPresenter
 
+@MainActor
 final class ProductDetailPresenter: ProductDetailPresenterProtocol {
     // MARK: Properties
 

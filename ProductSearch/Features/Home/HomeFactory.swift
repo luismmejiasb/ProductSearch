@@ -2,6 +2,7 @@
 
 import Combine
 
+@MainActor
 final class HomeFactory: HomeFactoryProtocol {
     static func initialize() -> HomeViewController {
         let localDataSource = HomeLocalDataSource()

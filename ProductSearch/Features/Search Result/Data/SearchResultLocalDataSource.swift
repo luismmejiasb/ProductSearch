@@ -1,3 +1,3 @@
 // MARK: - SearchResultLocalDataSource
 
-final class SearchResultLocalDataSource: SearchResultLocalDataSourceProtocol {}
+final actor SearchResultLocalDataSource: SearchResultLocalDataSourceProtocol {}

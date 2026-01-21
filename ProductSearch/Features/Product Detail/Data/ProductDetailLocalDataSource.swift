@@ -1,3 +1,3 @@
 // MARK: - ProductDetailLocalDataSource
 
-final class ProductDetailLocalDataSource: ProductDetailLocalDataSourceProtocol {}
+final actor ProductDetailLocalDataSource: ProductDetailLocalDataSourceProtocol {}

@@ -3,6 +3,7 @@ import UIKit
 
 // MARK: - HomePresenter
 
+@MainActor
 final class HomePresenter: HomePresenterProtocol {
     // MARK: Properties
 

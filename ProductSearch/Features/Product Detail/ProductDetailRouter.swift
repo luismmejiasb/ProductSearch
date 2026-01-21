@@ -2,6 +2,7 @@ import UIKit
 
 // MARK: - ProductDetailRouter
 
+@MainActor
 final class ProductDetailRouter: ProductDetailRouterProtocol {
     // MARK: Properties
 

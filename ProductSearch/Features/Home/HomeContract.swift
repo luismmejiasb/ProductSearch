@@ -3,6 +3,7 @@ import UIKit
 
 // MARK: - HomeFactoryProtocol
 
+@MainActor
 protocol HomeFactoryProtocol: AnyObject {
     static func initialize() -> HomeViewController
 }
@@ -19,6 +20,7 @@ protocol HomeInteractorProtocol: AnyObject {
 
 // MARK: - HomeViewProtocol
 
+@MainActor
 protocol HomeViewProtocol: AnyObject {
     var presenter: HomePresenterProtocol? { get set }
 
@@ -28,6 +30,7 @@ protocol HomeViewProtocol: AnyObject {
 
 // MARK: - HomeRouterProtocol
 
+@MainActor
 protocol HomeRouterProtocol: AnyObject {
     var view: HomeViewControllerProtocol? { get set }
 
@@ -37,6 +40,7 @@ protocol HomeRouterProtocol: AnyObject {
 
 // MARK: - HomePresenterProtocol
 
+@MainActor
 protocol HomePresenterProtocol: AnyObject {
     var interactor: HomeInteractorProtocol? { get set }
     var router: HomeRouterProtocol? { get set }

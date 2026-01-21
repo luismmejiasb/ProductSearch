@@ -2,6 +2,7 @@ import UIKit
 
 // MARK: - HomeViewController
 
+@MainActor
 final class HomeViewController: HomeViewControllerProtocol {
     // MARK: Properties
 

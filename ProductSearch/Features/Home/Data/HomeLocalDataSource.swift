@@ -1,3 +1,3 @@
 // MARK: - HomeLocalDataSource
 
-final class HomeLocalDataSource: HomeLocalDataSourceProtocol {}
+final actor HomeLocalDataSource: HomeLocalDataSourceProtocol {}
