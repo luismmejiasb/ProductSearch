@@ -12,8 +12,7 @@ extension SearchResultViewController: UITableViewDataSource {
                 withIdentifier: SearchResultUITableViewCell.reusableIdentifier,
                 for: indexPath
             ) as? SearchResultUITableViewCell,
-            let result: Result = presenter?.getSearchResult()?.results?[indexPath.row]
-        else {
+            let result: Result = presenter?.getSearchResult()?.results?[indexPath.row] else {
             return UITableViewCell()
         }
         cell.contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]

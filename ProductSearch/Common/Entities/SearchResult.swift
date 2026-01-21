@@ -1,17 +1,9 @@
 import Foundation
 
-// MARK: - Welcome
+// MARK: - SearchResult
 
 struct SearchResult: Codable {
-    let siteID: String?
-    let countryDefaultTimeZone: String?
-    let query: String?
-    let paging: Paging?
-    var results: [Result]?
-    let sort: Sort?
-    let availableSorts: [Sort]?
-    let filters: [Filter]?
-    let availableFilters: [AvailableFilter]?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case siteID = "site_id"
@@ -24,6 +16,18 @@ struct SearchResult: Codable {
         case filters
         case availableFilters = "available_filters"
     }
+
+    // MARK: Properties
+
+    let siteID: String?
+    let countryDefaultTimeZone: String?
+    let query: String?
+    let paging: Paging?
+    var results: [Result]?
+    let sort: Sort?
+    let availableSorts: [Sort]?
+    let filters: [Filter]?
+    let availableFilters: [AvailableFilter]?
 }
 
 // MARK: - AvailableFilter
@@ -62,24 +66,25 @@ struct Filter: Codable {
 // MARK: - FilterValue
 
 struct FilterValue: Codable {
-    let id: String?
-    let name: String?
-    let pathFromRoot: [Sort]?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case pathFromRoot = "path_from_root"
     }
+
+    // MARK: Properties
+
+    let id: String?
+    let name: String?
+    let pathFromRoot: [Sort]?
 }
 
 // MARK: - Paging
 
 struct Paging: Codable {
-    let total: Int?
-    let primaryResults: Int?
-    let offset: Int?
-    let limit: Int?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case total
@@ -87,43 +92,19 @@ struct Paging: Codable {
         case offset
         case limit
     }
+
+    // MARK: Properties
+
+    let total: Int?
+    let primaryResults: Int?
+    let offset: Int?
+    let limit: Int?
 }
 
 // MARK: - Result
 
 struct Result: Codable {
-    let id: Int?
-    let siteID: Int?
-    let title: String?
-    let seller: Seller?
-    let price: Int?
-    let prices: Prices?
-    let currencyID: String?
-    let availableQuantity: Int?
-    let soldQuantity: Int?
-    let buyingMode: String?
-    let listingTypeID: String?
-    let stopTime: String?
-    let condition: String?
-    let permalink: String?
-    let thumbnail: String?
-    let thumbnailID: String?
-    let acceptsMercadopago: Bool?
-    let installments: Installments?
-    let address: Address?
-    let shipping: Shipping?
-    let sellerAddress: SellerAddress?
-    let attributes: [Attribute]?
-    let differentialPricing: DifferentialPricing?
-    let originalPrice: Int?
-    let categoryID: String?
-    let officialStoreID: Int?
-    let domainID: String?
-    let catalogProductID: String?
-    let tags: [String]?
-    let catalogListing: Bool?
-    let useThumbnailID: Bool?
-    let orderBackend: Int?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -159,15 +140,47 @@ struct Result: Codable {
         case useThumbnailID = "use_thumbnail_id"
         case orderBackend = "order_backend"
     }
+
+    // MARK: Properties
+
+    let id: Int?
+    let siteID: Int?
+    let title: String?
+    let seller: Seller?
+    let price: Int?
+    let prices: Prices?
+    let currencyID: String?
+    let availableQuantity: Int?
+    let soldQuantity: Int?
+    let buyingMode: String?
+    let listingTypeID: String?
+    let stopTime: String?
+    let condition: String?
+    let permalink: String?
+    let thumbnail: String?
+    let thumbnailID: String?
+    let acceptsMercadopago: Bool?
+    let installments: Installments?
+    let address: Address?
+    let shipping: Shipping?
+    let sellerAddress: SellerAddress?
+    let attributes: [Attribute]?
+    let differentialPricing: DifferentialPricing?
+    let originalPrice: Int?
+    let categoryID: String?
+    let officialStoreID: Int?
+    let domainID: String?
+    let catalogProductID: String?
+    let tags: [String]?
+    let catalogListing: Bool?
+    let useThumbnailID: Bool?
+    let orderBackend: Int?
 }
 
 // MARK: - Address
 
 struct Address: Codable {
-    let stateID: String?
-    let stateName: String?
-    let cityID: String?
-    let cityName: String?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case stateID = "state_id"
@@ -175,19 +188,19 @@ struct Address: Codable {
         case cityID = "city_id"
         case cityName = "city_name"
     }
+
+    // MARK: Properties
+
+    let stateID: String?
+    let stateName: String?
+    let cityID: String?
+    let cityName: String?
 }
 
 // MARK: - Attribute
 
 struct Attribute: Codable {
-    let id: String?
-    let name: String?
-    let valueID: String?
-    let values: [AttributeValue]?
-    let valueName: String?
-    let attributeGroupID: String?
-    let attributeGroupName: String?
-    let source: Int?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -199,20 +212,35 @@ struct Attribute: Codable {
         case attributeGroupName = "attribute_group_name"
         case source
     }
+
+    // MARK: Properties
+
+    let id: String?
+    let name: String?
+    let valueID: String?
+    let values: [AttributeValue]?
+    let valueName: String?
+    let attributeGroupID: String?
+    let attributeGroupName: String?
+    let source: Int?
 }
 
 // MARK: - AttributeValue
 
 struct AttributeValue: Codable {
-    let source: Int?
-    let id: String?
-    let name: String?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case source
         case id
         case name
     }
+
+    // MARK: Properties
+
+    let source: Int?
+    let id: String?
+    let name: String?
 }
 
 // MARK: - DifferentialPricing
@@ -224,10 +252,7 @@ struct DifferentialPricing: Codable {
 // MARK: - Installments
 
 struct Installments: Codable {
-    let quantity: Int?
-    let amount: Double?
-    let rate: Int?
-    let currencyID: String?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case quantity
@@ -235,15 +260,19 @@ struct Installments: Codable {
         case rate
         case currencyID = "currency_id"
     }
+
+    // MARK: Properties
+
+    let quantity: Int?
+    let amount: Double?
+    let rate: Int?
+    let currencyID: String?
 }
 
 // MARK: - Prices
 
 struct Prices: Codable {
-    let id: String?
-    let prices: [Price]?
-    let presentation: Presentation?
-    let referencePrices: [Price]?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -251,30 +280,33 @@ struct Prices: Codable {
         case prices
         case referencePrices = "reference_prices"
     }
+
+    // MARK: Properties
+
+    let id: String?
+    let prices: [Price]?
+    let presentation: Presentation?
+    let referencePrices: [Price]?
 }
 
 // MARK: - Presentation
 
 struct Presentation: Codable {
-    let displayCurrency: String?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case displayCurrency = "display_currency"
     }
+
+    // MARK: Properties
+
+    let displayCurrency: String?
 }
 
 // MARK: - Price
 
 struct Price: Codable {
-    let id: String?
-    let type: String?
-    let amount: Int?
-    let regularAmount: Int?
-    let currencyID: String?
-    let lastUpdated: String?
-    let conditions: Conditions?
-    let exchangeRateContext: String?
-    let metadata: Metadata?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -287,15 +319,24 @@ struct Price: Codable {
         case exchangeRateContext = "exchange_rate_context"
         case metadata
     }
+
+    // MARK: Properties
+
+    let id: String?
+    let type: String?
+    let amount: Int?
+    let regularAmount: Int?
+    let currencyID: String?
+    let lastUpdated: String?
+    let conditions: Conditions?
+    let exchangeRateContext: String?
+    let metadata: Metadata?
 }
 
 // MARK: - Conditions
 
 struct Conditions: Codable {
-    let contextRestrictions: [String]?
-    let startTime: String?
-    let endTime: String?
-    let eligible: Bool?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case contextRestrictions = "context_restrictions"
@@ -303,6 +344,13 @@ struct Conditions: Codable {
         case endTime = "end_time"
         case eligible
     }
+
+    // MARK: Properties
+
+    let contextRestrictions: [String]?
+    let startTime: String?
+    let endTime: String?
+    let eligible: Bool?
 }
 
 // MARK: - Metadata
@@ -312,11 +360,7 @@ struct Metadata: Codable {}
 // MARK: - Seller
 
 struct Seller: Codable {
-    let id: Int?
-    let permalink: String?
-    let registrationDate: String?
-    let carDealer: Bool?
-    let realEstateAgency: Bool?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -325,20 +369,20 @@ struct Seller: Codable {
         case carDealer = "car_dealer"
         case realEstateAgency = "real_estate_agency"
     }
+
+    // MARK: Properties
+
+    let id: Int?
+    let permalink: String?
+    let registrationDate: String?
+    let carDealer: Bool?
+    let realEstateAgency: Bool?
 }
 
 // MARK: - SellerAddress
 
 struct SellerAddress: Codable {
-    let id: String?
-    let comment: String?
-    let addressLine: String?
-    let zipCode: String?
-    let country: Sort?
-    let state: Sort?
-    let city: Sort?
-    let latitude: String?
-    let longitude: String?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -351,16 +395,24 @@ struct SellerAddress: Codable {
         case latitude
         case longitude
     }
+
+    // MARK: Properties
+
+    let id: String?
+    let comment: String?
+    let addressLine: String?
+    let zipCode: String?
+    let country: Sort?
+    let state: Sort?
+    let city: Sort?
+    let latitude: String?
+    let longitude: String?
 }
 
 // MARK: - Shipping
 
 struct Shipping: Codable {
-    let freeShipping: Bool?
-    let mode: String?
-    let tags: [String]?
-    let logisticType: String?
-    let storePickUp: Bool?
+    // MARK: Nested Types
 
     enum CodingKeys: String, CodingKey {
         case freeShipping = "free_shipping"
@@ -369,4 +421,12 @@ struct Shipping: Codable {
         case logisticType = "logistic_type"
         case storePickUp = "store_pick_up"
     }
+
+    // MARK: Properties
+
+    let freeShipping: Bool?
+    let mode: String?
+    let tags: [String]?
+    let logisticType: String?
+    let storePickUp: Bool?
 }

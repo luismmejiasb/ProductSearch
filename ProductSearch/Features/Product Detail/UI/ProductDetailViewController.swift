@@ -4,7 +4,6 @@ import UIKit
 
 @MainActor
 final class ProductDetailViewController: UIViewController {
-
     // MARK: Properties
 
     var presenter: ProductDetailPresenterProtocol?
@@ -48,33 +47,31 @@ final class ProductDetailViewController: UIViewController {
         fatalError("Missing presenter")
     }
 
+    deinit {
+        imageLoadingTask?.cancel()
+    }
+
+    // MARK: Overridden Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         presenter?.displayProductDetail()
     }
-
-    deinit {
-        imageLoadingTask?.cancel()
-    }
 }
 
-
-// MARK: - ProductDetailViewProtocol
+// MARK: ProductDetailViewProtocol
 
 extension ProductDetailViewController: ProductDetailViewProtocol {
-
     func displayProductDetail(_ product: Result) {
         loadImage(from: product.thumbnail)
         renderInfoView(for: product)
     }
 }
 
-
 // MARK: - Private
 
 private extension ProductDetailViewController {
-
     func setUpUI() {
         title = "Detalle de tu producto"
         view.addSubview(scrollView)

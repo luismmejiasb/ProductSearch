@@ -7,9 +7,10 @@ import UIKit
 final class HomePresenter: HomePresenterProtocol {
     // MARK: Properties
 
+    weak var view: HomeViewControllerProtocol?
+
     private let interactor: HomeInteractorProtocol
     private let router: HomeRouterProtocol
-    weak var view: HomeViewControllerProtocol?
 
     private var searchItemsTokens = Set<AnyCancellable>()
 

@@ -14,16 +14,16 @@ protocol SearchResultFactoryProtocol: AnyObject {
 
 // MARK: - SearchResultInteractorProtocol
 
-protocol SearchResultInteractorProtocol: AnyObject {func fetchNextOffSet(_ offSet: Int, searchText: String)
+protocol SearchResultInteractorProtocol: AnyObject { func fetchNextOffSet(_ offSet: Int, searchText: String)
     var publisher: PassthroughSubject<SearchResultPublisherResult, Error>? { get set }
-    
+
     func fetchNextOffSet(_ offSet: Int, category: String)
 }
 
 // MARK: - SearchResultViewProtocol
 
 @MainActor
-protocol SearchResultViewProtocol: AnyObject {func displaySearchResult()
+protocol SearchResultViewProtocol: AnyObject { func displaySearchResult()
     func displayNextOffSetResult(_ nextOffSetResult: SearchResult, searchType: SearchType, searchCategory: HomeCategorySearch?)
     func endLoadingIndicator()
 }
@@ -31,7 +31,7 @@ protocol SearchResultViewProtocol: AnyObject {func displaySearchResult()
 // MARK: - SearchResultRouterProtocol
 
 @MainActor
-protocol SearchResultRouterProtocol: AnyObject {func presentFilterTypeActionSheet()
+protocol SearchResultRouterProtocol: AnyObject { func presentFilterTypeActionSheet()
     func presentProductDetail(_ result: Result)
     func displayAlert(title: String, message: String)
 }

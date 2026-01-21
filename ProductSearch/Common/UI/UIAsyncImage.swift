@@ -29,7 +29,6 @@ extension UIImageView {
 // MARK: - Private helpers
 
 private extension UIImageView {
-
     static func buildSecureURL(from urlString: String) -> URL? {
         let sanitizedString = urlString
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?

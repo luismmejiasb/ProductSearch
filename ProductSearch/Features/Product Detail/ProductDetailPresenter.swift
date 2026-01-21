@@ -9,6 +9,7 @@ final class ProductDetailPresenter: ProductDetailPresenterProtocol {
     var interactor: ProductDetailInteractorProtocol
     var router: ProductDetailRouterProtocol
     weak var view: ProductDetailViewProtocol?
+
     private let product: Result
 
     // MARK: Lifecycle

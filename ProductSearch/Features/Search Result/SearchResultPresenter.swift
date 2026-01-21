@@ -6,10 +6,12 @@ import UIKit
 @MainActor
 final class SearchResultPresenter: SearchResultPresenterProtocol {
     // MARK: Properties
+
+    weak var view: SearchResultViewProtocol?
+
     private let interactor: SearchResultInteractorProtocol
     private let router: SearchResultRouterProtocol
     private let pagingLength = 50
-    weak var view: SearchResultViewProtocol?
     private var searchResult: SearchResult
     private var searchType: SearchType
     private let searchCategory: HomeCategorySearch
@@ -59,19 +61,19 @@ final class SearchResultPresenter: SearchResultPresenterProtocol {
     func presentProductDetail(_ result: Result) {
         router.presentProductDetail(result)
     }
-    
+
     func getSearchResult() -> SearchResult? {
         searchResult
     }
-    
+
     func setSearchResult(results: [Result]?) {
         searchResult.results = results
     }
-    
+
     func getSearchType() -> SearchType {
         searchType
     }
-    
+
     func getSearchCategory() -> HomeCategorySearch {
         searchCategory
     }

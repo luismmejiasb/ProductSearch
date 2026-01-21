@@ -59,7 +59,7 @@ private extension SearchResultViewController {
             return
         }
         let searchType = presenter.getSearchType()
-        
+
         switch searchType {
         case .text:
             title = "Resultados para \(presenter.getSearchResult()?.query ?? "")"
@@ -87,14 +87,14 @@ extension SearchResultViewController: SearchResultViewProtocol {
     }
 
     func displayNextOffSetResult
-    (_ nextOffSetResult: SearchResult,
-     searchType _: SearchType,
-     searchCategory _: HomeCategorySearch?
+    (
+        _ nextOffSetResult: SearchResult,
+        searchType _: SearchType,
+        searchCategory _: HomeCategorySearch?
     ) {
         guard
             let searchResults = presenter?.getSearchResult()?.results,
-            let nextOffSetResults = nextOffSetResult.results else
-        {
+            let nextOffSetResults = nextOffSetResult.results else {
             return
         }
         presenter?.setSearchResult(results: searchResults + nextOffSetResults)

@@ -1,11 +1,14 @@
 import UIKit
 
+// MARK: - SearchResultUITableViewCell
+
 @MainActor
 final class SearchResultUITableViewCell: UITableViewCell {
-
     // MARK: Static Properties
 
     static let reusableIdentifier = "searchResultTableViewCell"
+
+    // MARK: Properties
 
     // MARK: Outlets
 
@@ -14,11 +17,9 @@ final class SearchResultUITableViewCell: UITableViewCell {
     @IBOutlet private var productLocationLabel: UILabel!
     @IBOutlet private var productImageView: UIImageView!
 
-    // MARK: Properties
-
     private var imageLoadingTask: Task<Void, Never>?
 
-    // MARK: Lifecycle
+    // MARK: Overridden Functions
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -28,6 +29,8 @@ final class SearchResultUITableViewCell: UITableViewCell {
 
         productImageView.image = nil
     }
+
+    // MARK: Functions
 
     // MARK: Configuration
 
@@ -46,8 +49,7 @@ private extension SearchResultUITableViewCell {
     func configureLocation(with resultData: Result) {
         guard
             let city = resultData.sellerAddress?.city?.name,
-            let state = resultData.sellerAddress?.state?.name
-        else {
+            let state = resultData.sellerAddress?.state?.name else {
             productLocationLabel.text = "Sin ubicación"
             return
         }
