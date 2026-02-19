@@ -4,10 +4,9 @@ import Foundation
 class HomePresenterMock: HomePresenterProtocol {
     // MARK: Properties
 
-    var interactor: HomeInteractorProtocol?
-    var router: HomeRouterProtocol?
-    var view: HomeViewControllerProtocol?
     var functionsCalled = [String]()
+    var lastSearchText: String = ""
+    var lastCategory: HomeCategorySearch = .none
 
     // MARK: Functions
 
@@ -15,15 +14,17 @@ class HomePresenterMock: HomePresenterProtocol {
         functionsCalled.append(#function)
     }
 
-    func searchItem(searchText _: String) {
+    func searchItem(searchText: String) {
         functionsCalled.append(#function)
+        lastSearchText = searchText
     }
 
-    func searchByCategory(_: HomeCategorySearch) {
+    func searchByCategory(_ category: HomeCategorySearch) {
         functionsCalled.append(#function)
+        lastCategory = category
     }
 
-    func presentSearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch?) {
+    func presentSearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch) {
         functionsCalled.append(#function)
     }
 }

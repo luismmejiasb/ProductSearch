@@ -2,24 +2,29 @@ import Foundation
 import UIKit
 @testable import ProductSearch
 
-class HomeViewMock: UIViewController, HomeViewProtocol {
+// MARK: - SearchResultViewMock
+
+class SearchResultViewMock: SearchResultViewProtocol {
     // MARK: Properties
 
-    var presenter: HomePresenterProtocol?
     var functionsCalled = [String]()
-    var lastSearchResult: SearchResult?
+    var lastNextOffSetResult: SearchResult?
     var lastSearchType: SearchType?
     var lastSearchCategory: HomeCategorySearch?
 
     // MARK: Functions
 
-    func displaySearchResult(
-        _ searchResult: SearchResult,
+    func displaySearchResult() {
+        functionsCalled.append(#function)
+    }
+
+    func displayNextOffSetResult(
+        _ nextOffSetResult: SearchResult,
         searchType: SearchType,
-        searchCategory: HomeCategorySearch
+        searchCategory: HomeCategorySearch?
     ) {
         functionsCalled.append(#function)
-        lastSearchResult = searchResult
+        lastNextOffSetResult = nextOffSetResult
         lastSearchType = searchType
         lastSearchCategory = searchCategory
     }

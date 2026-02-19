@@ -2,28 +2,27 @@ import Combine
 import Foundation
 @testable import ProductSearch
 
-class HomeRepositoryMock: HomeRepositoryProtocol {
+// MARK: - SearchResultRepositoryMock
+
+class SearchResultRepositoryMock: SearchResultRepositoryProtocol {
     // MARK: Properties
 
+    var localDataSource: SearchResultLocalDataSourceProtocol?
+    var cloudDataSource: SearchResultCloudDataSourceProtocol?
     var functionsCalled = [String]()
-    var localDataSource: HomeLocalDataSourceProtocol?
-    var cloudDataSource: HomeCloudDataSourceProtocol?
-    var lastOffSet: Int = -1
+    var lastOffSet: Int = 0
     var lastSearchText: String = ""
     var lastCategory: String = ""
-
-    private let status: TransactionStatus
 
     // MARK: Lifecycle
 
     init(
         status: TransactionStatus,
-        localDataSource: HomeLocalDataSourceProtocol?,
-        cloudDataSource: HomeCloudDataSourceProtocol?
+        localDataSource: SearchResultLocalDataSourceProtocol?,
+        cloudDataSource: SearchResultCloudDataSourceProtocol?
     ) {
-        self.status = status
-        self.cloudDataSource = cloudDataSource
         self.localDataSource = localDataSource
+        self.cloudDataSource = cloudDataSource
     }
 
     // MARK: Functions
@@ -32,13 +31,13 @@ class HomeRepositoryMock: HomeRepositoryProtocol {
         functionsCalled.append(#function)
         lastOffSet = offSet
         lastSearchText = searchText
-        return (cloudDataSource?.searchItem(offSet: offSet, searchText: searchText))!
+        return cloudDataSource!.searchItem(offSet: offSet, searchText: searchText)
     }
 
     func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
         functionsCalled.append(#function)
         lastOffSet = offSet
         lastCategory = category
-        return (cloudDataSource?.searchCategory(offSet: offSet, category: category))!
+        return cloudDataSource!.searchCategory(offSet: offSet, category: category)
     }
 }

@@ -16,9 +16,154 @@ class HomeInteractorTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         interactorToTest = nil
+        searchTokens.removeAll()
     }
 
-    // MARK: Functions
+    // MARK: Helpers
+
+    private func makeInteractor(status: TransactionStatus) -> (HomeInteractor, HomeRepositoryMock, PassthroughSubject<HomePublisherResult, Error>) {
+        let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
+        let localDataSourceMock = HomeLocalDataSourceMock()
+        let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
+        let publisher = PassthroughSubject<HomePublisherResult, Error>()
+        let interactor = HomeInteractor(repository: repositoryMock)
+        interactor.publisher = publisher
+        return (interactor, repositoryMock, publisher)
+    }
+    
+    func testSearchItem_passesSearchTextToRepository() {
+        let (interactor, repositoryMock, _) = makeInteractor(status: .success)
+        interactorToTest = interactor
+
+        interactorToTest?.serachItem(searchText: "MacBook")
+
+        XCTAssertEqual(repositoryMock.lastSearchText, "MacBook")
+    }
+
+    func testSearchItem_usesZeroOffset() {
+        let (interactor, repositoryMock, _) = makeInteractor(status: .success)
+        interactorToTest = interactor
+
+        interactorToTest?.serachItem(searchText: "iPad")
+
+        XCTAssertEqual(repositoryMock.lastOffSet, 0)
+    }
+
+    // MARK: - Tests: searchByCategory
+
+    func testSearchByCategoryRealState_withSuccess() {
+        let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
+        interactorToTest = interactor
+
+        publisher.sink(
+            receiveCompletion: { completion in
+                if case .failure = completion { XCTFail("Should not fail") }
+            },
+            receiveValue: { result in
+                switch result {
+                case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
+                    XCTAssertNotNil(searchResult)
+                    XCTAssertEqual(searchedCategory, .realState)
+                default:
+                    XCTFail("Expected category success, got: \(result)")
+                }
+            }
+        ).store(in: &searchTokens)
+
+        interactorToTest?.searchByCategory(.realState)
+
+        XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
+        XCTAssertEqual(repositoryMock.functionsCalled[0], searchCategorySelectorName)
+    }
+
+    func testSearchByCategoryVehicule_withSuccess() {
+        let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
+        interactorToTest = interactor
+
+        publisher.sink(
+            receiveCompletion: { _ in },
+            receiveValue: { result in
+                switch result {
+                case .categorySearchedWithSuccess(_, let searchedCategory):
+                    XCTAssertEqual(searchedCategory, .vehicule)
+                default:
+                    XCTFail("Expected vehicule category success")
+                }
+            }
+        ).store(in: &searchTokens)
+
+        interactorToTest?.searchByCategory(.vehicule)
+
+        XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
+        XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.vehicule.stringValue)
+    }
+
+    func testSearchByCategoryServices_withSuccess() {
+        let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
+        interactorToTest = interactor
+
+        publisher.sink(
+            receiveCompletion: { _ in },
+            receiveValue: { result in
+                switch result {
+                case .categorySearchedWithSuccess(_, let searchedCategory):
+                    XCTAssertEqual(searchedCategory, .services)
+                default:
+                    XCTFail("Expected services category success")
+                }
+            }
+        ).store(in: &searchTokens)
+
+        interactorToTest?.searchByCategory(.services)
+
+        XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
+        XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.services.stringValue)
+    }
+
+    func testSearchByCategory_passesCorrectStringToRepository() {
+        let categories: [(HomeCategorySearch, String)] = [
+            (.vehicule, "MLC1743"),
+            (.realState, "MLC1459"),
+            (.services, "MLC1540"),
+            (.none, "")
+        ]
+
+        for (category, expectedString) in categories {
+            let (interactor, repositoryMock, _) = makeInteractor(status: .success)
+            interactor.searchByCategory(category)
+            XCTAssertEqual(
+                repositoryMock.lastCategory,
+                expectedString,
+                "Category \(category) should pass '\(expectedString)' to repository"
+            )
+        }
+    }
+
+    // MARK: - Tests: publisher nil does not crash
+
+    func testSerachItem_withNilPublisher_doesNotCrash() {
+        let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
+        let localDataSourceMock = HomeLocalDataSourceMock()
+        let repositoryMock = HomeRepositoryMock(status: .success, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
+        let interactor = HomeInteractor(repository: repositoryMock)
+        interactor.publisher = nil
+
+        interactor.serachItem(searchText: "iPhone")
+
+        XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
+    }
+
+    func testSearchByCategory_withNilPublisher_doesNotCrash() {
+        let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
+        let localDataSourceMock = HomeLocalDataSourceMock()
+        let repositoryMock = HomeRepositoryMock(status: .success, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
+        let interactor = HomeInteractor(repository: repositoryMock)
+        interactor.publisher = nil
+
+        interactor.searchByCategory(.vehicule)
+
+        XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
+    }
 
     func testSerachItemWithSuccess() {
         let status: TransactionStatus = .success

@@ -5,7 +5,7 @@ The main goal of this project is to demonstrate a **clean, scalable VIPER archit
 
 The project uses **CocoaPods** for dependency management, **Property Lists** for environment configuration, and supports **Localization / Internationalization** out of the box.
 
-![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-iOS%2014.5+-blue.svg)
 ![Swift](https://img.shields.io/badge/swift-5.x-orange.svg)
 
@@ -104,8 +104,8 @@ The dependency graph is **unidirectional** and enforced by protocols:
 
 ```
 View → Presenter → Interactor → Repository → DataSources
-                     ↓
-                   Router
+           ↓
+        Router          
 ```
 
 Key rules:
@@ -167,14 +167,16 @@ Singletons are used sparingly and intentionally, for example:
 
 ## 7. Unit Testing
 
-Due to time constraints, this version does **not include full unit test coverage**.
+The project includes a comprehensive **XCTest** suite organized alongside the main target in `ProductSearchTests/`.  
+All test layers are fully isolated — every dependency is replaced by a **protocol-conforming mock**, keeping tests fast, deterministic, and free of network calls.
 
-However, the architecture is fully testable:
-- Presenter, Interactor, and Repository layers are protocol-driven
-- No hard dependencies on UIKit in business logic
+### Covered Modules
 
-You can see a **fully tested VIPER example** here:  
-👉 https://github.com/luismmejiasb/ArtistSearch
+| Module | Layers Tested |
+|---|---|
+| **Home** | Presenter · Interactor · Repository · Factory · `HomeCategorySearch` entity |
+| **Product Detail** | Presenter · Factory |
+| **Search Result** | Presenter · Interactor · Repository · Factory |
 
 ---
 
@@ -187,13 +189,3 @@ https://semver.org
 ```
 MAJOR.MINOR.PATCH
 ```
-
----
-
-## 9. Key Takeaways
-
-- Clean VIPER implementation
-- Explicit dependency injection
-- No hidden coupling
-- Scalable module structure
-- Production-ready architecture
