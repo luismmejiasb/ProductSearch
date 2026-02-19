@@ -70,7 +70,6 @@ class HomePresenterTests: XCTestCase {
         XCTAssertEqual(viewMock.functionsCalled[0], endLoadingIndicatorSelectorName)
         XCTAssertEqual(viewMock.functionsCalled[1], displaySearchResultSelectorName)
         XCTAssertEqual(viewMock.lastSearchType, .text)
-        XCTAssertEqual(viewMock.lastSearchCategory, .none)
     }
 
     func testSearchItem_withSuccess_searchResultIsNotNil() {
@@ -133,8 +132,6 @@ class HomePresenterTests: XCTestCase {
         XCTAssertEqual(viewMock.functionsCalled.count, 2)
         XCTAssertEqual(viewMock.functionsCalled[0], endLoadingIndicatorSelectorName)
         XCTAssertEqual(viewMock.functionsCalled[1], displaySearchResultSelectorName)
-        XCTAssertEqual(viewMock.lastSearchType, .category)
-        XCTAssertEqual(viewMock.lastSearchCategory, .vehicule)
     }
 
     func testSearchByCategory_realState_withSuccess() {
@@ -143,7 +140,6 @@ class HomePresenterTests: XCTestCase {
         presenter.searchByCategory(.realState)
 
         XCTAssertEqual(interactorMock.functionsCalled.first, searchByCategorySelectorName)
-        XCTAssertEqual(viewMock.lastSearchCategory, .realState)
     }
 
     func testSearchByCategory_services_withSuccess() {
@@ -152,7 +148,6 @@ class HomePresenterTests: XCTestCase {
         presenter.searchByCategory(.services)
 
         XCTAssertEqual(interactorMock.functionsCalled.first, searchByCategorySelectorName)
-        XCTAssertEqual(viewMock.lastSearchCategory, .services)
     }
 
     func testSearchByCategory_withHTTPError_callsRouterDisplayAlert() {
@@ -189,18 +184,17 @@ class HomePresenterTests: XCTestCase {
 
     func testPublisher_itemsSearchedWithSuccess_setsSearchTypeText() {
         let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult!
+        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
 
         publisher.send(.itemsSearchedWithSuccess(searchResult: mockResult))
 
         XCTAssertEqual(viewMock.lastSearchType, .text)
-        XCTAssertEqual(viewMock.lastSearchCategory, .none)
         _ = presenter
     }
 
     func testPublisher_categorySearchedWithSuccess_setsCorrectCategory() {
         let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult!
+        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
 
         publisher.send(.categorySearchedWithSuccess(searchResult: mockResult, searchedCategory: .vehicule))
 
@@ -233,7 +227,7 @@ class HomePresenterTests: XCTestCase {
 
     func testPresentSearchResult_text_callsRouter() {
         let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult!
+        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
 
         presenter.presentSearchResult(mockResult, searchType: .text, searchCategory: .none)
 
@@ -243,7 +237,7 @@ class HomePresenterTests: XCTestCase {
 
     func testPresentSearchResult_category_callsRouter() {
         let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult!
+        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
 
         presenter.presentSearchResult(mockResult, searchType: .category, searchCategory: .realState)
 

@@ -143,8 +143,8 @@ struct Result: Codable {
 
     // MARK: Properties
 
-    let id: Int?
-    let siteID: Int?
+    let id: String?
+    let siteID: String?
     let title: String?
     let seller: Seller?
     let price: Int?

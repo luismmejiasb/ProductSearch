@@ -23,11 +23,7 @@ class SearchResultCloudDataSourceMock: SearchResultCloudDataSourceProtocol {
         Future { [weak self] promise in
             guard let self else { return }
             if self.status == .success {
-                guard let result = self.mockData.searchResult else {
-                    promise(.failure(CloudDataSourceDefaultError.responseCannotBeParsed))
-                    return
-                }
-                promise(.success(result))
+                promise(.success(self.mockData.searchResult))
             } else {
                 promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }
@@ -38,11 +34,7 @@ class SearchResultCloudDataSourceMock: SearchResultCloudDataSourceProtocol {
         Future { [weak self] promise in
             guard let self else { return }
             if self.status == .success {
-                guard let result = self.mockData.searchResult else {
-                    promise(.failure(CloudDataSourceDefaultError.responseCannotBeParsed))
-                    return
-                }
-                promise(.success(result))
+                promise(.success(self.mockData.searchResult))
             } else {
                 promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }

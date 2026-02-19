@@ -52,7 +52,7 @@ class HomeRepositoryTests: XCTestCase {
                 receiveValue: { searchResult in
                     XCTAssertEqual(
                         searchResult.results?.first?.categoryID,
-                        HomeMLCDataMock.homeSearchItem.searchDefaultResult?.results?.first?.categoryID
+                        HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID
                     )
                 }
             )
@@ -131,7 +131,7 @@ class HomeRepositoryTests: XCTestCase {
                 receiveValue: { searchResult in
                     XCTAssertEqual(
                         searchResult.results?.first?.categoryID,
-                        HomeMLCDataMock.homeSearchItem.searchDefaultResult?.results?.first?.categoryID
+                        HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID
                     )
                 }
             )
@@ -232,7 +232,7 @@ class HomeRepositoryTests: XCTestCase {
                     }
                 }, receiveValue: { searchResult in
                     XCTAssertNotNil(searchResult, "Result must not be nil")
-                    XCTAssertEqual(searchResult.results![0].categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult?.results![0].categoryID)
+                    XCTAssertEqual(searchResult.results?.first?.categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID)
                 }
             ).store(in: &searchTokens)
     }
@@ -275,7 +275,7 @@ class HomeRepositoryTests: XCTestCase {
                     }
                 }, receiveValue: { searchResult in
                     XCTAssertNotNil(searchResult, "Result must not be nil")
-                    XCTAssertEqual(searchResult.results![0].categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult?.results![0].categoryID)
+                    XCTAssertEqual(searchResult.results?.first?.categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID)
                 }
             ).store(in: &searchTokens)
     }

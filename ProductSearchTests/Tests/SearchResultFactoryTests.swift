@@ -9,7 +9,7 @@ class SearchResultFactoryTests: XCTestCase {
     // MARK: Helpers
 
     private var sampleSearchResult: SearchResult {
-        SearchResultMLCDataMock.multipleResults.searchResult!
+        SearchResultMLCDataMock.multipleResults.searchResult
     }
 
     // MARK: - Tests: text search type
@@ -53,7 +53,7 @@ class SearchResultFactoryTests: XCTestCase {
     // MARK: - Tests: category search type
 
     func testInitialize_categorySearch_presenterHasCorrectSearchType() {
-        let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult!
+        let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: categoryResult,
             searchType: .category,
@@ -63,7 +63,7 @@ class SearchResultFactoryTests: XCTestCase {
     }
 
     func testInitialize_categorySearch_presenterHasCorrectCategory() {
-        let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult!
+        let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: categoryResult,
             searchType: .category,

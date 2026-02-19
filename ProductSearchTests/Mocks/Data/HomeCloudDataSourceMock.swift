@@ -18,7 +18,7 @@ class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
     func searchItem(offSet _: Int, searchText _: String) -> Future<SearchResult, Error> {
         Future { promise in
             if self.status == .success {
-                return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult!))
+                return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult))
             } else {
                 return promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }
@@ -28,21 +28,7 @@ class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
     func searchCategory(offSet _: Int, category _: String) -> Future<SearchResult, Error> {
         Future { promise in
             if self.status == .success {
-                return promise(
-                    .success(
-                        HomeMLCDataMock.homeSearchItem.searchDefaultResult ??
-                        SearchResult(
-                            siteID: nil,
-                            countryDefaultTimeZone: nil,
-                            query: nil,
-                            paging: nil,
-                            sort: nil,
-                            availableSorts: nil,
-                            filters: nil,
-                            availableFilters: nil
-                        )
-                    )
-                )
+                return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult))
             } else {
                 return promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }

@@ -55,7 +55,7 @@ class SearchResultPresenterTests: XCTestCase {
         let interactorMock = SearchResultInteractorMock(repository: repositoryMock)
         interactorMock.publisher = publisher
 
-        let initialSearchResult = mockData.searchResult!
+        let initialSearchResult = mockData.searchResult
         let presenter = SearchResultPresenter(
             interactor: interactorMock,
             router: routerMock,
@@ -229,7 +229,10 @@ class SearchResultPresenterTests: XCTestCase {
 
     func testPresentProductDetail_callsRouter() {
         let (presenter, _, initialResult) = makeSUT()
-        let product = initialResult.results![0]
+        guard let product = initialResult.results?.first else {
+            XCTFail("Expected at least one result in mock data")
+            return
+        }
 
         presenter.presentProductDetail(product)
 
@@ -239,7 +242,10 @@ class SearchResultPresenterTests: XCTestCase {
 
     func testPresentProductDetail_passesCorrectProduct() {
         let (presenter, _, initialResult) = makeSUT()
-        let product = initialResult.results![0]
+        guard let product = initialResult.results?.first else {
+            XCTFail("Expected at least one result in mock data")
+            return
+        }
 
         presenter.presentProductDetail(product)
 
@@ -422,7 +428,7 @@ class SearchResultPresenterTests: XCTestCase {
 
         presenter.fetchNextOffSet()
         // Simulate the interactor publishing the result
-        let mockResult = SearchResultMLCDataMock.multipleResults.searchResult!
+        let mockResult = SearchResultMLCDataMock.multipleResults.searchResult
         publisher.send(.displayNextOffSet(searchResult: mockResult))
 
         XCTAssertTrue(viewMock.functionsCalled.contains(displayNextOffSetResultSelectorName))

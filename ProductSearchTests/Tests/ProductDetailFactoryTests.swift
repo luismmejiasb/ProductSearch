@@ -9,7 +9,10 @@ class ProductDetailFactoryTests: XCTestCase {
     // MARK: Helpers
 
     private var sampleProduct: Result {
-        SearchResultMLCDataMock.multipleResults.searchResult!.results![0]
+        guard let product = SearchResultMLCDataMock.multipleResults.searchResult.results?.first else {
+            fatalError("ProductDetailFactoryTests: sampleProduct — results array is empty or nil in mock data")
+        }
+        return product
     }
 
     // MARK: - Tests: Factory initialization

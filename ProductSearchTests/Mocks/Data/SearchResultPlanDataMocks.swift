@@ -21,11 +21,11 @@ enum SearchResultMLCDataMock {
         }
     }
 
-    var searchResult: SearchResult? {
+    var searchResult: SearchResult {
         do {
             return try JSONDecoder().decode(SearchResult.self, from: data)
         } catch {
-            return nil
+            fatalError("SearchResultPlanDataMocks: JSON decoding failed — \(error)")
         }
     }
 }
