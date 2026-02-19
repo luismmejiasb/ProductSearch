@@ -25,9 +25,11 @@ class HomeRepositoryTests: XCTestCase {
     
     // MARK: - Tests: searchCategory
     
-    func testSearchCategory_withSuccess_returnsResult() {
+    func testSearchCategoryWithSuccessReturnsResult() {
+        // given
         let (repository, _) = makeRepository(status: .success)
-        
+
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
             .sink(
                 receiveCompletion: { completion in
@@ -43,9 +45,11 @@ class HomeRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
     
-    func testSearchCategory_withSuccess_returnsExpectedCategoryID() {
+    func testSearchCategoryWithSuccessReturnsExpectedCategoryID() {
+        // given
         let (repository, _) = makeRepository(status: .success)
-        
+
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
             .sink(
                 receiveCompletion: { _ in },
@@ -59,9 +63,11 @@ class HomeRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
     
-    func testSearchCategory_withFailure_returnsError() {
+    func testSearchCategoryWithFailureReturnsError() {
+        // given
         let (repository, _) = makeRepository(status: .failure)
-        
+
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
             .sink(
                 receiveCompletion: { completion in
@@ -76,9 +82,11 @@ class HomeRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
     
-    func testSearchCategory_vehicule_withSuccess() {
+    func testSearchCategoryVehiculeWithSuccess() {
+        // given
         let (repository, _) = makeRepository(status: .success)
-        
+
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.vehicule.stringValue)
             .sink(
                 receiveCompletion: { _ in },
@@ -89,9 +97,11 @@ class HomeRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
     
-    func testSearchCategory_services_withSuccess() {
+    func testSearchCategoryServicesWithSuccess() {
+        // given
         let (repository, _) = makeRepository(status: .success)
-        
+
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.services.stringValue)
             .sink(
                 receiveCompletion: { _ in },
@@ -104,9 +114,11 @@ class HomeRepositoryTests: XCTestCase {
     
     // MARK: - Tests: searchItem
     
-    func testSearchItem_withSuccess_returnsResult() {
+    func testSearchItemWithSuccessReturnsResult() {
+        // given
         let (repository, _) = makeRepository(status: .success)
-        
+
+        // when / then
         repository.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { completion in
@@ -122,9 +134,11 @@ class HomeRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
     
-    func testSearchItem_withSuccess_returnsExpectedCategoryID() {
+    func testSearchItemWithSuccessReturnsExpectedCategoryID() {
+        // given
         let (repository, _) = makeRepository(status: .success)
-        
+
+        // when / then
         repository.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { _ in },
@@ -138,9 +152,11 @@ class HomeRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
     
-    func testSearchItem_withFailure_returnsError() {
+    func testSearchItemWithFailureReturnsError() {
+        // given
         let (repository, _) = makeRepository(status: .failure)
-        
+
+        // when / then
         repository.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { completion in
@@ -155,10 +171,12 @@ class HomeRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
     
-    func testSearchItem_withOffset50_stillDelegatesToDataSource() {
+    func testSearchItemWithOffset50StillDelegatesToDataSource() {
+        // given
         let (repository, cloudDataSourceMock) = makeRepository(status: .success)
         var didReceiveValue = false
-        
+
+        // when
         repository.searchItem(offSet: 50, searchText: "MacBook")
             .sink(
                 receiveCompletion: { _ in },
@@ -167,15 +185,18 @@ class HomeRepositoryTests: XCTestCase {
                 }
             )
             .store(in: &searchTokens)
-        
+
+        // then
         XCTAssertTrue(didReceiveValue)
         _ = cloudDataSourceMock
     }
     
-    func testSearchCategory_withOffset50_stillDelegatesToDataSource() {
+    func testSearchCategoryWithOffset50StillDelegatesToDataSource() {
+        // given
         let (repository, cloudDataSourceMock) = makeRepository(status: .success)
         var didReceiveValue = false
-        
+
+        // when
         repository.searchCategory(offSet: 50, category: HomeCategorySearch.vehicule.stringValue)
             .sink(
                 receiveCompletion: { _ in },
@@ -184,17 +205,20 @@ class HomeRepositoryTests: XCTestCase {
                 }
             )
             .store(in: &searchTokens)
-        
+
+        // then
         XCTAssertTrue(didReceiveValue)
         _ = cloudDataSourceMock
     }
     
     // MARK: - Tests: cloudDataSource error types
     
-    func testSearchItem_failure_isHttpError() {
+    func testSearchItemFailureIsHttpError() {
+        // given
         let (repository, _) = makeRepository(status: .failure)
         var receivedError: Error?
-        
+
+        // when
         repository.searchItem(offSet: 0, searchText: "Test")
             .sink(
                 receiveCompletion: { completion in
@@ -205,7 +229,8 @@ class HomeRepositoryTests: XCTestCase {
                 receiveValue: { _ in }
             )
             .store(in: &searchTokens)
-        
+
+        // then
         XCTAssertNotNil(receivedError)
         if let cloudError = receivedError as? CloudDataSourceDefaultError,
            case .httpError = cloudError {
@@ -216,11 +241,12 @@ class HomeRepositoryTests: XCTestCase {
     }
     
     func testSearchCategoryWithSuccess() {
+        // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
         let localDataSourceMock = HomeLocalDataSourceMock()
-        
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
-        
+
+        // when / then
         repositoryToTest.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
             .sink(
                 receiveCompletion: { completion in
@@ -238,11 +264,12 @@ class HomeRepositoryTests: XCTestCase {
     }
     
     func testSearchCategoryWithFailure() {
+        // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .failure)
         let localDataSourceMock = HomeLocalDataSourceMock()
-        
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
-        
+
+        // when / then
         repositoryToTest.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
             .sink(
                 receiveCompletion: { completion in
@@ -259,11 +286,12 @@ class HomeRepositoryTests: XCTestCase {
     }
     
     func testSearchTextWithSuccess() {
+        // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
         let localDataSourceMock = HomeLocalDataSourceMock()
-        
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
-        
+
+        // when / then
         repositoryToTest.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { completion in
@@ -281,11 +309,12 @@ class HomeRepositoryTests: XCTestCase {
     }
     
     func testSearchTextWithFailure() {
+        // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .failure)
         let localDataSourceMock = HomeLocalDataSourceMock()
-        
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
-        
+
+        // when / then
         repositoryToTest.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { completion in

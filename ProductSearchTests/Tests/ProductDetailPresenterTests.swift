@@ -87,65 +87,84 @@ class ProductDetailPresenterTests: XCTestCase {
 
     // MARK: - Tests: displayProductDetail
 
-    func testDisplayProductDetail_callsViewMethod() {
+    func testDisplayProductDetailCallsViewMethod() {
+        // given
         let product = makeProduct()
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertEqual(viewMock.functionsCalled.count, 1)
         XCTAssertEqual(viewMock.functionsCalled[0], displayProductDetailSelectorName)
     }
 
-    func testDisplayProductDetail_passesCorrectTitle() {
+    func testDisplayProductDetailPassesCorrectTitle() {
+        // given
         let product = makeProduct(title: "MacBook Pro 16")
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertEqual(viewMock.receivedProduct?.title, "MacBook Pro 16")
     }
 
-    func testDisplayProductDetail_passesCorrectPrice() {
+    func testDisplayProductDetailPassesCorrectPrice() {
+        // given
         let product = makeProduct(price: 1_200_000)
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertEqual(viewMock.receivedProduct?.price, 1_200_000)
     }
 
-    func testDisplayProductDetail_passesCorrectCondition() {
+    func testDisplayProductDetailPassesCorrectCondition() {
+        // given
         let product = makeProduct(condition: "used")
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertEqual(viewMock.receivedProduct?.condition, "used")
     }
 
-    func testDisplayProductDetail_passesCorrectCategoryID() {
+    func testDisplayProductDetailPassesCorrectCategoryID() {
+        // given
         let product = makeProduct(categoryID: "MLC1743")
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertEqual(viewMock.receivedProduct?.categoryID, "MLC1743")
     }
 
-    func testDisplayProductDetail_calledMultipleTimes_callsViewEachTime() {
+    func testDisplayProductDetailCalledMultipleTimesCallsViewEachTime() {
+        // given
         let product = makeProduct()
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
         presenter.displayProductDetail()
         presenter.displayProductDetail()
 
+        // then
         XCTAssertEqual(viewMock.functionsCalled.count, 3)
         XCTAssertTrue(viewMock.functionsCalled.allSatisfy { $0 == self.displayProductDetailSelectorName })
     }
 
-    func testDisplayProductDetail_withNilView_doesNotCrash() {
+    func testDisplayProductDetailWithNilViewDoesNotCrash() {
+        // given
         let product = makeProduct()
         let presenter = ProductDetailPresenter(
             interactor: interactorMock,
@@ -154,38 +173,48 @@ class ProductDetailPresenterTests: XCTestCase {
         )
         presenter.view = nil
 
+        // when
         presenter.displayProductDetail()
 
-        // Should not crash, view is simply not called
+        // then (should not crash, view is simply not called)
         XCTAssertTrue(viewMock.functionsCalled.isEmpty)
     }
 
-    func testDisplayProductDetail_doesNotCallRouter() {
+    func testDisplayProductDetailDoesNotCallRouter() {
+        // given
         let product = makeProduct()
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertTrue(routerMock.functionsCalled.isEmpty)
     }
 
-    func testDisplayProductDetail_doesNotCallInteractor() {
+    func testDisplayProductDetailDoesNotCallInteractor() {
+        // given
         let product = makeProduct()
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertTrue(interactorMock.functionsCalled.isEmpty)
     }
 
     // MARK: - Tests: View receives same product that was injected
 
-    func testDisplayProductDetail_viewReceivesSameProductPassedOnInit() {
+    func testDisplayProductDetailViewReceivesSameProductPassedOnInit() {
+        // given
         let product = makeProduct(title: "Samsung Galaxy S23", price: 550000)
         let presenter = makeSUT(product: product)
 
+        // when
         presenter.displayProductDetail()
 
+        // then
         XCTAssertEqual(viewMock.receivedProduct?.title, product.title)
         XCTAssertEqual(viewMock.receivedProduct?.price, product.price)
     }

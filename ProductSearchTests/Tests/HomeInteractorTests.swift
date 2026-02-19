@@ -31,27 +31,34 @@ class HomeInteractorTests: XCTestCase {
         return (interactor, repositoryMock, publisher)
     }
     
-    func testSearchItem_passesSearchTextToRepository() {
+    func testSearchItemPassesSearchTextToRepository() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
         interactorToTest = interactor
 
+        // when
         interactorToTest?.serachItem(searchText: "MacBook")
 
+        // then
         XCTAssertEqual(repositoryMock.lastSearchText, "MacBook")
     }
 
-    func testSearchItem_usesZeroOffset() {
+    func testSearchItemUsesZeroOffset() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
         interactorToTest = interactor
 
+        // when
         interactorToTest?.serachItem(searchText: "iPad")
 
+        // then
         XCTAssertEqual(repositoryMock.lastOffSet, 0)
     }
 
     // MARK: - Tests: searchByCategory
 
-    func testSearchByCategoryRealState_withSuccess() {
+    func testSearchByCategoryRealStateWithSuccess() {
+        // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         interactorToTest = interactor
 
@@ -60,6 +67,7 @@ class HomeInteractorTests: XCTestCase {
                 if case .failure = completion { XCTFail("Should not fail") }
             },
             receiveValue: { result in
+                // then
                 switch result {
                 case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     XCTAssertNotNil(searchResult)
@@ -70,19 +78,22 @@ class HomeInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactorToTest?.searchByCategory(.realState)
 
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
         XCTAssertEqual(repositoryMock.functionsCalled[0], searchCategorySelectorName)
     }
 
-    func testSearchByCategoryVehicule_withSuccess() {
+    func testSearchByCategoryVehiculeWithSuccess() {
+        // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         interactorToTest = interactor
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
+                // then
                 switch result {
                 case .categorySearchedWithSuccess(_, let searchedCategory):
                     XCTAssertEqual(searchedCategory, .vehicule)
@@ -92,19 +103,22 @@ class HomeInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactorToTest?.searchByCategory(.vehicule)
 
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
         XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.vehicule.stringValue)
     }
 
-    func testSearchByCategoryServices_withSuccess() {
+    func testSearchByCategoryServicesWithSuccess() {
+        // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         interactorToTest = interactor
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
+                // then
                 switch result {
                 case .categorySearchedWithSuccess(_, let searchedCategory):
                     XCTAssertEqual(searchedCategory, .services)
@@ -114,13 +128,15 @@ class HomeInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactorToTest?.searchByCategory(.services)
 
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
         XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.services.stringValue)
     }
 
-    func testSearchByCategory_passesCorrectStringToRepository() {
+    func testSearchByCategoryPassesCorrectStringToRepository() {
+        // given
         let categories: [(HomeCategorySearch, String)] = [
             (.vehicule, "MLC1743"),
             (.realState, "MLC1459"),
@@ -129,8 +145,11 @@ class HomeInteractorTests: XCTestCase {
         ]
 
         for (category, expectedString) in categories {
+            // when
             let (interactor, repositoryMock, _) = makeInteractor(status: .success)
             interactor.searchByCategory(category)
+
+            // then
             XCTAssertEqual(
                 repositoryMock.lastCategory,
                 expectedString,
@@ -141,31 +160,38 @@ class HomeInteractorTests: XCTestCase {
 
     // MARK: - Tests: publisher nil does not crash
 
-    func testSerachItem_withNilPublisher_doesNotCrash() {
+    func testSearchItemWithNilPublisherDoesNotCrash() {
+        // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryMock = HomeRepositoryMock(status: .success, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let interactor = HomeInteractor(repository: repositoryMock)
         interactor.publisher = nil
 
+        // when
         interactor.serachItem(searchText: "iPhone")
 
+        // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testSearchByCategory_withNilPublisher_doesNotCrash() {
+    func testSearchByCategoryWithNilPublisherDoesNotCrash() {
+        // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryMock = HomeRepositoryMock(status: .success, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let interactor = HomeInteractor(repository: repositoryMock)
         interactor.publisher = nil
 
+        // when
         interactor.searchByCategory(.vehicule)
 
+        // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testSerachItemWithSuccess() {
+    func testSearchItemWithSuccess() {
+        // given
         let status: TransactionStatus = .success
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
         let localDataSourceMock = HomeLocalDataSourceMock()
@@ -183,6 +209,7 @@ class HomeInteractorTests: XCTestCase {
                     XCTAssertTrue(false, "Publisher should not publish error when completiting observing")
                 }
             }, receiveValue: { result in
+                // then
                 switch result {
                 case .itemsSearchedWithSuccess(let searchResult):
                     XCTAssertNotNil(searchResult)
@@ -196,6 +223,7 @@ class HomeInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactorToTest?.serachItem(searchText: "iPhone")
 
         let expectedRepositoryFunctionsCalled = 1
@@ -206,7 +234,8 @@ class HomeInteractorTests: XCTestCase {
         }
     }
 
-    func testSerachItemWithFailure() {
+    func testSearchItemWithFailure() {
+        // given
         let status: TransactionStatus = .failure
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
         let localDataSourceMock = HomeLocalDataSourceMock()
@@ -224,6 +253,7 @@ class HomeInteractorTests: XCTestCase {
                     XCTAssertNotNil(error, "Publisher should retreive error when completiting observing")
                 }
             }, receiveValue: { result in
+                // then
                 switch result {
                 case .itemsSearchedWithSuccess:
                     XCTAssertTrue(false, "Item searched must not be successfull")
@@ -237,6 +267,7 @@ class HomeInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactorToTest?.serachItem(searchText: "iPhone")
 
         let expectedRepositoryFunctionsCalled = 1
@@ -248,6 +279,7 @@ class HomeInteractorTests: XCTestCase {
     }
 
     func testSearchByCategoryWithSuccess() {
+        // given
         let status: TransactionStatus = .success
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
         let localDataSourceMock = HomeLocalDataSourceMock()
@@ -265,6 +297,7 @@ class HomeInteractorTests: XCTestCase {
                     XCTAssertTrue(false, "Publisher should not publish error when completiting observing")
                 }
             }, receiveValue: { result in
+                // then
                 switch result {
                 case .itemsSearchedWithSuccess:
                     XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
@@ -279,6 +312,7 @@ class HomeInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactorToTest?.searchByCategory(.realState)
 
         let expectedRepositoryFunctionsCalled = 1
@@ -290,6 +324,7 @@ class HomeInteractorTests: XCTestCase {
     }
 
     func testSearchByCategoryWithFailure() {
+        // given
         let status: TransactionStatus = .failure
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
         let localDataSourceMock = HomeLocalDataSourceMock()
@@ -307,6 +342,7 @@ class HomeInteractorTests: XCTestCase {
                     XCTAssertNotNil(error, "Publisher should retreive error when completiting observing")
                 }
             }, receiveValue: { result in
+                // then
                 switch result {
                 case .itemsSearchedWithSuccess:
                     XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
@@ -320,6 +356,7 @@ class HomeInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactorToTest?.searchByCategory(.realState)
 
         let expectedRepositoryFunctionsCalled = 1

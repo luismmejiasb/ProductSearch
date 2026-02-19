@@ -6,80 +6,99 @@ import XCTest
 class HomeCategorySearchTests: XCTestCase {
     // MARK: - Tests: stringValue
 
-    func testStringValue_vehicule_returnsMLC1743() {
+    func testStringValueVehiculeReturnsMLC1743() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.vehicule.stringValue, "MLC1743")
     }
 
-    func testStringValue_realState_returnsMLC1459() {
+    func testStringValueRealStateReturnsMLC1459() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.realState.stringValue, "MLC1459")
     }
 
-    func testStringValue_services_returnsMLC1540() {
+    func testStringValueServicesReturnsMLC1540() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.services.stringValue, "MLC1540")
     }
 
-    func testStringValue_none_returnsEmptyString() {
+    func testStringValueNoneReturnsEmptyString() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.none.stringValue, "")
     }
 
     // MARK: - Tests: uiTitle
 
-    func testUITitle_vehicule_returnsVehiculos() {
+    func testUITitleVehiculeReturnsVehiculos() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.vehicule.uiTitle, "Vehículos")
     }
 
-    func testUITitle_realState_returnsInmuebles() {
+    func testUITitleRealStateReturnsInmuebles() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.realState.uiTitle, "Inmuebles")
     }
 
-    func testUITitle_services_returnsServicios() {
+    func testUITitleServicesReturnsServicios() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.services.uiTitle, "Servicios")
     }
 
-    func testUITitle_none_returnsEmptyString() {
+    func testUITitleNoneReturnsEmptyString() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.none.uiTitle, "")
     }
 
     // MARK: - Tests: rawValue
 
-    func testRawValue_vehicule_is0() {
+    func testRawValueVehiculeIsZero() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.vehicule.rawValue, 0)
     }
 
-    func testRawValue_realState_is1() {
+    func testRawValueRealStateIsOne() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.realState.rawValue, 1)
     }
 
-    func testRawValue_services_is2() {
+    func testRawValueServicesIsTwo() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.services.rawValue, 2)
     }
 
-    func testRawValue_none_is3() {
+    func testRawValueNoneIsThree() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.none.rawValue, 3)
     }
 
     // MARK: - Tests: Equality
 
-    func testEquality_sameCategory_isEqual() {
+    func testEqualitySameCategoryIsEqual() {
+        // when / then
         XCTAssertEqual(HomeCategorySearch.vehicule, HomeCategorySearch.vehicule)
         XCTAssertEqual(HomeCategorySearch.none, HomeCategorySearch.none)
     }
 
-    func testEquality_differentCategories_isNotEqual() {
+    func testEqualityDifferentCategoriesIsNotEqual() {
+        // when / then
         XCTAssertNotEqual(HomeCategorySearch.vehicule, HomeCategorySearch.realState)
         XCTAssertNotEqual(HomeCategorySearch.services, HomeCategorySearch.none)
     }
 
     // MARK: - Tests: allCases stringValues are unique
 
-    func testAllStringValues_areUnique() {
+    func testAllStringValuesAreUnique() {
+        // given
         let values = [
             HomeCategorySearch.vehicule.stringValue,
             HomeCategorySearch.realState.stringValue,
             HomeCategorySearch.services.stringValue,
             HomeCategorySearch.none.stringValue
         ]
+
+        // when
         let unique = Set(values.filter { !$0.isEmpty })
+
+        // then
         XCTAssertEqual(unique.count, 3, "All non-empty stringValues should be unique")
     }
 }

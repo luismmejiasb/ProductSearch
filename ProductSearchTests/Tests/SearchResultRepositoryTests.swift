@@ -33,9 +33,11 @@ class SearchResultRepositoryTests: XCTestCase {
 
     // MARK: - Tests: searchItem
 
-    func testSearchItem_withSuccess_returnsResult() {
+    func testSearchItemWithSuccessReturnsResult() {
+        // given
         let (repository, _) = makeRepository(status: .success)
 
+        // when / then
         repository.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { completion in
@@ -51,9 +53,11 @@ class SearchResultRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
 
-    func testSearchItem_withSuccess_returnsExpectedResults() {
+    func testSearchItemWithSuccessReturnsExpectedResults() {
+        // given
         let (repository, _) = makeRepository(status: .success, mockData: .multipleResults)
 
+        // when / then
         repository.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { _ in },
@@ -65,9 +69,11 @@ class SearchResultRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
 
-    func testSearchItem_withFailure_publishesError() {
+    func testSearchItemWithFailurePublishesError() {
+        // given
         let (repository, _) = makeRepository(status: .failure)
 
+        // when / then
         repository.searchItem(offSet: 0, searchText: "iPhone")
             .sink(
                 receiveCompletion: { completion in
@@ -82,10 +88,12 @@ class SearchResultRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
 
-    func testSearchItem_withOffset50_delegates() {
+    func testSearchItemWithOffset50Delegates() {
+        // given
         let (repository, _) = makeRepository(status: .success)
         var didReceive = false
 
+        // when
         repository.searchItem(offSet: 50, searchText: "MacBook")
             .sink(
                 receiveCompletion: { _ in },
@@ -93,14 +101,17 @@ class SearchResultRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
 
+        // then
         XCTAssertTrue(didReceive)
     }
 
     // MARK: - Tests: searchCategory
 
-    func testSearchCategory_withSuccess_returnsResult() {
+    func testSearchCategoryWithSuccessReturnsResult() {
+        // given
         let (repository, _) = makeRepository(status: .success, mockData: .categoryResults)
 
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.vehicule.stringValue)
             .sink(
                 receiveCompletion: { completion in
@@ -116,9 +127,11 @@ class SearchResultRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
 
-    func testSearchCategory_vehicule_returnsResultsWithCorrectCategoryID() {
+    func testSearchCategoryVehiculeReturnsResultsWithCorrectCategoryID() {
+        // given
         let (repository, _) = makeRepository(status: .success, mockData: .categoryResults)
 
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.vehicule.stringValue)
             .sink(
                 receiveCompletion: { _ in },
@@ -129,9 +142,11 @@ class SearchResultRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
 
-    func testSearchCategory_withFailure_publishesError() {
+    func testSearchCategoryWithFailurePublishesError() {
+        // given
         let (repository, _) = makeRepository(status: .failure)
 
+        // when / then
         repository.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
             .sink(
                 receiveCompletion: { completion in
@@ -146,10 +161,12 @@ class SearchResultRepositoryTests: XCTestCase {
             .store(in: &searchTokens)
     }
 
-    func testSearchCategory_withOffset100_delegates() {
+    func testSearchCategoryWithOffset100Delegates() {
+        // given
         let (repository, _) = makeRepository(status: .success)
         var didReceive = false
 
+        // when
         repository.searchCategory(offSet: 100, category: HomeCategorySearch.services.stringValue)
             .sink(
                 receiveCompletion: { _ in },
@@ -157,16 +174,19 @@ class SearchResultRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
 
+        // then
         XCTAssertTrue(didReceive)
     }
 
     // MARK: - Tests: nil cloudDataSource returns unwrappableValue error
 
-    func testSearchItem_withNilCloudDataSource_returnsUnwrappableError() {
+    func testSearchItemWithNilCloudDataSourceReturnsUnwrappableError() {
+        // given
         let localDataSourceMock = SearchResultLocalDataSourceMock()
         let repository = SearchResultRepository(localDataSource: localDataSourceMock, cloudDataSource: nil)
         var receivedError: Error?
 
+        // when
         repository.searchItem(offSet: 0, searchText: "test")
             .sink(
                 receiveCompletion: { completion in
@@ -178,6 +198,7 @@ class SearchResultRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
 
+        // then
         XCTAssertNotNil(receivedError)
         if let cloudError = receivedError as? CloudDataSourceDefaultError,
            case .unwrappableValue = cloudError {
@@ -187,11 +208,13 @@ class SearchResultRepositoryTests: XCTestCase {
         }
     }
 
-    func testSearchCategory_withNilCloudDataSource_returnsUnwrappableError() {
+    func testSearchCategoryWithNilCloudDataSourceReturnsUnwrappableError() {
+        // given
         let localDataSourceMock = SearchResultLocalDataSourceMock()
         let repository = SearchResultRepository(localDataSource: localDataSourceMock, cloudDataSource: nil)
         var receivedError: Error?
 
+        // when
         repository.searchCategory(offSet: 0, category: "MLC1743")
             .sink(
                 receiveCompletion: { completion in
@@ -203,6 +226,7 @@ class SearchResultRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
 
+        // then
         XCTAssertNotNil(receivedError)
         if let cloudError = receivedError as? CloudDataSourceDefaultError,
            case .unwrappableValue = cloudError {
@@ -214,9 +238,11 @@ class SearchResultRepositoryTests: XCTestCase {
 
     // MARK: - Tests: empty results
 
-    func testSearchItem_withEmptyResults_returnsEmptyResultsArray() {
+    func testSearchItemWithEmptyResultsReturnsEmptyResultsArray() {
+        // given
         let (repository, _) = makeRepository(status: .success, mockData: .emptyResults)
 
+        // when / then
         repository.searchItem(offSet: 0, searchText: "qwerty12345xyz")
             .sink(
                 receiveCompletion: { _ in },

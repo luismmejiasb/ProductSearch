@@ -17,24 +17,36 @@ class ProductDetailFactoryTests: XCTestCase {
 
     // MARK: - Tests: Factory initialization
 
-    func testInitialize_returnsViewController() {
+    func testInitializeReturnsViewController() {
+        // when
         let viewController = ProductDetailFactory.initialize(product: sampleProduct)
+
+        // then
         XCTAssertNotNil(viewController)
     }
 
-    func testInitialize_returnsCorrectType() {
+    func testInitializeReturnsCorrectType() {
+        // when
         let viewController = ProductDetailFactory.initialize(product: sampleProduct)
+
+        // then
         XCTAssertTrue(viewController is ProductDetailViewController)
     }
 
-    func testInitialize_presenterIsSet() {
+    func testInitializePresenterIsSet() {
+        // when
         let viewController = ProductDetailFactory.initialize(product: sampleProduct)
+
+        // then
         XCTAssertNotNil(viewController.presenter)
     }
 
-    func testInitialize_callingTwiceReturnsDifferentInstances() {
+    func testInitializeCallingTwiceReturnsDifferentInstances() {
+        // when
         let first = ProductDetailFactory.initialize(product: sampleProduct)
         let second = ProductDetailFactory.initialize(product: sampleProduct)
+
+        // then
         XCTAssertFalse(first === second)
     }
 }

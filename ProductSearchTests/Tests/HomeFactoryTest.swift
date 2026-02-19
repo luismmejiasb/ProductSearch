@@ -6,24 +6,36 @@ import XCTest
 class HomeFactoryTest: XCTestCase {
     // MARK: - Tests: Factory initialization
 
-    func testInitializeModule_returnsViewController() {
+    func testInitializeModuleReturnsViewController() {
+        // when
         let viewController = HomeFactory.initialize()
+
+        // then
         XCTAssertNotNil(viewController)
     }
 
-    func testInitializeModule_returnCorrectType() {
+    func testInitializeModuleReturnsCorrectType() {
+        // when
         let viewController = HomeFactory.initialize()
+
+        // then
         XCTAssertTrue(viewController is HomeViewController)
     }
 
-    func testInitializeModule_presenterIsSet() {
+    func testInitializeModulePresenterIsSet() {
+        // when
         let viewController = HomeFactory.initialize()
+
+        // then
         XCTAssertNotNil(viewController.presenter)
     }
 
-    func testInitializeModule_callingTwiceReturnsDifferentInstances() {
+    func testInitializeModuleCallingTwiceReturnsDifferentInstances() {
+        // when
         let first = HomeFactory.initialize()
         let second = HomeFactory.initialize()
+
+        // then
         XCTAssertFalse(first === second)
     }
 }

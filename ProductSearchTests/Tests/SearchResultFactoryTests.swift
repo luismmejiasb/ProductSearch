@@ -14,99 +14,121 @@ class SearchResultFactoryTests: XCTestCase {
 
     // MARK: - Tests: text search type
 
-    func testInitialize_textSearch_returnsViewController() {
+    func testInitializeTextSearchReturnsViewController() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .text,
             searchCategory: .none
         )
+        // then
         XCTAssertNotNil(viewController)
     }
 
-    func testInitialize_textSearch_returnsCorrectType() {
+    func testInitializeTextSearchReturnsCorrectType() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .text,
             searchCategory: .none
         )
+        // then
         XCTAssertTrue(viewController is SearchResultViewController)
     }
 
-    func testInitialize_textSearch_presenterIsSet() {
+    func testInitializeTextSearchPresenterIsSet() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .text,
             searchCategory: .none
         )
+        // then
         XCTAssertNotNil(viewController.presenter)
     }
 
-    func testInitialize_textSearch_presenterHasCorrectSearchType() {
+    func testInitializeTextSearchPresenterHasCorrectSearchType() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .text,
             searchCategory: .none
         )
+        // then
         XCTAssertEqual(viewController.presenter?.getSearchType(), .text)
     }
 
     // MARK: - Tests: category search type
 
-    func testInitialize_categorySearch_presenterHasCorrectSearchType() {
+    func testInitializeCategorySearchPresenterHasCorrectSearchType() {
+        // given
         let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: categoryResult,
             searchType: .category,
             searchCategory: .vehicule
         )
+        // then
         XCTAssertEqual(viewController.presenter?.getSearchType(), .category)
     }
 
-    func testInitialize_categorySearch_presenterHasCorrectCategory() {
+    func testInitializeCategorySearchPresenterHasCorrectCategory() {
+        // given
         let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: categoryResult,
             searchType: .category,
             searchCategory: .realState
         )
+        // then
         XCTAssertEqual(viewController.presenter?.getSearchCategory(), .realState)
     }
 
-    func testInitialize_categoryVehicule_presenterHasVehiculeCategory() {
+    func testInitializeCategoryVehiculePresenterHasVehiculeCategory() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .category,
             searchCategory: .vehicule
         )
+        // then
         XCTAssertEqual(viewController.presenter?.getSearchCategory(), .vehicule)
     }
 
-    func testInitialize_categoryServices_presenterHasServicesCategory() {
+    func testInitializeCategoryServicesPresenterHasServicesCategory() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .category,
             searchCategory: .services
         )
+        // then
         XCTAssertEqual(viewController.presenter?.getSearchCategory(), .services)
     }
 
     // MARK: - Tests: search result is set
 
-    func testInitialize_presenterSearchResultIsNotNil() {
+    func testInitializePresenterSearchResultIsNotNil() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .text,
             searchCategory: .none
         )
+        // then
         XCTAssertNotNil(viewController.presenter?.getSearchResult())
     }
 
-    func testInitialize_presenterSearchResultMatchesInput() {
+    func testInitializePresenterSearchResultMatchesInput() {
+        // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .text,
             searchCategory: .none
         )
+        // then
         XCTAssertEqual(
             viewController.presenter?.getSearchResult()?.siteID,
             sampleSearchResult.siteID
@@ -115,7 +137,8 @@ class SearchResultFactoryTests: XCTestCase {
 
     // MARK: - Tests: different instances
 
-    func testInitialize_calledTwice_returnsDifferentInstances() {
+    func testInitializeCalledTwiceReturnsDifferentInstances() {
+        // when
         let first = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .text,
@@ -126,6 +149,7 @@ class SearchResultFactoryTests: XCTestCase {
             searchType: .text,
             searchCategory: .none
         )
+        // then
         XCTAssertFalse(first === second)
     }
 }

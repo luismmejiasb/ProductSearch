@@ -40,13 +40,15 @@ class SearchResultInteractorTests: XCTestCase {
 
     // MARK: - Tests: fetchNextOffSet searchText
 
-    func testFetchNextOffSet_searchText_withSuccess_publishesDisplayNextOffSet() {
+    func testFetchNextOffSetSearchTextWithSuccessPublishesDisplayNextOffSet() {
+        // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         var receivedResult: SearchResult?
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
+                // then
                 switch result {
                 case .displayNextOffSet(let searchResult):
                     receivedResult = searchResult
@@ -56,6 +58,7 @@ class SearchResultInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactor.fetchNextOffSet(50, searchText: "iPhone")
 
         XCTAssertNotNil(receivedResult)
@@ -63,22 +66,27 @@ class SearchResultInteractorTests: XCTestCase {
         XCTAssertEqual(repositoryMock.functionsCalled[0], searchItemSelectorName)
     }
 
-    func testFetchNextOffSet_searchText_withSuccess_passesCorrectOffset() {
+    func testFetchNextOffSetSearchTextWithSuccessPassesCorrectOffset() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
+        // when
         interactor.fetchNextOffSet(100, searchText: "MacBook")
 
+        // then
         XCTAssertEqual(repositoryMock.lastOffSet, 100)
         XCTAssertEqual(repositoryMock.lastSearchText, "MacBook")
     }
 
-    func testFetchNextOffSet_searchText_withFailure_publishesDisplayNextOffSetFailed() {
+    func testFetchNextOffSetSearchTextWithFailurePublishesDisplayNextOffSetFailed() {
+        // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .failure)
         var receivedError: Error?
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
+                // then
                 switch result {
                 case .displayNextOffSetFailed(let error):
                     receivedError = error
@@ -88,29 +96,35 @@ class SearchResultInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactor.fetchNextOffSet(50, searchText: "iPhone")
 
         XCTAssertNotNil(receivedError)
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testFetchNextOffSet_searchText_withOffset0() {
+    func testFetchNextOffSetSearchTextWithOffset0() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
+        // when
         interactor.fetchNextOffSet(0, searchText: "iPad")
 
+        // then
         XCTAssertEqual(repositoryMock.lastOffSet, 0)
     }
 
     // MARK: - Tests: fetchNextOffSet category
 
-    func testFetchNextOffSet_category_withSuccess_publishesDisplayNextOffSet() {
+    func testFetchNextOffSetCategoryWithSuccessPublishesDisplayNextOffSet() {
+        // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         var receivedResult: SearchResult?
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
+                // then
                 switch result {
                 case .displayNextOffSet(let searchResult):
                     receivedResult = searchResult
@@ -120,6 +134,7 @@ class SearchResultInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactor.fetchNextOffSet(50, category: HomeCategorySearch.vehicule.stringValue)
 
         XCTAssertNotNil(receivedResult)
@@ -127,22 +142,27 @@ class SearchResultInteractorTests: XCTestCase {
         XCTAssertEqual(repositoryMock.functionsCalled[0], searchCategorySelectorName)
     }
 
-    func testFetchNextOffSet_category_withSuccess_passesCorrectCategoryAndOffset() {
+    func testFetchNextOffSetCategoryWithSuccessPassesCorrectCategoryAndOffset() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
+        // when
         interactor.fetchNextOffSet(150, category: HomeCategorySearch.realState.stringValue)
 
+        // then
         XCTAssertEqual(repositoryMock.lastOffSet, 150)
         XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.realState.stringValue)
     }
 
-    func testFetchNextOffSet_category_withFailure_publishesDisplayNextOffSetFailed() {
+    func testFetchNextOffSetCategoryWithFailurePublishesDisplayNextOffSetFailed() {
+        // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .failure)
         var receivedError: Error?
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
+                // then
                 switch result {
                 case .displayNextOffSetFailed(let error):
                     receivedError = error
@@ -152,6 +172,7 @@ class SearchResultInteractorTests: XCTestCase {
             }
         ).store(in: &searchTokens)
 
+        // when
         interactor.fetchNextOffSet(50, category: HomeCategorySearch.services.stringValue)
 
         XCTAssertNotNil(receivedError)
@@ -160,52 +181,64 @@ class SearchResultInteractorTests: XCTestCase {
 
     // MARK: - Tests: publisher nil does not crash
 
-    func testFetchNextOffSet_searchText_withNilPublisher_doesNotCrash() {
+    func testFetchNextOffSetSearchTextWithNilPublisherDoesNotCrash() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
         interactor.publisher = nil
 
+        // when
         interactor.fetchNextOffSet(0, searchText: "Test")
 
+        // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testFetchNextOffSet_category_withNilPublisher_doesNotCrash() {
+    func testFetchNextOffSetCategoryWithNilPublisherDoesNotCrash() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
         interactor.publisher = nil
 
+        // when
         interactor.fetchNextOffSet(0, category: HomeCategorySearch.vehicule.stringValue)
 
+        // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
     // MARK: - Tests: successive calls increment offset
 
-    func testMultipleSearchText_callsRepository_eachTime() {
+    func testMultipleSearchTextCallsRepositoryEachTime() {
+        // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
+        // when
         interactor.fetchNextOffSet(50, searchText: "iPhone")
         interactor.fetchNextOffSet(100, searchText: "iPhone")
         interactor.fetchNextOffSet(150, searchText: "iPhone")
 
+        // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 3)
         XCTAssertEqual(repositoryMock.lastOffSet, 150)
     }
 
     // MARK: - Tests: multiple results
 
-    func testFetchNextOffSet_searchText_withSuccess_resultsAreNotEmpty() {
+    func testFetchNextOffSetSearchTextWithSuccessResultsAreNotEmpty() {
+        // given
         let (interactor, _, publisher) = makeInteractor(status: .success, mockData: .multipleResults)
         var resultCount = 0
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
+                // then
                 if case .displayNextOffSet(let searchResult) = result {
                     resultCount = searchResult.results?.count ?? 0
                 }
             }
         ).store(in: &searchTokens)
 
+        // when
         interactor.fetchNextOffSet(0, searchText: "iPhone")
 
         XCTAssertGreaterThan(resultCount, 0)
