@@ -16,15 +16,11 @@ enum HomeMLCDataMock {
         }
     }
 
-    var searchDefaultResult: SearchResult? {
-        switch self {
-        case .homeSearchItem:
-            do {
-                let searchResultCodable = try JSONDecoder().decode(SearchResult.self, from: data)
-                return searchResultCodable
-            } catch {
-                return nil
-            }
+    var searchDefaultResult: SearchResult {
+        do {
+            return try JSONDecoder().decode(SearchResult.self, from: data)
+        } catch {
+            fatalError("HomePlanDataMocks: JSON decoding failed — \(error)")
         }
     }
 }
