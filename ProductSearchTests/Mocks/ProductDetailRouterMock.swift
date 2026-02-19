@@ -2,19 +2,17 @@ import Foundation
 import UIKit
 @testable import ProductSearch
 
-class HomeRouterMock: HomeRouterProtocol {
+// MARK: - ProductDetailRouterMock
+
+class ProductDetailRouterMock: ProductDetailRouterProtocol {
     // MARK: Properties
 
-    var view: HomeViewControllerProtocol?
+    var view: UIViewController?
     var functionsCalled = [String]()
     var lastAlertTitle: String = ""
     var lastAlertMessage: String = ""
 
     // MARK: Functions
-
-    func presentSearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch) {
-        functionsCalled.append(#function)
-    }
 
     func displayAlert(title: String, message: String) {
         functionsCalled.append(#function)
