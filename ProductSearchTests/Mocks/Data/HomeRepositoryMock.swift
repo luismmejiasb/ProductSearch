@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomeRepositoryMock: HomeRepositoryProtocol {
     // MARK: Properties
@@ -10,7 +10,7 @@ class HomeRepositoryMock: HomeRepositoryProtocol {
     var cloudDataSource: HomeCloudDataSourceProtocol?
     var lastOffSet: Int = -1
     var lastSearchText: String = ""
-    var lastCategory: String = ""
+    var lastMediaType: String = ""
 
     private let status: TransactionStatus
 
@@ -28,17 +28,22 @@ class HomeRepositoryMock: HomeRepositoryProtocol {
 
     // MARK: Functions
 
-    func searchItem(offSet: Int, searchText: String) -> Future<SearchResult, Error> {
+    func searchArtist(searchText: String, limit: Int) -> Future<ArtistSearchResult, Error> {
         functionsCalled.append(#function)
-        lastOffSet = offSet
         lastSearchText = searchText
-        return (cloudDataSource?.searchItem(offSet: offSet, searchText: searchText))!
+        guard let cloudDataSource else {
+            return Future { $0(.failure(RepositoryMockError.nilValue)) }
+        }
+        return cloudDataSource.searchArtist(searchText: searchText, limit: limit)
     }
 
-    func searchCategory(offSet: Int, category: String) -> Future<SearchResult, Error> {
+    func searchByMedia(mediaType: String, searchText: String, limit: Int) -> Future<ArtistSearchResult, Error> {
         functionsCalled.append(#function)
-        lastOffSet = offSet
-        lastCategory = category
-        return (cloudDataSource?.searchCategory(offSet: offSet, category: category))!
+        lastMediaType = mediaType
+        lastSearchText = searchText
+        guard let cloudDataSource else {
+            return Future { $0(.failure(RepositoryMockError.nilValue)) }
+        }
+        return cloudDataSource.searchByMedia(mediaType: mediaType, searchText: searchText, limit: limit)
     }
 }

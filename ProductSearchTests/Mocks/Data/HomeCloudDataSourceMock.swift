@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
     // MARK: Properties
@@ -15,20 +15,20 @@ class HomeCloudDataSourceMock: HomeCloudDataSourceProtocol {
 
     // MARK: Functions
 
-    func searchItem(offSet _: Int, searchText _: String) -> Future<SearchResult, Error> {
+    func searchArtist(searchText _: String, limit _: Int) -> Future<ArtistSearchResult, Error> {
         Future { promise in
             if self.status == .success {
-                return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult))
+                return promise(.success(HomeITunesDataMock.homeSearchArtist.searchDefaultResult))
             } else {
                 return promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }
         }
     }
 
-    func searchCategory(offSet _: Int, category _: String) -> Future<SearchResult, Error> {
+    func searchByMedia(mediaType _: String, searchText _: String, limit _: Int) -> Future<ArtistSearchResult, Error> {
         Future { promise in
             if self.status == .success {
-                return promise(.success(HomeMLCDataMock.homeSearchItem.searchDefaultResult))
+                return promise(.success(HomeITunesDataMock.homeSearchArtist.searchDefaultResult))
             } else {
                 return promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }

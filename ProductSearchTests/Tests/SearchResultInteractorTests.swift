@@ -1,6 +1,6 @@
 import Combine
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - SearchResultInteractorTests
 
@@ -8,8 +8,8 @@ class SearchResultInteractorTests: XCTestCase {
     // MARK: Properties
 
     private var searchTokens = Set<AnyCancellable>()
-    private let searchItemSelectorName = "searchItem(offSet:searchText:)"
-    private let searchCategorySelectorName = "searchCategory(offSet:category:)"
+    private let fetchNextPageSelectorName = "fetchNextPage(searchText:limit:)"
+    private let fetchNextPageByMediaSelectorName = "fetchNextPageByMedia(mediaType:searchText:limit:)"
 
     // MARK: Overridden Functions
 
@@ -23,62 +23,58 @@ class SearchResultInteractorTests: XCTestCase {
     private func makeInteractor(
         status: TransactionStatus,
         searchType: SearchType = .text,
-        mockData: SearchResultMLCDataMock = .multipleResults
+        mockData: SearchResultITunesDataMock = .multipleResults
     ) -> (SearchResultInteractor, SearchResultRepositoryMock, PassthroughSubject<SearchResultPublisherResult, Error>) {
         let cloudDataSourceMock = SearchResultCloudDataSourceMock(status: status, mockData: mockData)
         let localDataSourceMock = SearchResultLocalDataSourceMock()
         let repositoryMock = SearchResultRepositoryMock(
-            status: status,
             localDataSource: localDataSourceMock,
             cloudDataSource: cloudDataSourceMock
         )
         let publisher = PassthroughSubject<SearchResultPublisherResult, Error>()
-        let interactor = SearchResultInteractor(repository: repositoryMock, searchType: searchType)
-        interactor.publisher = publisher
+        let interactor = SearchResultInteractor(repository: repositoryMock, searchType: searchType, publisher: publisher)
         return (interactor, repositoryMock, publisher)
     }
 
-    // MARK: - Tests: fetchNextOffSet searchText
+    // MARK: - Tests: fetchNextPage (text search)
 
-    func testFetchNextOffSetSearchTextWithSuccessPublishesDisplayNextOffSet() {
+    func testFetchNextPageWithSuccessPublishesDisplayNextPage() {
         // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
-        var receivedResult: SearchResult?
+        var receivedResult: ArtistSearchResult?
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
-                // then
                 switch result {
-                case .displayNextOffSet(let searchResult):
+                case .displayNextPage(let searchResult):
                     receivedResult = searchResult
-                case .displayNextOffSetFailed:
+                case .displayNextPageFailed:
                     XCTFail("Expected success, got failure")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactor.fetchNextOffSet(50, searchText: "iPhone")
+        interactor.fetchNextPage(searchText: "Jack Johnson", limit: 50)
 
         XCTAssertNotNil(receivedResult)
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
-        XCTAssertEqual(repositoryMock.functionsCalled[0], searchItemSelectorName)
+        XCTAssertEqual(repositoryMock.functionsCalled[0], "searchArtist(searchText:limit:)")
     }
 
-    func testFetchNextOffSetSearchTextWithSuccessPassesCorrectOffset() {
+    func testFetchNextPageWithSuccessPassesCorrectSearchText() {
         // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
         // when
-        interactor.fetchNextOffSet(100, searchText: "MacBook")
+        interactor.fetchNextPage(searchText: "Coldplay", limit: 100)
 
         // then
-        XCTAssertEqual(repositoryMock.lastOffSet, 100)
-        XCTAssertEqual(repositoryMock.lastSearchText, "MacBook")
+        XCTAssertEqual(repositoryMock.lastSearchText, "Coldplay")
     }
 
-    func testFetchNextOffSetSearchTextWithFailurePublishesDisplayNextOffSetFailed() {
+    func testFetchNextPageWithFailurePublishesDisplayNextPageFailed() {
         // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .failure)
         var receivedError: Error?
@@ -86,75 +82,73 @@ class SearchResultInteractorTests: XCTestCase {
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
-                // then
                 switch result {
-                case .displayNextOffSetFailed(let error):
+                case .displayNextPageFailed(let error):
                     receivedError = error
-                case .displayNextOffSet:
+                case .displayNextPage:
                     XCTFail("Expected failure, got success")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactor.fetchNextOffSet(50, searchText: "iPhone")
+        interactor.fetchNextPage(searchText: "Jack Johnson", limit: 50)
 
         XCTAssertNotNil(receivedError)
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testFetchNextOffSetSearchTextWithOffset0() {
+    func testFetchNextPageWithLimit150PassesLimit() {
         // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
         // when
-        interactor.fetchNextOffSet(0, searchText: "iPad")
+        interactor.fetchNextPage(searchText: "Adele", limit: 150)
 
         // then
-        XCTAssertEqual(repositoryMock.lastOffSet, 0)
+        XCTAssertEqual(repositoryMock.lastSearchText, "Adele")
+        XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    // MARK: - Tests: fetchNextOffSet category
+    // MARK: - Tests: fetchNextPageByMedia (category search)
 
-    func testFetchNextOffSetCategoryWithSuccessPublishesDisplayNextOffSet() {
+    func testFetchNextPageByMediaWithSuccessPublishesDisplayNextPage() {
         // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
-        var receivedResult: SearchResult?
+        var receivedResult: ArtistSearchResult?
 
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
-                // then
                 switch result {
-                case .displayNextOffSet(let searchResult):
+                case .displayNextPage(let searchResult):
                     receivedResult = searchResult
-                case .displayNextOffSetFailed:
+                case .displayNextPageFailed:
                     XCTFail("Expected success, got failure")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactor.fetchNextOffSet(50, category: HomeCategorySearch.vehicule.stringValue)
+        interactor.fetchNextPageByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
 
         XCTAssertNotNil(receivedResult)
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
-        XCTAssertEqual(repositoryMock.functionsCalled[0], searchCategorySelectorName)
+        XCTAssertEqual(repositoryMock.functionsCalled[0], "searchByMedia(mediaType:searchText:limit:)")
     }
 
-    func testFetchNextOffSetCategoryWithSuccessPassesCorrectCategoryAndOffset() {
+    func testFetchNextPageByMediaWithSuccessPassesCorrectMediaTypeAndOffset() {
         // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
         // when
-        interactor.fetchNextOffSet(150, category: HomeCategorySearch.realState.stringValue)
+        interactor.fetchNextPageByMedia(mediaType: HomeCategorySearch.salsa.mediaType, searchText: "Salsa", limit: 150)
 
         // then
-        XCTAssertEqual(repositoryMock.lastOffSet, 150)
-        XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.realState.stringValue)
+        XCTAssertEqual(repositoryMock.lastMediaType, HomeCategorySearch.salsa.mediaType)
     }
 
-    func testFetchNextOffSetCategoryWithFailurePublishesDisplayNextOffSetFailed() {
+    func testFetchNextPageByMediaWithFailurePublishesDisplayNextPageFailed() {
         // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .failure)
         var receivedError: Error?
@@ -162,68 +156,86 @@ class SearchResultInteractorTests: XCTestCase {
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
-                // then
                 switch result {
-                case .displayNextOffSetFailed(let error):
+                case .displayNextPageFailed(let error):
                     receivedError = error
-                case .displayNextOffSet:
+                case .displayNextPage:
                     XCTFail("Expected failure, got success")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactor.fetchNextOffSet(50, category: HomeCategorySearch.services.stringValue)
+        interactor.fetchNextPageByMedia(mediaType: HomeCategorySearch.rock.mediaType, searchText: "Rock", limit: 50)
 
         XCTAssertNotNil(receivedError)
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    // MARK: - Tests: publisher nil does not crash
+    // MARK: - Tests: publisher receives values
 
-    func testFetchNextOffSetSearchTextWithNilPublisherDoesNotCrash() {
+    func testFetchNextPagePublishesResult() {
         // given
-        let (interactor, repositoryMock, _) = makeInteractor(status: .success)
-        interactor.publisher = nil
+        let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
+        var receivedResult: ArtistSearchResult?
+
+        publisher.sink(
+            receiveCompletion: { _ in },
+            receiveValue: { result in
+                if case .displayNextPage(let searchResult) = result {
+                    receivedResult = searchResult
+                }
+            }
+        ).store(in: &searchTokens)
 
         // when
-        interactor.fetchNextOffSet(0, searchText: "Test")
+        interactor.fetchNextPage(searchText: "Test", limit: 50)
 
         // then
+        XCTAssertNotNil(receivedResult)
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testFetchNextOffSetCategoryWithNilPublisherDoesNotCrash() {
+    func testFetchNextPageByMediaPublishesResult() {
         // given
-        let (interactor, repositoryMock, _) = makeInteractor(status: .success)
-        interactor.publisher = nil
+        let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
+        var receivedResult: ArtistSearchResult?
+
+        publisher.sink(
+            receiveCompletion: { _ in },
+            receiveValue: { result in
+                if case .displayNextPage(let searchResult) = result {
+                    receivedResult = searchResult
+                }
+            }
+        ).store(in: &searchTokens)
 
         // when
-        interactor.fetchNextOffSet(0, category: HomeCategorySearch.vehicule.stringValue)
+        interactor.fetchNextPageByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
 
         // then
+        XCTAssertNotNil(receivedResult)
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    // MARK: - Tests: successive calls increment offset
+    // MARK: - Tests: successive calls
 
-    func testMultipleSearchTextCallsRepositoryEachTime() {
+    func testMultipleFetchNextPageCallsRepositoryEachTime() {
         // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
         // when
-        interactor.fetchNextOffSet(50, searchText: "iPhone")
-        interactor.fetchNextOffSet(100, searchText: "iPhone")
-        interactor.fetchNextOffSet(150, searchText: "iPhone")
+        interactor.fetchNextPage(searchText: "Jack Johnson", limit: 50)
+        interactor.fetchNextPage(searchText: "Jack Johnson", limit: 100)
+        interactor.fetchNextPage(searchText: "Jack Johnson", limit: 150)
 
         // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 3)
-        XCTAssertEqual(repositoryMock.lastOffSet, 150)
     }
 
     // MARK: - Tests: multiple results
 
-    func testFetchNextOffSetSearchTextWithSuccessResultsAreNotEmpty() {
+    func testFetchNextPageWithSuccessResultsAreNotEmpty() {
         // given
         let (interactor, _, publisher) = makeInteractor(status: .success, mockData: .multipleResults)
         var resultCount = 0
@@ -231,15 +243,14 @@ class SearchResultInteractorTests: XCTestCase {
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
-                // then
-                if case .displayNextOffSet(let searchResult) = result {
+                if case .displayNextPage(let searchResult) = result {
                     resultCount = searchResult.results?.count ?? 0
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactor.fetchNextOffSet(0, searchText: "iPhone")
+        interactor.fetchNextPage(searchText: "iphone", limit: 50)
 
         XCTAssertGreaterThan(resultCount, 0)
     }

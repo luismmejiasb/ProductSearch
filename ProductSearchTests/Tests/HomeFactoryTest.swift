@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 @MainActor
 class HomeFactoryTest: XCTestCase {

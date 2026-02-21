@@ -1,42 +1,38 @@
 import Combine
 import Foundation
-@testable import ProductSearch
-
-// MARK: - SearchResultCloudDataSourceMock
+@testable import ArtistSearch
 
 class SearchResultCloudDataSourceMock: SearchResultCloudDataSourceProtocol {
     // MARK: Properties
 
-    var status: TransactionStatus
-    var mockData: SearchResultMLCDataMock
+    var status: TransactionStatus = .success
+    var mockData: SearchResultITunesDataMock
 
     // MARK: Lifecycle
 
-    init(status: TransactionStatus, mockData: SearchResultMLCDataMock = .multipleResults) {
+    init(status: TransactionStatus, mockData: SearchResultITunesDataMock = .multipleResults) {
         self.status = status
         self.mockData = mockData
     }
 
     // MARK: Functions
 
-    func searchItem(offSet _: Int, searchText _: String) -> Future<SearchResult, Error> {
-        Future { [weak self] promise in
-            guard let self else { return }
+    func searchArtist(searchText _: String, limit _: Int) -> Future<ArtistSearchResult, Error> {
+        Future { promise in
             if self.status == .success {
-                promise(.success(self.mockData.searchResult))
+                return promise(.success(self.mockData.searchResult))
             } else {
-                promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
+                return promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }
         }
     }
 
-    func searchCategory(offSet _: Int, category _: String) -> Future<SearchResult, Error> {
-        Future { [weak self] promise in
-            guard let self else { return }
+    func searchByMedia(mediaType _: String, searchText _: String, limit _: Int) -> Future<ArtistSearchResult, Error> {
+        Future { promise in
             if self.status == .success {
-                promise(.success(self.mockData.searchResult))
+                return promise(.success(self.mockData.searchResult))
             } else {
-                promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
+                return promise(.failure(CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")))
             }
         }
     }

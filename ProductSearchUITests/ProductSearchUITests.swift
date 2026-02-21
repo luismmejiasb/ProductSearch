@@ -1,5 +1,5 @@
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class ProductSearchUITests: XCTestCase {
     // MARK: Overridden Functions

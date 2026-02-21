@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - SearchResultRouterMock
 
@@ -10,7 +10,7 @@ class SearchResultRouterMock: SearchResultRouterProtocol {
     var functionsCalled = [String]()
     var lastAlertTitle: String = ""
     var lastAlertMessage: String = ""
-    var lastPresentedProduct: Result?
+    var lastPresentedArtist: ArtistResult?
 
     // MARK: Functions
 
@@ -18,9 +18,9 @@ class SearchResultRouterMock: SearchResultRouterProtocol {
         functionsCalled.append(#function)
     }
 
-    func presentProductDetail(_ result: Result) {
+    func presentArtistDetail(_ result: ArtistResult) {
         functionsCalled.append(#function)
-        lastPresentedProduct = result
+        lastPresentedArtist = result
     }
 
     func displayAlert(title: String, message: String) {

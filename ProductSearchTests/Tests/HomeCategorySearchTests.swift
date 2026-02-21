@@ -1,104 +1,108 @@
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - HomeCategorySearchTests
 
 class HomeCategorySearchTests: XCTestCase {
-    // MARK: - Tests: stringValue
+    // MARK: - Tests: mediaType
 
-    func testStringValueVehiculeReturnsMLC1743() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.vehicule.stringValue, "MLC1743")
+    func testAllMusicGenresReturnMusicMediaType() {
+        let musicGenres: [HomeCategorySearch] = [
+            .reggaeton, .salsa, .merengue, .bachata, .cumbia,
+            .pop, .rock, .jazz, .electronica, .hipHop
+        ]
+        for genre in musicGenres {
+            XCTAssertEqual(genre.mediaType, "music", "Genre \(genre) should have mediaType 'music'")
+        }
     }
 
-    func testStringValueRealStateReturnsMLC1459() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.realState.stringValue, "MLC1459")
-    }
-
-    func testStringValueServicesReturnsMLC1540() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.services.stringValue, "MLC1540")
-    }
-
-    func testStringValueNoneReturnsEmptyString() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.none.stringValue, "")
+    func testMediaTypeNoneReturnsEmptyString() {
+        XCTAssertEqual(HomeCategorySearch.none.mediaType, "")
     }
 
     // MARK: - Tests: uiTitle
 
-    func testUITitleVehiculeReturnsVehiculos() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.vehicule.uiTitle, "Vehículos")
+    func testUITitleReggaetonReturnsReggaeton() {
+        XCTAssertEqual(HomeCategorySearch.reggaeton.uiTitle, "Reggaeton")
     }
 
-    func testUITitleRealStateReturnsInmuebles() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.realState.uiTitle, "Inmuebles")
+    func testUITitleSalsaReturnsSalsa() {
+        XCTAssertEqual(HomeCategorySearch.salsa.uiTitle, "Salsa")
     }
 
-    func testUITitleServicesReturnsServicios() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.services.uiTitle, "Servicios")
+    func testUITitleMerengueReturnsMerengue() {
+        XCTAssertEqual(HomeCategorySearch.merengue.uiTitle, "Merengue")
+    }
+
+    func testUITitleBachataReturnsBachata() {
+        XCTAssertEqual(HomeCategorySearch.bachata.uiTitle, "Bachata")
+    }
+
+    func testUITitleCumbiaReturnsCumbia() {
+        XCTAssertEqual(HomeCategorySearch.cumbia.uiTitle, "Cumbia")
+    }
+
+    func testUITitlePopReturnsPop() {
+        XCTAssertEqual(HomeCategorySearch.pop.uiTitle, "Pop")
+    }
+
+    func testUITitleRockReturnsRock() {
+        XCTAssertEqual(HomeCategorySearch.rock.uiTitle, "Rock")
+    }
+
+    func testUITitleJazzReturnsJazz() {
+        XCTAssertEqual(HomeCategorySearch.jazz.uiTitle, "Jazz")
+    }
+
+    func testUITitleElectronicaReturnsElectronica() {
+        XCTAssertEqual(HomeCategorySearch.electronica.uiTitle, "Electrónica")
+    }
+
+    func testUITitleHipHopReturnsHipHop() {
+        XCTAssertEqual(HomeCategorySearch.hipHop.uiTitle, "Hip-Hop")
     }
 
     func testUITitleNoneReturnsEmptyString() {
-        // when / then
         XCTAssertEqual(HomeCategorySearch.none.uiTitle, "")
     }
 
     // MARK: - Tests: rawValue
 
-    func testRawValueVehiculeIsZero() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.vehicule.rawValue, 0)
-    }
-
-    func testRawValueRealStateIsOne() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.realState.rawValue, 1)
-    }
-
-    func testRawValueServicesIsTwo() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.services.rawValue, 2)
-    }
-
-    func testRawValueNoneIsThree() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.none.rawValue, 3)
+    func testRawValuesAreSequential() {
+        XCTAssertEqual(HomeCategorySearch.reggaeton.rawValue,  0)
+        XCTAssertEqual(HomeCategorySearch.salsa.rawValue,      1)
+        XCTAssertEqual(HomeCategorySearch.merengue.rawValue,   2)
+        XCTAssertEqual(HomeCategorySearch.bachata.rawValue,    3)
+        XCTAssertEqual(HomeCategorySearch.cumbia.rawValue,     4)
+        XCTAssertEqual(HomeCategorySearch.pop.rawValue,        5)
+        XCTAssertEqual(HomeCategorySearch.rock.rawValue,       6)
+        XCTAssertEqual(HomeCategorySearch.jazz.rawValue,       7)
+        XCTAssertEqual(HomeCategorySearch.electronica.rawValue, 8)
+        XCTAssertEqual(HomeCategorySearch.hipHop.rawValue,    9)
+        XCTAssertEqual(HomeCategorySearch.none.rawValue,      10)
     }
 
     // MARK: - Tests: Equality
 
     func testEqualitySameCategoryIsEqual() {
-        // when / then
-        XCTAssertEqual(HomeCategorySearch.vehicule, HomeCategorySearch.vehicule)
+        XCTAssertEqual(HomeCategorySearch.reggaeton, HomeCategorySearch.reggaeton)
         XCTAssertEqual(HomeCategorySearch.none, HomeCategorySearch.none)
     }
 
     func testEqualityDifferentCategoriesIsNotEqual() {
-        // when / then
-        XCTAssertNotEqual(HomeCategorySearch.vehicule, HomeCategorySearch.realState)
-        XCTAssertNotEqual(HomeCategorySearch.services, HomeCategorySearch.none)
+        XCTAssertNotEqual(HomeCategorySearch.reggaeton, HomeCategorySearch.salsa)
+        XCTAssertNotEqual(HomeCategorySearch.pop, HomeCategorySearch.none)
     }
 
-    // MARK: - Tests: allCases stringValues are unique
+    // MARK: - Tests: all genre mediaTypes are the same ("music")
 
-    func testAllStringValuesAreUnique() {
-        // given
-        let values = [
-            HomeCategorySearch.vehicule.stringValue,
-            HomeCategorySearch.realState.stringValue,
-            HomeCategorySearch.services.stringValue,
-            HomeCategorySearch.none.stringValue
+    func testAllNonNoneMediaTypesEqualMusic() {
+        let allGenres: [HomeCategorySearch] = [
+            .reggaeton, .salsa, .merengue, .bachata, .cumbia,
+            .pop, .rock, .jazz, .electronica, .hipHop
         ]
-
-        // when
-        let unique = Set(values.filter { !$0.isEmpty })
-
-        // then
-        XCTAssertEqual(unique.count, 3, "All non-empty stringValues should be unique")
+        for genre in allGenres {
+            XCTAssertEqual(genre.mediaType, "music")
+        }
     }
 }

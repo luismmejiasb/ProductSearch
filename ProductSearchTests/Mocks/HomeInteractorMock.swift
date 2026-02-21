@@ -1,56 +1,55 @@
 import Combine
 import Foundation
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomeInteractorMock: HomeInteractorProtocol {
     // MARK: Properties
 
-    var repository: HomeRepositoryProtocol?
-    var publisher: PassthroughSubject<HomePublisherResult, Error>?
+    let publisher: PassthroughSubject<HomePublisherResult, Error>
     var functionsCalled = [String]()
 
+    private let repository: HomeRepositoryProtocol?
     private var searchTokens = Set<AnyCancellable>()
 
     // MARK: Lifecycle
 
-    init(repository: HomeRepositoryProtocol?) {
+    init(repository: HomeRepositoryProtocol?, publisher: PassthroughSubject<HomePublisherResult, Error>) {
         self.repository = repository
+        self.publisher = publisher
     }
 
     // MARK: Functions
 
-    func serachItem(searchText: String) {
+    func searchArtist(searchText: String) {
         functionsCalled.append(#function)
-
-        repository?.searchItem(offSet: 0, searchText: searchText)
+        repository?.searchArtist(searchText: searchText, limit: 50)
             .sink(
-                receiveCompletion: { completion in
+                receiveCompletion: { [weak self] completion in
+                    guard let self else { return }
                     switch completion {
-                    case .finished:
-                        break
+                    case .finished: break
                     case .failure(let error):
-                        self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
+                        self.publisher.send(HomePublisherResult.itemsSearchedWithFailure(error))
                     }
-                }, receiveValue: { searchResult in
-                    self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult: searchResult))
+                }, receiveValue: { [weak self] searchResult in
+                    self?.publisher.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult: searchResult))
                 }
             ).store(in: &searchTokens)
     }
 
     func searchByCategory(_ category: HomeCategorySearch) {
         functionsCalled.append(#function)
-
-        repository?.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
+        repository?.searchByMedia(mediaType: category.mediaType, searchText: category.uiTitle, limit: 50)
             .sink(
-                receiveCompletion: { completion in
+                receiveCompletion: { [weak self] completion in
+                    guard let self else { return }
                     switch completion {
-                    case .finished:
-                        break
+                    case .finished: break
                     case .failure(let error):
-                        self.publisher?.send(HomePublisherResult.itemsSearchedWithFailure(error))
+                        self.publisher.send(HomePublisherResult.categorySearchedWithFailure(error))
                     }
-                }, receiveValue: { searchResult in
-                    self.publisher?.send(HomePublisherResult.itemsSearchedWithSuccess(searchResult: searchResult))
+                }, receiveValue: { [weak self] searchResult in
+                    self?.publisher.send(HomePublisherResult.categorySearchedWithSuccess(searchResult: searchResult, searchedCategory: category))
                 }
             ).store(in: &searchTokens)
     }

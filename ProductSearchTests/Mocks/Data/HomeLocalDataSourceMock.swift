@@ -1,5 +1,5 @@
 import Foundation
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomeLocalDataSourceMock: HomeLocalDataSourceProtocol {
     // MARK: Properties
