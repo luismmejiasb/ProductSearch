@@ -1,6 +1,6 @@
 import Combine
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - SearchResultPresenterTests
 
@@ -15,10 +15,10 @@ class SearchResultPresenterTests: XCTestCase {
     // MARK: Selector constants
 
     private let displaySearchResultSelectorName = "displaySearchResult()"
-    private let displayNextOffSetResultSelectorName = "displayNextOffSetResult(_:searchType:searchCategory:)"
+    private let displayNextPageResultSelectorName = "displayNextPageResult(_:searchType:searchCategory:)"
     private let endLoadingIndicatorSelectorName = "endLoadingIndicator()"
     private let presentFilterTypeActionSheetSelectorName = "presentFilterTypeActionSheet()"
-    private let presentProductDetailSelectorName = "presentProductDetail(_:)"
+    private let presentArtistDetailSelectorName = "presentArtistDetail(_:)"
     private let displayAlertSelectorName = "displayAlert(title:message:)"
 
     // MARK: Lifecycle
@@ -42,18 +42,16 @@ class SearchResultPresenterTests: XCTestCase {
     private func makeSUT(
         searchType: SearchType = .text,
         searchCategory: HomeCategorySearch = .none,
-        mockData: SearchResultMLCDataMock = .multipleResults,
+        mockData: SearchResultITunesDataMock = .multipleResults,
         interactorStatus: TransactionStatus = .success
-    ) -> (SearchResultPresenter, SearchResultInteractorMock, SearchResult) {
+    ) -> (SearchResultPresenter, SearchResultInteractorMock, ArtistSearchResult) {
         let cloudDataSourceMock = SearchResultCloudDataSourceMock(status: interactorStatus, mockData: mockData)
         let localDataSourceMock = SearchResultLocalDataSourceMock()
         let repositoryMock = SearchResultRepositoryMock(
-            status: interactorStatus,
             localDataSource: localDataSourceMock,
             cloudDataSource: cloudDataSourceMock
         )
-        let interactorMock = SearchResultInteractorMock(repository: repositoryMock)
-        interactorMock.publisher = publisher
+        let interactorMock = SearchResultInteractorMock(repository: repositoryMock, publisher: publisher)
 
         let initialSearchResult = mockData.searchResult
         let presenter = SearchResultPresenter(
@@ -62,7 +60,7 @@ class SearchResultPresenterTests: XCTestCase {
             searchResult: initialSearchResult,
             searchType: searchType,
             searchCategory: searchCategory,
-            searchText: initialSearchResult.query ?? "iphone"
+            searchText: initialSearchResult.searchText ?? "iphone"
         )
         presenter.view = viewMock
         presenter.viewDidLoad()
@@ -75,7 +73,7 @@ class SearchResultPresenterTests: XCTestCase {
         // given / when
         let (presenter, _, mockResult) = makeSUT()
 
-        publisher.send(.displayNextOffSet(searchResult: mockResult))
+        publisher.send(.displayNextPage(searchResult: mockResult))
 
         // then
         XCTAssertTrue(viewMock.functionsCalled.contains(endLoadingIndicatorSelectorName))
@@ -93,13 +91,13 @@ class SearchResultPresenterTests: XCTestCase {
 
         // then
         XCTAssertNotNil(result)
-        XCTAssertEqual(result?.siteID, initialResult.siteID)
+        XCTAssertEqual(result?.resultCount, initialResult.resultCount)
     }
 
     func testGetSearchResultAfterSetSearchResultReturnsUpdatedResults() {
         // given
         let (presenter, _, _) = makeSUT()
-        let newResults: [Result] = []
+        let newResults: [ArtistResult] = []
 
         // when
         presenter.setSearchResult(results: newResults)
@@ -133,7 +131,7 @@ class SearchResultPresenterTests: XCTestCase {
 
     func testGetSearchTypeCategoryReturnsCategory() {
         // given / when
-        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .vehicule)
+        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .reggaeton)
 
         // then
         XCTAssertEqual(presenter.getSearchType(), .category)
@@ -149,110 +147,80 @@ class SearchResultPresenterTests: XCTestCase {
         XCTAssertEqual(presenter.getSearchCategory(), .none)
     }
 
-    func testGetSearchCategoryVehiculeReturnsVehicule() {
+    func testGetSearchCategoryMusicReturnsMusic() {
         // given / when
-        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .vehicule)
+        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .reggaeton)
 
         // then
-        XCTAssertEqual(presenter.getSearchCategory(), .vehicule)
+        XCTAssertEqual(presenter.getSearchCategory(), .reggaeton)
     }
 
-    func testGetSearchCategoryRealStateReturnsRealState() {
+    func testGetSearchCategoryMoviesReturnsMovies() {
         // given / when
-        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .realState)
+        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .salsa)
 
         // then
-        XCTAssertEqual(presenter.getSearchCategory(), .realState)
+        XCTAssertEqual(presenter.getSearchCategory(), .salsa)
     }
 
-    func testGetSearchCategoryServicesReturnsServices() {
+    func testGetSearchCategoryPodcastsReturnsPodcasts() {
         // given / when
-        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .services)
+        let (presenter, _, _) = makeSUT(searchType: .category, searchCategory: .rock)
 
         // then
-        XCTAssertEqual(presenter.getSearchCategory(), .services)
+        XCTAssertEqual(presenter.getSearchCategory(), .rock)
     }
 
-    // MARK: - Tests: fetchNextOffSet
+    // MARK: - Tests: fetchNextPage
 
-    func testFetchNextOffSetFirstCallCallsInteractorWithOffset50() {
+    func testFetchNextPageFirstCallCallsInteractor() {
         // given
         let (presenter, interactorMock, _) = makeSUT(searchType: .text)
 
         // when
-        presenter.fetchNextOffSet()
+        presenter.fetchNextPage()
 
         // then
         XCTAssertEqual(interactorMock.functionsCalled.count, 1)
-        XCTAssertEqual(interactorMock.lastOffSet, 50)
     }
 
-    func testFetchNextOffSetSecondCallCallsInteractorWithOffset100() {
+    func testFetchNextPageSecondCallCallsInteractorTwice() {
         // given
         let (presenter, interactorMock, _) = makeSUT(searchType: .text)
 
         // when
-        presenter.fetchNextOffSet()
-        presenter.fetchNextOffSet()
+        presenter.fetchNextPage()
+        presenter.fetchNextPage()
 
         // then
         XCTAssertEqual(interactorMock.functionsCalled.count, 2)
-        XCTAssertEqual(interactorMock.lastOffSet, 100)
     }
 
-    func testFetchNextOffSetThirdCallCallsInteractorWithOffset150() {
+    func testFetchNextPageTextTypeCallsSearchTextMethod() {
         // given
         let (presenter, interactorMock, _) = makeSUT(searchType: .text)
 
         // when
-        presenter.fetchNextOffSet()
-        presenter.fetchNextOffSet()
-        presenter.fetchNextOffSet()
+        presenter.fetchNextPage()
 
         // then
-        XCTAssertEqual(interactorMock.lastOffSet, 150)
+        XCTAssertEqual(interactorMock.functionsCalled.first, "fetchNextPage(searchText:limit:)")
     }
 
-    func testFetchNextOffSetTextTypeCallsSearchTextMethod() {
-        // given
-        let (presenter, interactorMock, _) = makeSUT(searchType: .text)
-
-        // when
-        presenter.fetchNextOffSet()
-
-        // then
-        XCTAssertEqual(interactorMock.functionsCalled.first, "fetchNextOffSet(_:searchText:)")
-    }
-
-    func testFetchNextOffSetCategoryTypeCallsCategoryMethod() {
+    func testFetchNextPageCategoryTypeCallsCategoryMethod() {
         // given
         let (presenter, interactorMock, _) = makeSUT(
             searchType: .category,
-            searchCategory: .vehicule,
-            mockData: .categoryResults
-        )
-
-        // when
-        presenter.fetchNextOffSet()
-
-        // then
-        XCTAssertEqual(interactorMock.functionsCalled.first, "fetchNextOffSet(_:category:)")
-        XCTAssertEqual(interactorMock.lastCategory, HomeCategorySearch.vehicule.stringValue)
-    }
-
-    func testFetchNextOffSetCategoryRealStatePassesCorrectCategoryString() {
-        // given
-        let (presenter, interactorMock, _) = makeSUT(
-            searchType: .category,
-            searchCategory: .realState,
+            searchCategory: .reggaeton,
             mockData: .multipleResults
         )
 
         // when
-        presenter.fetchNextOffSet()
+        presenter.fetchNextPage()
 
         // then
-        XCTAssertEqual(interactorMock.lastCategory, HomeCategorySearch.realState.stringValue)
+        XCTAssertEqual(interactorMock.functionsCalled.first, "fetchNextPageByMedia(mediaType:searchText:limit:)")
+        XCTAssertEqual(interactorMock.lastMediaType, HomeCategorySearch.reggaeton.mediaType)
     }
 
     // MARK: - Tests: presentFilterTypeActionSheet
@@ -269,100 +237,100 @@ class SearchResultPresenterTests: XCTestCase {
         XCTAssertEqual(routerMock.functionsCalled[0], presentFilterTypeActionSheetSelectorName)
     }
 
-    // MARK: - Tests: presentProductDetail
+    // MARK: - Tests: presentArtistDetail
 
-    func testPresentProductDetailCallsRouter() {
+    func testPresentArtistDetailCallsRouter() {
         // given
         let (presenter, _, initialResult) = makeSUT()
-        guard let product = initialResult.results?.first else {
+        guard let artist = initialResult.results?.first else {
             XCTFail("Expected at least one result in mock data")
             return
         }
 
         // when
-        presenter.presentProductDetail(product)
+        presenter.presentArtistDetail(artist)
 
         // then
         XCTAssertEqual(routerMock.functionsCalled.count, 1)
-        XCTAssertEqual(routerMock.functionsCalled[0], presentProductDetailSelectorName)
+        XCTAssertEqual(routerMock.functionsCalled[0], presentArtistDetailSelectorName)
     }
 
-    func testPresentProductDetailPassesCorrectProduct() {
+    func testPresentArtistDetailPassesCorrectArtist() {
         // given
         let (presenter, _, initialResult) = makeSUT()
-        guard let product = initialResult.results?.first else {
+        guard let artist = initialResult.results?.first else {
             XCTFail("Expected at least one result in mock data")
             return
         }
 
         // when
-        presenter.presentProductDetail(product)
+        presenter.presentArtistDetail(artist)
 
         // then
-        XCTAssertEqual(routerMock.lastPresentedProduct?.title, product.title)
-        XCTAssertEqual(routerMock.lastPresentedProduct?.price, product.price)
+        XCTAssertEqual(routerMock.lastPresentedArtist?.artistName, artist.artistName)
+        XCTAssertEqual(routerMock.lastPresentedArtist?.trackPrice, artist.trackPrice)
     }
 
-    // MARK: - Tests: Publisher displayNextOffSet
+    // MARK: - Tests: Publisher displayNextPage
 
-    func testPublisherDisplayNextOffSetCallsViewDisplayNextOffSetResult() {
+    func testPublisherDisplayNextPageCallsViewDisplayNextPageResult() {
         // given
         let (presenter, _, mockResult) = makeSUT(searchType: .text)
 
         // when
-        publisher.send(.displayNextOffSet(searchResult: mockResult))
+        publisher.send(.displayNextPage(searchResult: mockResult))
 
         // then
-        XCTAssertTrue(viewMock.functionsCalled.contains(displayNextOffSetResultSelectorName))
+        XCTAssertTrue(viewMock.functionsCalled.contains(displayNextPageResultSelectorName))
         XCTAssertTrue(viewMock.functionsCalled.contains(endLoadingIndicatorSelectorName))
         _ = presenter
     }
 
-    func testPublisherDisplayNextOffSetPassesCorrectSearchType() {
+    func testPublisherDisplayNextPagePassesCorrectSearchType() {
         // given
-        let (presenter, _, mockResult) = makeSUT(searchType: .category, searchCategory: .vehicule)
+        let (presenter, _, mockResult) = makeSUT(searchType: .category, searchCategory: .reggaeton)
 
         // when
-        publisher.send(.displayNextOffSet(searchResult: mockResult))
+        publisher.send(.displayNextPage(searchResult: mockResult))
 
         // then
         XCTAssertEqual(viewMock.lastSearchType, .category)
         _ = presenter
     }
 
-    func testPublisherDisplayNextOffSetPassesCorrectSearchCategory() {
+    func testPublisherDisplayNextPagePassesCorrectSearchCategory() {
         // given
-        let (presenter, _, mockResult) = makeSUT(searchType: .category, searchCategory: .vehicule)
+        let (presenter, _, mockResult) = makeSUT(searchType: .category, searchCategory: .reggaeton)
 
         // when
-        publisher.send(.displayNextOffSet(searchResult: mockResult))
+        publisher.send(.displayNextPage(searchResult: mockResult))
 
         // then
-        XCTAssertEqual(viewMock.lastSearchCategory, .vehicule)
+        XCTAssertEqual(viewMock.lastSearchCategory, .reggaeton)
         _ = presenter
     }
 
-    func testPublisherDisplayNextOffSetPassesSearchResult() {
+    func testPublisherDisplayNextPagePassesSearchResult() {
         // given
         let (presenter, _, mockResult) = makeSUT()
 
         // when
-        publisher.send(.displayNextOffSet(searchResult: mockResult))
+        publisher.send(.displayNextPage(searchResult: mockResult))
 
         // then
-        XCTAssertNotNil(viewMock.lastNextOffSetResult)
+        XCTAssertNotNil(viewMock.lastNextPageResult)
         _ = presenter
     }
 
-    // MARK: - Tests: Publisher displayNextOffSetFailed
+    // MARK: - Tests: Publisher displayNextPageFailed
 
-    func testPublisherDisplayNextOffSetFailedHttpErrorCallsRouterDisplayAlert() {
+    func testPublisherDisplayNextPageFailedHttpErrorCallsRouterDisplayAlert() {
         // given
         let (presenter, _, _) = makeSUT()
         let error = CloudDataSourceDefaultError.httpError(code: 1002, message: "Test Error")
 
         // when
-        publisher.send(.displayNextOffSetFailed(error))
+        publisher.send(.displayNextPageFailed(error))
 
         // then
         XCTAssertTrue(viewMock.functionsCalled.contains(endLoadingIndicatorSelectorName))
@@ -371,12 +339,12 @@ class SearchResultPresenterTests: XCTestCase {
         _ = presenter
     }
 
-    func testPublisherDisplayNextOffSetFailedGenericErrorShowsDifferentAlertTitle() {
+    func testPublisherDisplayNextPageFailedGenericErrorShowsDifferentAlertTitle() {
         // given
         let (presenter, _, _) = makeSUT()
 
         // when
-        publisher.send(.displayNextOffSetFailed(CloudDataSourceDefaultError.responseCannotBeParsed))
+        publisher.send(.displayNextPageFailed(CloudDataSourceDefaultError.responseCannotBeParsed))
 
         // then
         XCTAssertTrue(routerMock.functionsCalled.contains(displayAlertSelectorName))
@@ -384,15 +352,15 @@ class SearchResultPresenterTests: XCTestCase {
         _ = presenter
     }
 
-    func testPublisherDisplayNextOffSetFailedDoesNotCallDisplayNextOffSetResult() {
+    func testPublisherDisplayNextPageFailedDoesNotCallDisplayNextPageResult() {
         // given
         let (presenter, _, _) = makeSUT()
 
         // when
-        publisher.send(.displayNextOffSetFailed(CloudDataSourceDefaultError.unwrappableValue))
+        publisher.send(.displayNextPageFailed(CloudDataSourceDefaultError.unwrappableValue))
 
         // then
-        XCTAssertFalse(viewMock.functionsCalled.contains(displayNextOffSetResultSelectorName))
+        XCTAssertFalse(viewMock.functionsCalled.contains(displayNextPageResultSelectorName))
         _ = presenter
     }
 
@@ -427,29 +395,29 @@ class SearchResultPresenterTests: XCTestCase {
 
     func testDidSelectFilterLowestPriceSortsAscending() {
         // given
+        // Prices in mock: 1.29, 0.99, 1.49 → after sort ascending: 0.99, 1.29, 1.49
         let (presenter, _, _) = makeSUT(mockData: .multipleResults)
-        // Prices in mock: 600000, 350000, 480000 → after sort: 350000, 480000, 600000
 
         // when
         presenter.didSelectFilter(.lowestPrice)
 
         // then
         let results = presenter.getSearchResult()?.results
-        let prices = results?.compactMap { $0.price } ?? []
+        let prices = results?.compactMap { $0.trackPrice } ?? []
         XCTAssertEqual(prices, prices.sorted())
     }
 
     func testDidSelectFilterHighestPriceSortsDescending() {
         // given
+        // Prices: 1.29, 0.99, 1.49 → after sort descending: 1.49, 1.29, 0.99
         let (presenter, _, _) = makeSUT(mockData: .multipleResults)
-        // Prices: 600000, 350000, 480000 → after sort: 600000, 480000, 350000
 
         // when
         presenter.didSelectFilter(.highestPrice)
 
         // then
         let results = presenter.getSearchResult()?.results
-        let prices = results?.compactMap { $0.price } ?? []
+        let prices = results?.compactMap { $0.trackPrice } ?? []
         XCTAssertEqual(prices, prices.sorted(by: >))
     }
 
@@ -462,7 +430,7 @@ class SearchResultPresenterTests: XCTestCase {
 
         // then
         let results = presenter.getSearchResult()?.results
-        XCTAssertEqual(results?.first?.price, 600000)
+        XCTAssertEqual(results?.first?.trackPrice, 1.49)
     }
 
     func testDidSelectFilterLowestPriceFirstItemHasLowestPrice() {
@@ -474,7 +442,7 @@ class SearchResultPresenterTests: XCTestCase {
 
         // then
         let results = presenter.getSearchResult()?.results
-        XCTAssertEqual(results?.first?.price, 350000)
+        XCTAssertEqual(results?.first?.trackPrice, 0.99)
     }
 
     func testDidSelectFilterHighestPriceCallsDisplaySearchResultOnce() {
@@ -516,19 +484,19 @@ class SearchResultPresenterTests: XCTestCase {
         XCTAssertFalse(viewMock.functionsCalled.contains(displaySearchResultSelectorName))
     }
 
-    // MARK: - Tests: fetchNextOffSet triggers interactor via publisher
+    // MARK: - Tests: fetchNextPage triggers interactor via publisher
 
-    func testFetchNextOffSetSuccessViewReceivesNextOffset() {
+    func testFetchNextPageSuccessViewReceivesNextPage() {
         // given
-        let (presenter, interactorMock, _) = makeSUT(status: .success)
+        let (presenter, interactorMock, _) = makeSUT(interactorStatus: .success)
 
         // when
-        presenter.fetchNextOffSet()
-        let mockResult = SearchResultMLCDataMock.multipleResults.searchResult
-        publisher.send(.displayNextOffSet(searchResult: mockResult))
+        presenter.fetchNextPage()
+        let mockResult = SearchResultITunesDataMock.multipleResults.searchResult
+        publisher.send(.displayNextPage(searchResult: mockResult))
 
         // then
-        XCTAssertTrue(viewMock.functionsCalled.contains(displayNextOffSetResultSelectorName))
+        XCTAssertTrue(viewMock.functionsCalled.contains(displayNextPageResultSelectorName))
         _ = interactorMock
     }
 }
@@ -540,7 +508,7 @@ private extension SearchResultPresenterTests {
         status: TransactionStatus,
         searchType: SearchType = .text,
         searchCategory: HomeCategorySearch = .none
-    ) -> (SearchResultPresenter, SearchResultInteractorMock, SearchResult) {
+    ) -> (SearchResultPresenter, SearchResultInteractorMock, ArtistSearchResult) {
         makeSUT(
             searchType: searchType,
             searchCategory: searchCategory,

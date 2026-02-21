@@ -1,36 +1,36 @@
 import Combine
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomeRepositoryTests: XCTestCase {
     // MARK: Properties
-    
+
     private var searchTokens = Set<AnyCancellable>()
-    
+
     // MARK: Overridden Functions
-    
+
     override func tearDown() {
         super.tearDown()
         searchTokens.removeAll()
     }
-    
+
     // MARK: Helpers
-    
+
     private func makeRepository(status: TransactionStatus) -> (HomeRepository, HomeCloudDataSourceMock) {
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repository = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         return (repository, cloudDataSourceMock)
     }
-    
-    // MARK: - Tests: searchCategory
-    
-    func testSearchCategoryWithSuccessReturnsResult() {
+
+    // MARK: - Tests: searchByMedia
+
+    func testSearchByMediaWithSuccessReturnsResult() {
         // given
         let (repository, _) = makeRepository(status: .success)
 
         // when / then
-        repository.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
+        repository.searchByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     if case .failure(let error) = completion {
@@ -44,31 +44,31 @@ class HomeRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
     }
-    
-    func testSearchCategoryWithSuccessReturnsExpectedCategoryID() {
+
+    func testSearchByMediaWithSuccessReturnsExpectedArtistName() {
         // given
         let (repository, _) = makeRepository(status: .success)
 
         // when / then
-        repository.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
+        repository.searchByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { searchResult in
                     XCTAssertEqual(
-                        searchResult.results?.first?.categoryID,
-                        HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID
+                        searchResult.results?.first?.artistName,
+                        HomeITunesDataMock.homeSearchArtist.searchDefaultResult.results?.first?.artistName
                     )
                 }
             )
             .store(in: &searchTokens)
     }
-    
-    func testSearchCategoryWithFailureReturnsError() {
+
+    func testSearchByMediaWithFailureReturnsError() {
         // given
         let (repository, _) = makeRepository(status: .failure)
 
         // when / then
-        repository.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
+        repository.searchByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     if case .failure(let error) = completion {
@@ -81,13 +81,13 @@ class HomeRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
     }
-    
-    func testSearchCategoryVehiculeWithSuccess() {
+
+    func testSearchByMediaMoviesWithSuccess() {
         // given
         let (repository, _) = makeRepository(status: .success)
 
         // when / then
-        repository.searchCategory(offSet: 0, category: HomeCategorySearch.vehicule.stringValue)
+        repository.searchByMedia(mediaType: HomeCategorySearch.salsa.mediaType, searchText: "Salsa", limit: 50)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { searchResult in
@@ -96,13 +96,13 @@ class HomeRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
     }
-    
-    func testSearchCategoryServicesWithSuccess() {
+
+    func testSearchByMediaPodcastsWithSuccess() {
         // given
         let (repository, _) = makeRepository(status: .success)
 
         // when / then
-        repository.searchCategory(offSet: 0, category: HomeCategorySearch.services.stringValue)
+        repository.searchByMedia(mediaType: HomeCategorySearch.rock.mediaType, searchText: "Rock", limit: 50)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { searchResult in
@@ -111,15 +111,15 @@ class HomeRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
     }
-    
-    // MARK: - Tests: searchItem
-    
-    func testSearchItemWithSuccessReturnsResult() {
+
+    // MARK: - Tests: searchArtist
+
+    func testSearchArtistWithSuccessReturnsResult() {
         // given
         let (repository, _) = makeRepository(status: .success)
 
         // when / then
-        repository.searchItem(offSet: 0, searchText: "iPhone")
+        repository.searchArtist(searchText: "Jack Johnson", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     if case .failure(let error) = completion {
@@ -133,31 +133,31 @@ class HomeRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
     }
-    
-    func testSearchItemWithSuccessReturnsExpectedCategoryID() {
+
+    func testSearchArtistWithSuccessReturnsExpectedArtistName() {
         // given
         let (repository, _) = makeRepository(status: .success)
 
         // when / then
-        repository.searchItem(offSet: 0, searchText: "iPhone")
+        repository.searchArtist(searchText: "Jack Johnson", limit: 50)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { searchResult in
                     XCTAssertEqual(
-                        searchResult.results?.first?.categoryID,
-                        HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID
+                        searchResult.results?.first?.artistName,
+                        HomeITunesDataMock.homeSearchArtist.searchDefaultResult.results?.first?.artistName
                     )
                 }
             )
             .store(in: &searchTokens)
     }
-    
-    func testSearchItemWithFailureReturnsError() {
+
+    func testSearchArtistWithFailureReturnsError() {
         // given
         let (repository, _) = makeRepository(status: .failure)
 
         // when / then
-        repository.searchItem(offSet: 0, searchText: "iPhone")
+        repository.searchArtist(searchText: "Jack Johnson", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     if case .failure(let error) = completion {
@@ -170,14 +170,14 @@ class HomeRepositoryTests: XCTestCase {
             )
             .store(in: &searchTokens)
     }
-    
-    func testSearchItemWithOffset50StillDelegatesToDataSource() {
+
+    func testSearchArtistWithLimit50StillDelegatesToDataSource() {
         // given
         let (repository, cloudDataSourceMock) = makeRepository(status: .success)
         var didReceiveValue = false
 
         // when
-        repository.searchItem(offSet: 50, searchText: "MacBook")
+        repository.searchArtist(searchText: "Coldplay", limit: 50)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { _ in
@@ -190,14 +190,14 @@ class HomeRepositoryTests: XCTestCase {
         XCTAssertTrue(didReceiveValue)
         _ = cloudDataSourceMock
     }
-    
-    func testSearchCategoryWithOffset50StillDelegatesToDataSource() {
+
+    func testSearchByMediaWithLimit50StillDelegatesToDataSource() {
         // given
         let (repository, cloudDataSourceMock) = makeRepository(status: .success)
         var didReceiveValue = false
 
         // when
-        repository.searchCategory(offSet: 50, category: HomeCategorySearch.vehicule.stringValue)
+        repository.searchByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { _ in
@@ -210,16 +210,16 @@ class HomeRepositoryTests: XCTestCase {
         XCTAssertTrue(didReceiveValue)
         _ = cloudDataSourceMock
     }
-    
+
     // MARK: - Tests: cloudDataSource error types
-    
-    func testSearchItemFailureIsHttpError() {
+
+    func testSearchArtistFailureIsHttpError() {
         // given
         let (repository, _) = makeRepository(status: .failure)
         var receivedError: Error?
 
         // when
-        repository.searchItem(offSet: 0, searchText: "Test")
+        repository.searchArtist(searchText: "Test", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     if case .failure(let error) = completion {
@@ -239,93 +239,99 @@ class HomeRepositoryTests: XCTestCase {
             XCTFail("Expected httpError, got: \(String(describing: receivedError))")
         }
     }
-    
-    func testSearchCategoryWithSuccess() {
+
+    func testSearchByMediaWithSuccess() {
         // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
 
         // when / then
-        repositoryToTest.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
+        repositoryToTest.searchByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     switch completion {
                     case .finished:
                         break
                     case .failure(let error):
-                        XCTAssertNil(error, "Result must not retreive error")
+                        XCTAssertNil(error, "Result must not retrieve error")
                     }
                 }, receiveValue: { searchResult in
                     XCTAssertNotNil(searchResult, "Result must not be nil")
-                    XCTAssertEqual(searchResult.results?.first?.categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID)
+                    XCTAssertEqual(
+                        searchResult.results?.first?.artistName,
+                        HomeITunesDataMock.homeSearchArtist.searchDefaultResult.results?.first?.artistName
+                    )
                 }
             ).store(in: &searchTokens)
     }
-    
-    func testSearchCategoryWithFailure() {
+
+    func testSearchByMediaWithFailure() {
         // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .failure)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
 
         // when / then
-        repositoryToTest.searchCategory(offSet: 0, category: HomeCategorySearch.realState.stringValue)
+        repositoryToTest.searchByMedia(mediaType: HomeCategorySearch.reggaeton.mediaType, searchText: "Reggaeton", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     switch completion {
                     case .finished:
                         break
                     case .failure(let error):
-                        XCTAssertNotNil(error, "Result must retreive error")
+                        XCTAssertNotNil(error, "Result must retrieve error")
                     }
                 }, receiveValue: { _ in
-                    XCTAssertTrue(false, "Result must not be successfull")
+                    XCTAssertTrue(false, "Result must not be successful")
                 }
             ).store(in: &searchTokens)
     }
-    
-    func testSearchTextWithSuccess() {
+
+    func testSearchArtistWithSuccess() {
         // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
 
         // when / then
-        repositoryToTest.searchItem(offSet: 0, searchText: "iPhone")
+        repositoryToTest.searchArtist(searchText: "Jack Johnson", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     switch completion {
                     case .finished:
                         break
                     case .failure(let error):
-                        XCTAssertNil(error, "Result must not retreive error")
+                        XCTAssertNil(error, "Result must not retrieve error")
                     }
                 }, receiveValue: { searchResult in
                     XCTAssertNotNil(searchResult, "Result must not be nil")
-                    XCTAssertEqual(searchResult.results?.first?.categoryID, HomeMLCDataMock.homeSearchItem.searchDefaultResult.results?.first?.categoryID)
+                    XCTAssertEqual(
+                        searchResult.results?.first?.artistName,
+                        HomeITunesDataMock.homeSearchArtist.searchDefaultResult.results?.first?.artistName
+                    )
                 }
             ).store(in: &searchTokens)
     }
-    
-    func testSearchTextWithFailure() {
+
+    func testSearchArtistWithFailure() {
         // given
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: .failure)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryToTest = HomeRepository(localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
 
         // when / then
-        repositoryToTest.searchItem(offSet: 0, searchText: "iPhone")
+        repositoryToTest.searchArtist(searchText: "Jack Johnson", limit: 50)
             .sink(
                 receiveCompletion: { completion in
                     switch completion {
                     case .finished:
                         break
                     case .failure(let error):
-                        XCTAssertNotNil(error, "Result must retreive error")
+                        XCTAssertNotNil(error, "Result must retrieve error")
                     }
                 }, receiveValue: { _ in
-                    XCTAssertTrue(false, "Result must not be successfull")
+                    XCTAssertTrue(false, "Result must not be successful")
                 }
             ).store(in: &searchTokens)
     }

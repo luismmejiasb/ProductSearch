@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - SearchResultFactoryTests
 
@@ -8,8 +8,8 @@ import XCTest
 class SearchResultFactoryTests: XCTestCase {
     // MARK: Helpers
 
-    private var sampleSearchResult: SearchResult {
-        SearchResultMLCDataMock.multipleResults.searchResult
+    private var sampleSearchResult: ArtistSearchResult {
+        SearchResultITunesDataMock.multipleResults.searchResult
     }
 
     // MARK: - Tests: text search type
@@ -62,12 +62,12 @@ class SearchResultFactoryTests: XCTestCase {
 
     func testInitializeCategorySearchPresenterHasCorrectSearchType() {
         // given
-        let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult
+        let categoryResult = SearchResultITunesDataMock.multipleResults.searchResult
         // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: categoryResult,
             searchType: .category,
-            searchCategory: .vehicule
+            searchCategory: .reggaeton
         )
         // then
         XCTAssertEqual(viewController.presenter?.getSearchType(), .category)
@@ -75,37 +75,37 @@ class SearchResultFactoryTests: XCTestCase {
 
     func testInitializeCategorySearchPresenterHasCorrectCategory() {
         // given
-        let categoryResult = SearchResultMLCDataMock.categoryResults.searchResult
+        let categoryResult = SearchResultITunesDataMock.multipleResults.searchResult
         // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: categoryResult,
             searchType: .category,
-            searchCategory: .realState
+            searchCategory: .salsa
         )
         // then
-        XCTAssertEqual(viewController.presenter?.getSearchCategory(), .realState)
+        XCTAssertEqual(viewController.presenter?.getSearchCategory(), .salsa)
     }
 
-    func testInitializeCategoryVehiculePresenterHasVehiculeCategory() {
+    func testInitializeCategoryMusicPresenterHasMusicCategory() {
         // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .category,
-            searchCategory: .vehicule
+            searchCategory: .reggaeton
         )
         // then
-        XCTAssertEqual(viewController.presenter?.getSearchCategory(), .vehicule)
+        XCTAssertEqual(viewController.presenter?.getSearchCategory(), .reggaeton)
     }
 
-    func testInitializeCategoryServicesPresenterHasServicesCategory() {
+    func testInitializeCategoryPodcastsPresenterHasPodcastsCategory() {
         // when
         let viewController = SearchResultFactory.initialize(
             homeSearchResult: sampleSearchResult,
             searchType: .category,
-            searchCategory: .services
+            searchCategory: .rock
         )
         // then
-        XCTAssertEqual(viewController.presenter?.getSearchCategory(), .services)
+        XCTAssertEqual(viewController.presenter?.getSearchCategory(), .rock)
     }
 
     // MARK: - Tests: search result is set
@@ -130,8 +130,8 @@ class SearchResultFactoryTests: XCTestCase {
         )
         // then
         XCTAssertEqual(
-            viewController.presenter?.getSearchResult()?.siteID,
-            sampleSearchResult.siteID
+            viewController.presenter?.getSearchResult()?.resultCount,
+            sampleSearchResult.resultCount
         )
     }
 

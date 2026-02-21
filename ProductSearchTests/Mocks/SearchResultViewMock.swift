@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - SearchResultViewMock
 
@@ -8,7 +8,7 @@ class SearchResultViewMock: SearchResultViewProtocol {
     // MARK: Properties
 
     var functionsCalled = [String]()
-    var lastNextOffSetResult: SearchResult?
+    var lastNextPageResult: ArtistSearchResult?
     var lastSearchType: SearchType?
     var lastSearchCategory: HomeCategorySearch?
 
@@ -18,13 +18,13 @@ class SearchResultViewMock: SearchResultViewProtocol {
         functionsCalled.append(#function)
     }
 
-    func displayNextOffSetResult(
-        _ nextOffSetResult: SearchResult,
+    func displayNextPageResult(
+        _ nextPageResult: ArtistSearchResult,
         searchType: SearchType,
         searchCategory: HomeCategorySearch?
     ) {
         functionsCalled.append(#function)
-        lastNextOffSetResult = nextOffSetResult
+        lastNextPageResult = nextPageResult
         lastSearchType = searchType
         lastSearchCategory = searchCategory
     }

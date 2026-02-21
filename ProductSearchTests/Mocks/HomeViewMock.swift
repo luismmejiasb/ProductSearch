@@ -1,28 +1,14 @@
 import Foundation
 import UIKit
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomeViewMock: UIViewController, HomeViewProtocol {
     // MARK: Properties
 
     var presenter: HomePresenterProtocol?
     var functionsCalled = [String]()
-    var lastSearchResult: SearchResult?
-    var lastSearchType: SearchType?
-    var lastSearchCategory: HomeCategorySearch?
 
     // MARK: Functions
-
-    func displaySearchResult(
-        _ searchResult: SearchResult,
-        searchType: SearchType,
-        searchCategory: HomeCategorySearch
-    ) {
-        functionsCalled.append(#function)
-        lastSearchResult = searchResult
-        lastSearchType = searchType
-        lastSearchCategory = searchCategory
-    }
 
     func endLoadingIndicator() {
         functionsCalled.append(#function)

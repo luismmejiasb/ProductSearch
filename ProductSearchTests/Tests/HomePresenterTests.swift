@@ -1,6 +1,6 @@
 import Combine
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - HomePresenterTests
 
@@ -15,7 +15,7 @@ class HomePresenterTests: XCTestCase {
 
     // MARK: Selector constants
 
-    private let serachItemSelectorName = "serachItem(searchText:)"
+    private let searchArtistSelectorName = "searchArtist(searchText:)"
     private let searchByCategorySelectorName = "searchByCategory(_:)"
     private let endLoadingIndicatorSelectorName = "endLoadingIndicator()"
     private let displaySearchResultSelectorName = "displaySearchResult(_:searchType:searchCategory:)"
@@ -49,71 +49,68 @@ class HomePresenterTests: XCTestCase {
             localDataSource: localDataSourceMock,
             cloudDataSource: cloudDataSourceMock
         )
-        let interactorMock = HomeInteractorMock(repository: repositoryMock)
-        interactorMock.publisher = publisher
+        let interactorMock = HomeInteractorMock(repository: repositoryMock, publisher: publisher)
         let presenter = HomePresenter(interactor: interactorMock, router: routerMock)
         presenter.view = viewMock
         presenter.viewDidLoad()
         return (presenter, interactorMock)
     }
 
-    // MARK: - Tests: searchItem
+    // MARK: - Tests: searchArtist
 
-    func testSearchItemWithSuccessCallsInteractorAndView() {
+    func testSearchArtistWithSuccessCallsInteractorAndView() {
         // given
         let (presenter, interactorMock) = makeSUT(status: .success)
 
         // when
-        presenter.searchItem(searchText: "iPhone")
+        presenter.searchArtist(searchText: "Jack Johnson")
 
         // then
         XCTAssertEqual(interactorMock.functionsCalled.count, 1)
-        XCTAssertEqual(interactorMock.functionsCalled[0], serachItemSelectorName)
-        XCTAssertEqual(viewMock.functionsCalled.count, 2)
-        XCTAssertEqual(viewMock.functionsCalled[0], endLoadingIndicatorSelectorName)
-        XCTAssertEqual(viewMock.functionsCalled[1], displaySearchResultSelectorName)
-        XCTAssertEqual(viewMock.lastSearchType, .text)
+        XCTAssertEqual(interactorMock.functionsCalled[0], searchArtistSelectorName)
+        XCTAssertTrue(viewMock.functionsCalled.contains(endLoadingIndicatorSelectorName))
+        XCTAssertTrue(routerMock.functionsCalled.contains(presentSearchResultSelectorName))
     }
 
-    func testSearchItemWithSuccessSearchResultIsNotNil() {
+    func testSearchArtistWithSuccessSearchResultIsNotNil() {
         // given
         let (presenter, _) = makeSUT(status: .success)
 
         // when
-        presenter.searchItem(searchText: "iPod Nano")
+        presenter.searchArtist(searchText: "Jack Johnson")
 
         // then
-        XCTAssertNotNil(viewMock.lastSearchResult)
+        XCTAssertNotNil(routerMock.lastSearchResult)
     }
 
-    func testSearchItemWithHTTPErrorCallsRouterDisplayAlert() {
+    func testSearchArtistWithHTTPErrorCallsRouterDisplayAlert() {
         // given
         let (presenter, interactorMock) = makeSUT(status: .failure)
 
         // when
-        presenter.searchItem(searchText: "iPhone")
+        presenter.searchArtist(searchText: "Jack Johnson")
 
         // then
-        XCTAssertEqual(interactorMock.functionsCalled.first, serachItemSelectorName)
+        XCTAssertEqual(interactorMock.functionsCalled.first, searchArtistSelectorName)
         XCTAssertTrue(viewMock.functionsCalled.contains(endLoadingIndicatorSelectorName))
         XCTAssertTrue(routerMock.functionsCalled.contains(displayAlertSelectorName))
         XCTAssertEqual(routerMock.lastAlertTitle, "Error")
         XCTAssertFalse(routerMock.lastAlertMessage.isEmpty)
     }
 
-    func testSearchItemWithHTTPErrorDoesNotCallDisplaySearchResult() {
+    func testSearchArtistWithHTTPErrorDoesNotCallPresentSearchResult() {
         // given
         let (presenter, _) = makeSUT(status: .failure)
 
         // when
-        presenter.searchItem(searchText: "iPhone")
+        presenter.searchArtist(searchText: "Jack Johnson")
 
         // then
-        XCTAssertFalse(viewMock.functionsCalled.contains(displaySearchResultSelectorName))
+        XCTAssertFalse(routerMock.functionsCalled.contains(presentSearchResultSelectorName))
         _ = presenter
     }
 
-    func testSearchItemPublisherSendsGenericErrorShowsDifferentAlertTitle() {
+    func testSearchArtistPublisherSendsGenericErrorShowsDifferentAlertTitle() {
         // given
         let (presenter, _) = makeSUT()
 
@@ -126,52 +123,51 @@ class HomePresenterTests: XCTestCase {
         _ = presenter
     }
 
-    func testSearchItemDoesNotCallRouterOnSuccess() {
+    func testSearchArtistWithSuccessDoesNotCallRouterDisplayAlert() {
         // given
         let (presenter, _) = makeSUT(status: .success)
 
         // when
-        presenter.searchItem(searchText: "iPhone")
+        presenter.searchArtist(searchText: "Jack Johnson")
 
         // then
-        XCTAssertTrue(routerMock.functionsCalled.isEmpty)
+        XCTAssertFalse(routerMock.functionsCalled.contains(displayAlertSelectorName))
         _ = presenter
     }
 
     // MARK: - Tests: searchByCategory
 
-    func testSearchByCategoryVehiculeWithSuccess() {
+    func testSearchByCategoryMusicWithSuccess() {
         // given
         let (presenter, interactorMock) = makeSUT(status: .success)
 
         // when
-        presenter.searchByCategory(.vehicule)
+        presenter.searchByCategory(.reggaeton)
 
         // then
         XCTAssertEqual(interactorMock.functionsCalled.count, 1)
         XCTAssertEqual(interactorMock.functionsCalled[0], searchByCategorySelectorName)
-        XCTAssertEqual(viewMock.functionsCalled.count, 2)
-        XCTAssertEqual(viewMock.functionsCalled[0], endLoadingIndicatorSelectorName)
-        XCTAssertEqual(viewMock.functionsCalled[1], displaySearchResultSelectorName)
+        XCTAssertTrue(viewMock.functionsCalled.contains(endLoadingIndicatorSelectorName))
+        XCTAssertTrue(routerMock.functionsCalled.contains(presentSearchResultSelectorName))
     }
 
-    func testSearchByCategoryRealStateWithSuccess() {
+    func testSearchByCategoryMoviesWithSuccess() {
         // given
         let (presenter, interactorMock) = makeSUT(status: .success)
 
         // when
-        presenter.searchByCategory(.realState)
+        presenter.searchByCategory(.salsa)
 
         // then
         XCTAssertEqual(interactorMock.functionsCalled.first, searchByCategorySelectorName)
     }
 
-    func testSearchByCategoryServicesWithSuccess() {
+    func testSearchByCategoryPodcastsWithSuccess() {
         // given
         let (presenter, interactorMock) = makeSUT(status: .success)
 
         // when
-        presenter.searchByCategory(.services)
+        presenter.searchByCategory(.rock)
 
         // then
         XCTAssertEqual(interactorMock.functionsCalled.first, searchByCategorySelectorName)
@@ -182,7 +178,7 @@ class HomePresenterTests: XCTestCase {
         let (presenter, _) = makeSUT(status: .failure)
 
         // when
-        presenter.searchByCategory(.realState)
+        presenter.searchByCategory(.reggaeton)
 
         // then
         XCTAssertTrue(viewMock.functionsCalled.contains(endLoadingIndicatorSelectorName))
@@ -204,15 +200,15 @@ class HomePresenterTests: XCTestCase {
         _ = presenter
     }
 
-    func testSearchByCategoryDoesNotCallRouterOnSuccess() {
+    func testSearchByCategoryWithSuccessDoesNotCallRouterDisplayAlert() {
         // given
         let (presenter, _) = makeSUT(status: .success)
 
         // when
-        presenter.searchByCategory(.services)
+        presenter.searchByCategory(.rock)
 
         // then
-        XCTAssertTrue(routerMock.functionsCalled.isEmpty)
+        XCTAssertFalse(routerMock.functionsCalled.contains(displayAlertSelectorName))
         _ = presenter
     }
 
@@ -221,27 +217,27 @@ class HomePresenterTests: XCTestCase {
     func testPublisherItemsSearchedWithSuccessSetsSearchTypeText() {
         // given
         let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
+        let mockResult = HomeITunesDataMock.homeSearchArtist.searchDefaultResult
 
         // when
         publisher.send(.itemsSearchedWithSuccess(searchResult: mockResult))
 
         // then
-        XCTAssertEqual(viewMock.lastSearchType, .text)
+        XCTAssertEqual(routerMock.lastSearchType, .text)
         _ = presenter
     }
 
     func testPublisherCategorySearchedWithSuccessSetsCorrectCategory() {
         // given
         let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
+        let mockResult = HomeITunesDataMock.homeSearchArtist.searchDefaultResult
 
         // when
-        publisher.send(.categorySearchedWithSuccess(searchResult: mockResult, searchedCategory: .vehicule))
+        publisher.send(.categorySearchedWithSuccess(searchResult: mockResult, searchedCategory: .reggaeton))
 
         // then
-        XCTAssertEqual(viewMock.lastSearchType, .category)
-        XCTAssertEqual(viewMock.lastSearchCategory, .vehicule)
+        XCTAssertEqual(routerMock.lastSearchType, .category)
+        XCTAssertEqual(routerMock.lastSearchCategory, .reggaeton)
         _ = presenter
     }
 
@@ -271,47 +267,19 @@ class HomePresenterTests: XCTestCase {
         _ = presenter
     }
 
-    // MARK: - Tests: presentSearchResult
-
-    func testPresentSearchResultTextCallsRouter() {
-        // given
-        let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
-
-        // when
-        presenter.presentSearchResult(mockResult, searchType: .text, searchCategory: .none)
-
-        // then
-        XCTAssertEqual(routerMock.functionsCalled.count, 1)
-        XCTAssertEqual(routerMock.functionsCalled[0], presentSearchResultSelectorName)
-    }
-
-    func testPresentSearchResultCategoryCallsRouter() {
-        // given
-        let (presenter, _) = makeSUT()
-        let mockResult = HomeMLCDataMock.homeSearchItem.searchDefaultResult
-
-        // when
-        presenter.presentSearchResult(mockResult, searchType: .category, searchCategory: .realState)
-
-        // then
-        XCTAssertEqual(routerMock.functionsCalled.count, 1)
-        XCTAssertEqual(routerMock.functionsCalled[0], presentSearchResultSelectorName)
-    }
-
     // MARK: - Tests: Multiple searches
 
-    func testMultipleSearchItemsCallsInteractorMultipleTimes() {
+    func testMultipleSearchArtistCallsInteractorMultipleTimes() {
         // given
         let (presenter, interactorMock) = makeSUT(status: .success)
 
         // when
-        presenter.searchItem(searchText: "iPhone")
-        presenter.searchItem(searchText: "Samsung")
-        presenter.searchItem(searchText: "Xiaomi")
+        presenter.searchArtist(searchText: "Jack Johnson")
+        presenter.searchArtist(searchText: "Coldplay")
+        presenter.searchArtist(searchText: "Adele")
 
         // then
         XCTAssertEqual(interactorMock.functionsCalled.count, 3)
-        XCTAssertTrue(interactorMock.functionsCalled.allSatisfy { $0 == self.serachItemSelectorName })
+        XCTAssertTrue(interactorMock.functionsCalled.allSatisfy { $0 == self.searchArtistSelectorName })
     }
 }

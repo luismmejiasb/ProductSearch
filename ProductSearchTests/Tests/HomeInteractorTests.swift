@@ -1,13 +1,13 @@
 import Combine
 import XCTest
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomeInteractorTests: XCTestCase {
     // MARK: Properties
 
     var interactorToTest: HomeInteractorProtocol?
-    let searchItemSelectorName = "searchItem(offSet:searchText:)"
-    let searchCategorySelectorName = "searchCategory(offSet:category:)"
+    let searchArtistSelectorName = "searchArtist(searchText:limit:)"
+    let searchByMediaSelectorName = "searchByMedia(mediaType:searchText:limit:)"
 
     private var searchTokens = Set<AnyCancellable>()
 
@@ -26,38 +26,25 @@ class HomeInteractorTests: XCTestCase {
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let publisher = PassthroughSubject<HomePublisherResult, Error>()
-        let interactor = HomeInteractor(repository: repositoryMock)
-        interactor.publisher = publisher
+        let interactor = HomeInteractor(repository: repositoryMock, publisher: publisher)
         return (interactor, repositoryMock, publisher)
     }
-    
-    func testSearchItemPassesSearchTextToRepository() {
+
+    func testSearchArtistPassesSearchTextToRepository() {
         // given
         let (interactor, repositoryMock, _) = makeInteractor(status: .success)
         interactorToTest = interactor
 
         // when
-        interactorToTest?.serachItem(searchText: "MacBook")
+        interactorToTest?.searchArtist(searchText: "Jack Johnson")
 
         // then
-        XCTAssertEqual(repositoryMock.lastSearchText, "MacBook")
-    }
-
-    func testSearchItemUsesZeroOffset() {
-        // given
-        let (interactor, repositoryMock, _) = makeInteractor(status: .success)
-        interactorToTest = interactor
-
-        // when
-        interactorToTest?.serachItem(searchText: "iPad")
-
-        // then
-        XCTAssertEqual(repositoryMock.lastOffSet, 0)
+        XCTAssertEqual(repositoryMock.lastSearchText, "Jack Johnson")
     }
 
     // MARK: - Tests: searchByCategory
 
-    func testSearchByCategoryRealStateWithSuccess() {
+    func testSearchByCategoryReggaetonWithSuccess() {
         // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         interactorToTest = interactor
@@ -67,11 +54,10 @@ class HomeInteractorTests: XCTestCase {
                 if case .failure = completion { XCTFail("Should not fail") }
             },
             receiveValue: { result in
-                // then
                 switch result {
                 case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     XCTAssertNotNil(searchResult)
-                    XCTAssertEqual(searchedCategory, .realState)
+                    XCTAssertEqual(searchedCategory, .reggaeton)
                 default:
                     XCTFail("Expected category success, got: \(result)")
                 }
@@ -79,13 +65,13 @@ class HomeInteractorTests: XCTestCase {
         ).store(in: &searchTokens)
 
         // when
-        interactorToTest?.searchByCategory(.realState)
+        interactorToTest?.searchByCategory(.reggaeton)
 
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
-        XCTAssertEqual(repositoryMock.functionsCalled[0], searchCategorySelectorName)
+        XCTAssertEqual(repositoryMock.functionsCalled[0], searchByMediaSelectorName)
     }
 
-    func testSearchByCategoryVehiculeWithSuccess() {
+    func testSearchByCategorySalsaWithSuccess() {
         // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         interactorToTest = interactor
@@ -93,24 +79,23 @@ class HomeInteractorTests: XCTestCase {
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
-                // then
                 switch result {
                 case .categorySearchedWithSuccess(_, let searchedCategory):
-                    XCTAssertEqual(searchedCategory, .vehicule)
+                    XCTAssertEqual(searchedCategory, .salsa)
                 default:
-                    XCTFail("Expected vehicule category success")
+                    XCTFail("Expected salsa category success")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactorToTest?.searchByCategory(.vehicule)
+        interactorToTest?.searchByCategory(.salsa)
 
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
-        XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.vehicule.stringValue)
+        XCTAssertEqual(repositoryMock.lastMediaType, HomeCategorySearch.salsa.mediaType)
     }
 
-    func testSearchByCategoryServicesWithSuccess() {
+    func testSearchByCategoryRockWithSuccess() {
         // given
         let (interactor, repositoryMock, publisher) = makeInteractor(status: .success)
         interactorToTest = interactor
@@ -118,103 +103,92 @@ class HomeInteractorTests: XCTestCase {
         publisher.sink(
             receiveCompletion: { _ in },
             receiveValue: { result in
-                // then
                 switch result {
                 case .categorySearchedWithSuccess(_, let searchedCategory):
-                    XCTAssertEqual(searchedCategory, .services)
+                    XCTAssertEqual(searchedCategory, .rock)
                 default:
-                    XCTFail("Expected services category success")
+                    XCTFail("Expected rock category success")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactorToTest?.searchByCategory(.services)
+        interactorToTest?.searchByCategory(.rock)
 
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
-        XCTAssertEqual(repositoryMock.lastCategory, HomeCategorySearch.services.stringValue)
+        XCTAssertEqual(repositoryMock.lastMediaType, HomeCategorySearch.rock.mediaType)
     }
 
-    func testSearchByCategoryPassesCorrectStringToRepository() {
-        // given
+    func testSearchByCategoryPassesCorrectMediaTypeToRepository() {
+        // given — all music genres pass "music", .none passes ""
         let categories: [(HomeCategorySearch, String)] = [
-            (.vehicule, "MLC1743"),
-            (.realState, "MLC1459"),
-            (.services, "MLC1540"),
+            (.reggaeton, "music"),
+            (.salsa, "music"),
+            (.pop, "music"),
+            (.rock, "music"),
+            (.jazz, "music"),
             (.none, "")
         ]
 
-        for (category, expectedString) in categories {
-            // when
+        for (category, expectedMediaType) in categories {
             let (interactor, repositoryMock, _) = makeInteractor(status: .success)
             interactor.searchByCategory(category)
 
-            // then
             XCTAssertEqual(
-                repositoryMock.lastCategory,
-                expectedString,
-                "Category \(category) should pass '\(expectedString)' to repository"
+                repositoryMock.lastMediaType,
+                expectedMediaType,
+                "Category \(category) should pass '\(expectedMediaType)' to repository"
             )
         }
     }
 
-    // MARK: - Tests: publisher nil does not crash
+    // MARK: - Tests: publisher without subscribers
 
-    func testSearchItemWithNilPublisherDoesNotCrash() {
+    func testSearchArtistWithNoSubscribersDoesNotCrash() {
         // given
-        let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
-        let localDataSourceMock = HomeLocalDataSourceMock()
-        let repositoryMock = HomeRepositoryMock(status: .success, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
-        let interactor = HomeInteractor(repository: repositoryMock)
-        interactor.publisher = nil
+        let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
         // when
-        interactor.serachItem(searchText: "iPhone")
+        interactor.searchArtist(searchText: "Jack Johnson")
 
         // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testSearchByCategoryWithNilPublisherDoesNotCrash() {
+    func testSearchByCategoryWithNoSubscribersDoesNotCrash() {
         // given
-        let cloudDataSourceMock = HomeCloudDataSourceMock(status: .success)
-        let localDataSourceMock = HomeLocalDataSourceMock()
-        let repositoryMock = HomeRepositoryMock(status: .success, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
-        let interactor = HomeInteractor(repository: repositoryMock)
-        interactor.publisher = nil
+        let (interactor, repositoryMock, _) = makeInteractor(status: .success)
 
         // when
-        interactor.searchByCategory(.vehicule)
+        interactor.searchByCategory(.reggaeton)
 
         // then
         XCTAssertEqual(repositoryMock.functionsCalled.count, 1)
     }
 
-    func testSearchItemWithSuccess() {
+    func testSearchArtistWithSuccess() {
         // given
         let status: TransactionStatus = .success
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let publisher = PassthroughSubject<HomePublisherResult, Error>()
-        interactorToTest = HomeInteractor(repository: repositoryMock)
-        interactorToTest?.publisher = publisher
+        interactorToTest = HomeInteractor(repository: repositoryMock, publisher: publisher)
 
-        interactorToTest?.publisher?.sink(
+        publisher.sink(
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure:
-                    XCTAssertTrue(false, "Publisher should not publish error when completiting observing")
+                    XCTAssertTrue(false, "Publisher should not publish error when completing observing")
                 }
             }, receiveValue: { result in
-                // then
                 switch result {
                 case .itemsSearchedWithSuccess(let searchResult):
                     XCTAssertNotNil(searchResult)
                 case .itemsSearchedWithFailure:
-                    XCTAssertTrue(false, "Item searched must be successfull")
+                    XCTAssertTrue(false, "Item searched must be successful")
                 case .categorySearchedWithSuccess:
                     XCTAssertTrue(false, "categorySearchedWithSuccess should not be called")
                 case .categorySearchedWithFailure:
@@ -224,41 +198,39 @@ class HomeInteractorTests: XCTestCase {
         ).store(in: &searchTokens)
 
         // when
-        interactorToTest?.serachItem(searchText: "iPhone")
+        interactorToTest?.searchArtist(searchText: "Jack Johnson")
 
         let expectedRepositoryFunctionsCalled = 1
         if repositoryMock.functionsCalled.count == expectedRepositoryFunctionsCalled {
-            XCTAssertEqual(repositoryMock.functionsCalled[0], searchItemSelectorName)
+            XCTAssertEqual(repositoryMock.functionsCalled[0], searchArtistSelectorName)
         } else {
             XCTFail("Missing Functions Called. Expected \(expectedRepositoryFunctionsCalled) but called \(repositoryMock.functionsCalled.count)")
         }
     }
 
-    func testSearchItemWithFailure() {
+    func testSearchArtistWithFailure() {
         // given
         let status: TransactionStatus = .failure
         let cloudDataSourceMock = HomeCloudDataSourceMock(status: status)
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let publisher = PassthroughSubject<HomePublisherResult, Error>()
-        interactorToTest = HomeInteractor(repository: repositoryMock)
-        interactorToTest?.publisher = publisher
+        interactorToTest = HomeInteractor(repository: repositoryMock, publisher: publisher)
 
-        interactorToTest?.publisher?.sink(
+        publisher.sink(
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
-                    XCTAssertNotNil(error, "Publisher should retreive error when completiting observing")
+                    XCTAssertNotNil(error, "Publisher should retrieve error when completing observing")
                 }
             }, receiveValue: { result in
-                // then
                 switch result {
                 case .itemsSearchedWithSuccess:
-                    XCTAssertTrue(false, "Item searched must not be successfull")
+                    XCTAssertTrue(false, "Item searched must not be successful")
                 case .itemsSearchedWithFailure(let error):
-                    XCTAssertNotNil(error, "Publisher should retreive error receiving value")
+                    XCTAssertNotNil(error, "Publisher should retrieve error receiving value")
                 case .categorySearchedWithSuccess:
                     XCTAssertTrue(false, "categorySearchedWithSuccess should not be called")
                 case .categorySearchedWithFailure:
@@ -268,11 +240,11 @@ class HomeInteractorTests: XCTestCase {
         ).store(in: &searchTokens)
 
         // when
-        interactorToTest?.serachItem(searchText: "iPhone")
+        interactorToTest?.searchArtist(searchText: "Jack Johnson")
 
         let expectedRepositoryFunctionsCalled = 1
         if repositoryMock.functionsCalled.count == expectedRepositoryFunctionsCalled {
-            XCTAssertEqual(repositoryMock.functionsCalled[0], searchItemSelectorName)
+            XCTAssertEqual(repositoryMock.functionsCalled[0], searchArtistSelectorName)
         } else {
             XCTFail("Missing Functions Called. Expected \(expectedRepositoryFunctionsCalled) but called \(repositoryMock.functionsCalled.count)")
         }
@@ -285,39 +257,37 @@ class HomeInteractorTests: XCTestCase {
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let publisher = PassthroughSubject<HomePublisherResult, Error>()
-        interactorToTest = HomeInteractor(repository: repositoryMock)
-        interactorToTest?.publisher = publisher
+        interactorToTest = HomeInteractor(repository: repositoryMock, publisher: publisher)
 
-        interactorToTest?.publisher?.sink(
+        publisher.sink(
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure:
-                    XCTAssertTrue(false, "Publisher should not publish error when completiting observing")
+                    XCTAssertTrue(false, "Publisher should not publish error when completing observing")
                 }
             }, receiveValue: { result in
-                // then
                 switch result {
                 case .itemsSearchedWithSuccess:
                     XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
                 case .itemsSearchedWithFailure:
-                    XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
+                    XCTAssertTrue(false, "itemsSearchedWithFailure should not be called")
                 case .categorySearchedWithSuccess(let searchResult, let searchedCategory):
                     XCTAssertNotNil(searchResult)
-                    XCTAssertEqual(searchedCategory, .realState)
+                    XCTAssertEqual(searchedCategory, .reggaeton)
                 case .categorySearchedWithFailure:
-                    XCTAssertTrue(false, "Item searched must be successfull")
+                    XCTAssertTrue(false, "Item searched must be successful")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactorToTest?.searchByCategory(.realState)
+        interactorToTest?.searchByCategory(.reggaeton)
 
         let expectedRepositoryFunctionsCalled = 1
         if repositoryMock.functionsCalled.count == expectedRepositoryFunctionsCalled {
-            XCTAssertEqual(repositoryMock.functionsCalled[0], searchCategorySelectorName)
+            XCTAssertEqual(repositoryMock.functionsCalled[0], searchByMediaSelectorName)
         } else {
             XCTFail("Missing Functions Called. Expected \(expectedRepositoryFunctionsCalled) but called \(repositoryMock.functionsCalled.count)")
         }
@@ -330,38 +300,36 @@ class HomeInteractorTests: XCTestCase {
         let localDataSourceMock = HomeLocalDataSourceMock()
         let repositoryMock = HomeRepositoryMock(status: status, localDataSource: localDataSourceMock, cloudDataSource: cloudDataSourceMock)
         let publisher = PassthroughSubject<HomePublisherResult, Error>()
-        interactorToTest = HomeInteractor(repository: repositoryMock)
-        interactorToTest?.publisher = publisher
+        interactorToTest = HomeInteractor(repository: repositoryMock, publisher: publisher)
 
-        interactorToTest?.publisher?.sink(
+        publisher.sink(
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
-                    XCTAssertNotNil(error, "Publisher should retreive error when completiting observing")
+                    XCTAssertNotNil(error, "Publisher should retrieve error when completing observing")
                 }
             }, receiveValue: { result in
-                // then
                 switch result {
                 case .itemsSearchedWithSuccess:
                     XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
                 case .itemsSearchedWithFailure:
-                    XCTAssertTrue(false, "itemsSearchedWithSuccess should not be called")
+                    XCTAssertTrue(false, "itemsSearchedWithFailure should not be called")
                 case .categorySearchedWithSuccess:
-                    XCTAssertTrue(false, "Category searched result should not be successfull")
+                    XCTAssertTrue(false, "Category searched result should not be successful")
                 case .categorySearchedWithFailure(let error):
-                    XCTAssertNotNil(error, "Publisher should retreive error receiving value")
+                    XCTAssertNotNil(error, "Publisher should retrieve error receiving value")
                 }
             }
         ).store(in: &searchTokens)
 
         // when
-        interactorToTest?.searchByCategory(.realState)
+        interactorToTest?.searchByCategory(.reggaeton)
 
         let expectedRepositoryFunctionsCalled = 1
         if repositoryMock.functionsCalled.count == expectedRepositoryFunctionsCalled {
-            XCTAssertEqual(repositoryMock.functionsCalled[0], searchCategorySelectorName)
+            XCTAssertEqual(repositoryMock.functionsCalled[0], searchByMediaSelectorName)
         } else {
             XCTFail("Missing Functions Called. Expected \(expectedRepositoryFunctionsCalled) but called \(repositoryMock.functionsCalled.count)")
         }

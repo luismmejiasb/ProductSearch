@@ -1,5 +1,5 @@
 import Foundation
-@testable import ProductSearch
+@testable import ArtistSearch
 
 // MARK: - SearchResultPresenterMock
 
@@ -7,7 +7,7 @@ class SearchResultPresenterMock: SearchResultPresenterProtocol {
     // MARK: Properties
 
     var functionsCalled = [String]()
-    var searchResult: SearchResult?
+    var searchResult: ArtistSearchResult?
     var searchType: SearchType = .text
     var searchCategory: HomeCategorySearch = .none
 
@@ -21,20 +21,20 @@ class SearchResultPresenterMock: SearchResultPresenterProtocol {
         functionsCalled.append(#function)
     }
 
-    func fetchNextOffSet() {
+    func fetchNextPage() {
         functionsCalled.append(#function)
     }
 
-    func presentProductDetail(_ result: Result) {
+    func presentArtistDetail(_ result: ArtistResult) {
         functionsCalled.append(#function)
     }
 
-    func getSearchResult() -> SearchResult? {
+    func getSearchResult() -> ArtistSearchResult? {
         functionsCalled.append(#function)
         return searchResult
     }
 
-    func setSearchResult(results: [Result]?) {
+    func setSearchResult(results: [ArtistResult]?) {
         functionsCalled.append(#function)
         searchResult?.results = results
     }

@@ -1,5 +1,5 @@
 import Foundation
-@testable import ProductSearch
+@testable import ArtistSearch
 
 class HomePresenterMock: HomePresenterProtocol {
     // MARK: Properties
@@ -14,7 +14,7 @@ class HomePresenterMock: HomePresenterProtocol {
         functionsCalled.append(#function)
     }
 
-    func searchItem(searchText: String) {
+    func searchArtist(searchText: String) {
         functionsCalled.append(#function)
         lastSearchText = searchText
     }
@@ -22,9 +22,5 @@ class HomePresenterMock: HomePresenterProtocol {
     func searchByCategory(_ category: HomeCategorySearch) {
         functionsCalled.append(#function)
         lastCategory = category
-    }
-
-    func presentSearchResult(_: SearchResult, searchType _: SearchType, searchCategory _: HomeCategorySearch) {
-        functionsCalled.append(#function)
     }
 }
